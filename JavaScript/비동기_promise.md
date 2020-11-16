@@ -87,6 +87,7 @@ getData(function(tableData) {
   console.log(tableData); // $.get()의 response 값이 tableData에 전달됨
 });
 ```
+
 ```
 // 프로미스 적용
 function getData(callback) {
@@ -105,6 +106,7 @@ getData().then(function(tableData) {
   console.log(tableData); // $.get()의 reponse 값이 tableData에 전달됨
 });
 ```
+
 -  new Promise(), resolve(), then()와 같은 프로미스 API를 사용
 
 ### Promise 3가지 상태
@@ -235,7 +237,8 @@ new Promise(function(resolve, reject){
   console.log(result); // 31
 });
 ```
-```html
+
+```
 var promise = new Promise(function (resolve, reject) {
   setTimeout(function () {
     resolve(1);
@@ -248,9 +251,10 @@ promise.then(function (num) {
 }).then(function (value) {
   console.log(value) // 2
 });
-```html
+```
 
 - 실제 웹 서비스에서 있을 법한 사용자 로그인 인증 로직에 프로미스를 여러 개 연결해보겠습니다.
+
 ```
 getData(userInfo)
   .then(parseValue)
