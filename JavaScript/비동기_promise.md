@@ -1,4 +1,5 @@
 # 비동기 처리
+- 비동기(Asynchronous)적 처리는 작업을 요청하지만 결과는 그 자리에서 꼭 받지 않아도 되는 데이터 처리 방식
 - ex) jquery ajax
 ```
 // HTTP GET 요청
@@ -71,6 +72,7 @@ $.get('url', function(response) {
 
 ## Promise
 - 자바스크립트 비동기 처리에 사용되는 객체
+- 비동기적으로 실행하는 작업의 결과(성공 or 실패)를 나타내는 객체 (결과를 객체화)
 
 ### Promis 코드 기초
 ```
@@ -154,6 +156,45 @@ getData().then().catch(function(err) {
 ```
 
 ### 예제
+- 예제1
+```
+//Promise 선언
+var _promise = function (param) {
+
+	return new Promise(function (resolve, reject) {
+
+		// 비동기를 표현하기 위해 setTimeout 함수를 사용 
+		window.setTimeout(function () {
+
+			// 파라메터가 참이면, 
+			if (param) {
+
+				// 해결됨 
+				resolve("해결 완료");
+			}
+
+			// 파라메터가 거짓이면, 
+			else {
+
+				// 실패 
+				reject(Error("실패!!"));
+			}
+		}, 3000);
+	});
+};
+
+//Promise 실행
+_promise(true)
+.then(function (text) {
+	// 성공시
+	console.log(text);
+}, function (error) {
+	// 실패시 
+	console.error(error);
+});
+```
+
+- 예제2
 ```
 function getData() {
   return new Promise(function(resolve, reject) {
@@ -194,6 +235,21 @@ new Promise(function(resolve, reject){
   console.log(result); // 31
 });
 ```
+```html
+var promise = new Promise(function (resolve, reject) {
+  setTimeout(function () {
+    resolve(1);
+  }, 1000);
+});
+
+promise.then(function (num) {
+  console.log(num + 'complete'); /// 1complete
+  return num + 1; /// return = 2
+}).then(function (value) {
+  console.log(value) // 2
+});
+```html
+
 - 실제 웹 서비스에서 있을 법한 사용자 로그인 인증 로직에 프로미스를 여러 개 연결해보겠습니다.
 ```
 getData(userInfo)
@@ -297,3 +353,4 @@ getData().then(function(result) {
 
 <출처>
 - https://joshua1988.github.io/web-development/javascript/javascript-asynchronous-operation/
+- https://velog.io/@cyranocoding/2019-08-02-1808-%EC%9E%91%EC%84%B1%EB%90%A8-5hjytwqpqj
