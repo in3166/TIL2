@@ -15,6 +15,8 @@ function logName() {
 
 ### 기본 문법
 - await의 대상이 프로미스 객체 반환해야 함
+- await는 async 함수 안에서만 동작 (밖에서 호출할 땐 then() 사용)
+- 자바스크립트가 await를 만나면 promise가 처리(setteld)될 때까지 기다린 후 반환
 ```
 async function 함수명() {
   await 비동기_처리_메서드_명();
