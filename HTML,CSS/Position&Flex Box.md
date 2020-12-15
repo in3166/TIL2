@@ -33,7 +33,7 @@
    - vh: view height - 보이는 높이, 100이면 보이는 전체
    
  - display
-   - flex: contatiner를 flex box로 지정, 자동으로 왼쪽에서 오른쪽으로 정렬
+   - flex: container를 flex box로 지정, 자동으로 왼쪽에서 오른쪽으로 정렬
    
  - flex-direction: 기본축 설정
    - row: default, 왼쪽에서 오른쪽
