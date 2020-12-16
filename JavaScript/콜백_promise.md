@@ -5,7 +5,7 @@
 # 비동기 처리
 - 비동기(Asynchronous)적 처리는 작업을 요청하지만 결과는 그 자리에서 꼭 받지 않아도 되는 데이터 처리 방식
 - ex) jquery ajax
-```
+```css
 // HTTP GET 요청
 function getData() {
   var data;
@@ -24,7 +24,7 @@ function getData() {
 - 비동기적 콜백
 
 ### 콜백함수로 비동기 처리 방식의 문제점 해결하기
-```
+```css
 function getData(callbackFunc) {
 	$.get('https://domain.com/products/1', function(response) {
 		callbackFunc(response); // 서버에서 받은 데이터 response를 callbackFunc() 함수에 넘겨줌
@@ -36,7 +36,7 @@ getData(function(tableData) {
 });
 ```
 
-```
+```css
 function mailList_ch(e) {
   let xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function () { // 콜백 함수 (임의함수로 생성)
@@ -50,7 +50,7 @@ function mailList_ch(e) {
 ### 콜백 지옥 (Callback hell)
 - 콜백 지옥은 비동기 처리 로직을 위해 콜백 함수를 연속해서 사용할 때 발생
 - 가독성 문제, 로직 이해 문제, 디버깅 어려움
-```
+```css
 $.get('url', function(response) {
 	parseValue(response, function(id) {
 		auth(id, function(result) {
@@ -66,7 +66,7 @@ $.get('url', function(response) {
 - 적으로 콜백 지옥을 해결하는 방법에는 Promise나 Async를 사용하는 방법이 있습니다. 
 - 코딩 패턴으로만 콜백 지옥을 해결하려면 아래와 같이 각 콜백 함수를 분리해주면 됩니다.
 
-```
+```css
 function parseValueDone(id) {
 	auth(id, authDone);
 }
@@ -86,7 +86,7 @@ $.get('url', function(response) {
 - 비동기적으로 실행하는 작업의 결과(성공 or 실패)를 나타내는 객체 (결과를 객체화)
 
 ### Promis 코드 기초
-```
+```css
 // Promise 대신 콜백 함수 사용
 function getData(callbackFunc) {
   $.get('url 주소/products/1', function(response) {
@@ -99,7 +99,7 @@ getData(function(tableData) {
 });
 ```
 
-```
+```css
 // 프로미스 적용
 function getData(callback) {
   // new Promise() 추가
@@ -125,20 +125,20 @@ getData().then(function(tableData) {
 
 1. pending(대기) : 비동기 처리 로직이 생성되어 작동 중인 아직 완료되지 않은 상태
 - new Promise() 호출 시 대기상태, 콜백 함수를 가질 수 있음
-```
+```css
 new Promise(function(resolve, reject) {
   // ...
 });
 ```
 2. Fulfilled(이행) : 비동기 처리가 완료되어 프로미스가 결과 값을 반환해준 상태
 - 콜백 함수 인자 resolve 싱행
-```
+```css
 new Promise(function(resolve, reject) {
   resolve();
 });
 ```
 - 이행 상태가 되면 then()으로 처리 결과 값을 반환받을 수 있다.
-```
+```css
 function getData() {
   return new Promise(function(resolve, reject) {
     var data = 100;
@@ -149,13 +149,13 @@ function getData() {
 
 3. Rejected(실패) : 비동기 처리가 실패하거나 오류가 발생한 상태
 - 콜백 함수 인자 retect 실행
-```
+```css
 new Promise(function(resolve, reject) {
   reject();
 });
 ```
 - 실패 상태 이유(실패 처리 결과 값) catch()로 받음
-```
+```css
 function getData() {
   return new Promise(function(resolve, reject) {
     reject(new Error("Request is failed"));
@@ -193,7 +193,7 @@ promise.then((value) => { // promise 객체가 만들어져서 잘 수행되면 
 
 ### 예제
 - 예제1
-```
+```css
 //Promise 선언
 var _promise = function (param) {
 
@@ -231,7 +231,7 @@ _promise(true)
 ```
 
 - 예제2
-```
+```css
 function getData() {
   return new Promise(function(resolve, reject) {
     $.get('url 주소/products/1', function(response) {
@@ -253,7 +253,7 @@ getData().then(function(data) {
 
 ### 여러 개의 프로미스 연결하기 (Promise Chaining)
 - 2초 후 resolve() 호출 -> 차례로 then 넘어감
-```
+```css
 new Promise(function(resolve, reject){
   setTimeout(function() {
     resolve(1);
@@ -272,7 +272,7 @@ new Promise(function(resolve, reject){
 });
 ```
 
-```
+```css
 var promise = new Promise(function (resolve, reject) {
   setTimeout(function () {
     resolve(1);
@@ -289,7 +289,7 @@ promise.then(function (num) {
 
 - 실제 웹 서비스에서 있을 법한 사용자 로그인 인증 로직에 프로미스를 여러 개 연결해보겠습니다.
 
-```
+```css
 getData(userInfo)
   .then(parseValue)
   .then(auth)
@@ -297,7 +297,7 @@ getData(userInfo)
   ```
 위 코드는 페이지에 입력된 사용자 정보를 받아와 파싱, 인증 등의 작업을 거치는 코드를 나타내었습니다. 여기서 userInfo는 사용자 정보가 담긴 객체를 의미하고, 
 parseValue, auth, display는 각각 프로미스를 반환해주는 함수라고 가정했습니다. 아래와 같이 말이죠.
-```
+```css
 var userInfo = {
   id: 'test@abc.com',
   pw: '****'
@@ -323,7 +323,7 @@ function display() {
 ### 에러 처리
 
 1.then()의 두 번째 인자로 에러를 처리하는 방법
-```
+```css
 getData().then(
   handleSuccess,
   handleError
@@ -335,7 +335,7 @@ getData().then(
 - getData().then().catch();
 - 위 2가지 방법 모두 프로미스의 reject() 메서드가 호출되어 실패 상태가 된 경우에 실행됩니다. 간단하게 말해서 프로미스의 로직이 정상적으로 돌아가지 않는 경우 호출되는 거죠. 
 
-```
+```css
 function getData() {
   return new Promise(function(resolve, reject) {
     reject('failed');
@@ -357,7 +357,7 @@ getData().then().catch(function(err) {
 
 - 프로미스 에러 처리는 가급적 catch()를 사용
 - catch()로 에러를 처리하는 게 더 효율적입니다.
-```
+```css
 // then()의 두 번째 인자로는 감지하지 못하는 오류
 function getData() {
   return new Promise(function(resolve, reject) {
@@ -412,7 +412,51 @@ getHen()
 	.then(egg => cook(egg))
 	.then(meal => console.log(meal)); // 닭 => egg => 프라이
 ```
+<br/>
 
+- 예제 2.
+```css
+class UserStorage {
+    loginUser = (id, password) => {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                if (id === 'ellie' && password === 'dream') {
+                    resolve(id);
+                } else {
+                    reject(new Error('not found'));
+                }
+            }, 1000);
+        });
+    }
+
+    getRoles = (user) => {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                if (user === 'ellie3') {
+                    resolve({ name: 'ellie', role: 'admin' });
+                } else {
+                    reject(new Error('no access'));
+                }
+            }, 1000);
+        });
+    }
+}
+
+const userStorage = new UserStorage();
+const id = prompt('id');
+const password = prompt('pw');
+userStorage.loginUser(id, password)
+    .then(userStorage.getRoles)
+    .then(userRole => { alert(`hello ${userRole.name}, you have a ${userRole.role}`); })
+    .catch(console.log)
+    //)
+   // .catch(console.log) // 처음엔 처음 반환된 promise 안에서 role을 다시 받아서 catch를 두 번해줘야 한다고 생각했지만 마지막 하나만 해줘도 되고, 안에 묶을 필요도 없었다.
+
+```
+
+
+<br/>
+<br/>
 <출처>
 - https://joshua1988.github.io/web-development/javascript/javascript-asynchronous-operation/
 - https://velog.io/@cyranocoding/2019-08-02-1808-%EC%9E%91%EC%84%B1%EB%90%A8-5hjytwqpqj
