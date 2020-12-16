@@ -33,12 +33,14 @@
      - 함수는 포함되지 않음
      - replacer: 콜백 함수나 배열을 인자로 줘서 원하는 프로퍼티만 적용 
      - JSON.stringfy(obj, ['name']); // 객체의 name만 전달하고 싶을 때
-     ``` css
+     
+     ```
      JSON.stringfy(obj, (key, value) => {
         console.log(`key: ${key}, value: ${value}); // 처음엔 key: , value: [object object] 출력 (최상위) 다음 부턴 각 프로퍼티 출력
         return key === 'name' ? 'name2' : value; // key가 name이면 value를 name2로 설정하고 아니면 원래 정보 그대로 설정
      }
      ```
+     
      </br>
    2. JSON to Object
      - const obj = JSON.parse(json);
