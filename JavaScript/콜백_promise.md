@@ -1,3 +1,7 @@
+## Hoisting
+- var 변수, funcrion 선언이 제일 위로 올라감
+
+
 # 비동기 처리
 - 비동기(Asynchronous)적 처리는 작업을 요청하지만 결과는 그 자리에서 꼭 받지 않아도 되는 데이터 처리 방식
 - ex) jquery ajax
@@ -14,6 +18,10 @@ function getData() {
 // 결과: undefined 
 ```
 - 특정 로직의 실행이 끝나기 까지 기다리지 않고 나머지 코드 실행
+
+### 콜백
+- 동기적 콜백
+- 비동기적 콜백
 
 ### 콜백함수로 비동기 처리 방식의 문제점 해결하기
 ```
@@ -40,7 +48,8 @@ function mailList_ch(e) {
 ```
 
 ### 콜백 지옥 (Callback hell)
--  지옥은 비동기 처리 로직을 위해 콜백 함수를 연속해서 사용할 때 발생
+- 콜백 지옥은 비동기 처리 로직을 위해 콜백 함수를 연속해서 사용할 때 발생
+- 가독성 문제, 로직 이해 문제, 디버깅 어려움
 ```
 $.get('url', function(response) {
 	parseValue(response, function(id) {
@@ -52,9 +61,11 @@ $.get('url', function(response) {
 	});
 });
 ```
+
 ### 콜백 지옥을 해결하는 방법
 - 적으로 콜백 지옥을 해결하는 방법에는 Promise나 Async를 사용하는 방법이 있습니다. 
 - 코딩 패턴으로만 콜백 지옥을 해결하려면 아래와 같이 각 콜백 함수를 분리해주면 됩니다.
+
 ```
 function parseValueDone(id) {
 	auth(id, authDone);
@@ -112,7 +123,7 @@ getData().then(function(tableData) {
 ### Promise 3가지 상태
 - 상태: 프로미스 처리 과정, new Promise() 생성 후 종료까지
 
-1. pending(대기) : 비동기 처리 로직이 아직 완료되지 않은 상태
+1. pending(대기) : 비동기 처리 로직이 생성되어 작동 중인 아직 완료되지 않은 상태
 - new Promise() 호출 시 대기상태, 콜백 함수를 가질 수 있음
 ```
 new Promise(function(resolve, reject) {
@@ -155,6 +166,29 @@ function getData() {
 getData().then().catch(function(err) {
   console.log(err); // Error: Request is failed
 });
+```
+### Producer & Consumer
+## Producer
+```css
+const promise = new Promise(resolve, reject) => {
+	// 무거운 처리 주로함 (네트워크 통신, 파일 읽고 쓰기)
+	console.log('start'); // 객체 생성 하자마자 실행 -> 요구할 때 실행이 되야 할 때 유의 executor runs automatically.
+	setTimeout(() => {
+		resolve('success');
+		reject(new Error('no network'));
+	}, 2000);
+});
+```
+# Consumer
+- then, catch, finally
+```css
+promise.then((value) => { // promise 객체가 만들어져서 잘 수행되면 수행할 거다.
+	console.log(value); // success. -> then은 똑같은 promise 객체를 반환 -> 다시 메서드 사용 가능 (체이닝)
+	})
+	.catch((value)=> {
+	console.log(value); // Error: no network
+	})
+	.finally(()=>console.log()); // 성공하든 실패하든 
 ```
 
 ### 예제
@@ -353,7 +387,31 @@ getData().then(function(result) {
 });
 ```
 
-
+- Ver.2
+```css
+const getHen = () =>
+	new Promise((resolve, reject) => {
+	  setTimeout(() => resolve('닭'), 1000);
+	});
+	
+const getEgg = hen =>
+	new Promise((resolve, reject) => {
+	  setTimeout(() => resolve(`${hen} => egg`), 1000);
+	});
+	
+const cook = egg =>
+	new Promise((resolve, reject) => {
+	  setTimeout(() => resolve(`${egg} => 프라이`), 1000);
+	});
+	
+getHen()
+	.then(hen => getEgg(hen)) // == .then(getEgg) 생략 가능, 받아 오는 value를 인자로 암묵적 전달
+	.catch(error => { 	// 프로미스 체인이 실패하지 않도록 대체
+		return '빵';
+	})
+	.then(egg => cook(egg))
+	.then(meal => console.log(meal)); // 닭 => egg => 프라이
+```
 
 <출처>
 - https://joshua1988.github.io/web-development/javascript/javascript-asynchronous-operation/
