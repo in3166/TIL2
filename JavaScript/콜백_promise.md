@@ -460,3 +460,4 @@ userStorage.loginUser(id, password)
 <출처>
 - https://joshua1988.github.io/web-development/javascript/javascript-asynchronous-operation/
 - https://velog.io/@cyranocoding/2019-08-02-1808-%EC%9E%91%EC%84%B1%EB%90%A8-5hjytwqpqj
+- https://www.youtube.com/watch?v=JB_yU6Oe2eE&list=PLv2d7VI9OotTVOL4QmPfvJWPJvkmv6h-2&index=12&pbjreload=101
