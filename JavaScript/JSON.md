@@ -12,7 +12,7 @@
   ### XML
   - HTML과 같은 마크업 언어 중 하나로 태그로 데이터를 나타냄
   - 서버와 데이터 주고받을 때의 파일 포맷으로 쓰일 수 있음.
-  ```
+  ```javascript
   <recipe>
     <title> butter  </title>
     <ingredient> ... </>
@@ -34,7 +34,7 @@
      - replacer: 콜백 함수나 배열을 인자로 줘서 원하는 프로퍼티만 적용 
      - JSON.stringfy(obj, ['name']); // 객체의 name만 전달하고 싶을 때
      
-     ```
+     ```javascript
      JSON.stringfy(obj, (key, value) => {
         console.log(`key: ${key}, value: ${value}); // 처음엔 key: , value: [object object] 출력 (최상위) 다음 부턴 각 프로퍼티 출력
         return key === 'name' ? 'name2' : value; // key가 name이면 value를 name2로 설정하고 아니면 원래 정보 그대로 설정
