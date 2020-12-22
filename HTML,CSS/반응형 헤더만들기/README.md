@@ -5,7 +5,7 @@
 
 ## 개선 사항
 1. 시멘틱 태그 사용
- - <div> -> <nav>
+ - div -> nav
   
 2. 불필요한 div 남용
   - navbar 안에 또다른 container 만들 필요 x
