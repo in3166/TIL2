@@ -1,20 +1,14 @@
 ### Static
 - HTML 상의 정의된 순서로 보여짐 (Default)
-
 ### Relative
 - 원래 있어야 하는 자리에서 이동
-
 ### Absolute
 - 아이템이 가까이있는 박스 안에서 위치 변경
-
 ### Fixed
 - 박스 안에서 벗어나 윈도우에서 위치 변경
-
 ### Sticky
 - 원래 있어야 하는 자리에 위치하면서 스크롤 시 그 위치 유지
-
 </br></br>
-
 ### Float
 - 원래의 목적: 이미지, 텍스트 배치 방법
 </br></br>
@@ -26,7 +20,8 @@
 
 ### Cross Axis (반대축)
 - 중심축과 반대되는 축
-</br></br></br></br>
+</br></br>
+</br></br>
 ## 1. Cotainer
  - height
    - %: 컨테이너가 들어있는 부모의 %를 채움 (body안에서 100%를 해도 html의 크기가 전체 보이는 크기가 아니므로 해당 컨테이너의 아이템 크기에 맞춰짐)
@@ -55,18 +50,18 @@
    - center
    - space-around: 각 item들에 space를 넣어줌, 간격 띄움 (처음과 끝은 item 사이들의 간격보다 작음- item 하나의 space이므로)
    - space-evenly: 처음과 끝의 여백도 item 사이의 여백과 동일하게 적용.
-   - space-between: 처음과 끝 item은 contatiner에 딱 맞게 배치하고 다른 item은 space를 줌.
+   - **space-between**: 처음과 끝 item은 contatiner에 딱 맞게 배치하고 다른 item은 space를 줌.
  
  - align-items: 현재 중심축의 반대축에서 item을 배치하는 속성 (item 정체의 위치 결정)
    - justify-content의 속성과 동일하지만 반대축을 기준으로 함.
-   - center: 줄들간의 간격 유지, 줄들 전체가 중간으로 이동.
+   - **center**: 줄들간의 간격 유지, 줄들 전체가 중간으로 이동.
    - baseline: item의 크기가 다 다르면 텍스트를 기준으로 균등하게 배치해줌
 
 - align-content: 반대축에서 item 사이의 줄 간격 배치하는 방법. (줄들 간의 간격 결정, 1줄만 있으면 효력x)
     - justify-content의 속성과 동일하지만 반대축을 기준으로 함.
     - center: 줄들을 전부 다 중간으로 배치, 줄들간의 간격 없음.
     
-    </br></br>
+</br></br>
     
 ## 2. Item
 - order: item의 순서 결정, 잘 안쓰임.
