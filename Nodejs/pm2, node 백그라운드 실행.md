@@ -1,4 +1,4 @@
-## PM2 (Process Manager 2)
+# PM2 (Process Manager 2)
 - Node.js 프로세스 관리 프로그램
 - 백그라운드 실행, 실행 중인 App 로그 보기 등
 
