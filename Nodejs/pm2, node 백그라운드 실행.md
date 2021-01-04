@@ -8,7 +8,7 @@
 ### 실행
 - pm2 start <filename>
 - pm2 start <filename> --name=<app name> // 별도 이름 지정
-
+<br/><br/>
 ### 목록 보기
 - pm2 list
 
@@ -21,7 +21,7 @@
 - pm2 log
 - pm2 log <id>
 - pm2 log <name>
-
+<br/><br/>
 ### 재시작
 - pm2 restart <id/name>
 
