@@ -3,6 +3,7 @@
 - 자바스크립트
   - 숨김, 보이기 버튼
 
+
 ## 개선 사항
 1. 시멘틱 태그 사용
  - div -> nav
@@ -48,6 +49,7 @@ function barChanage(m, r) {
     r.classList.toggle('active');
 }
   ```
+  
   
 6. css 변수
  - 미리 변수를 설정해 놓고 재사용 가능.
