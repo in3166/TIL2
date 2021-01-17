@@ -17,6 +17,7 @@
 - pm2 show <name>
 - 실행 중인 App의 간략한 정보
 
+
 ### 로그 보기
 - pm2 log
 - pm2 log <id>
