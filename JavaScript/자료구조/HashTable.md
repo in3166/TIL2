@@ -36,6 +36,7 @@
   - Insertion Big-O notation은 O(1):
 
 <BR>
+  
 ### 해시 충돌 (Hash Collision)
 - 무한한 값(key)를 유한한 값(Hash)로 표현하면서 서로 다른 두개 이상의 유한한 값이 동일한 출력 값을 가지게 되는 것
 - 여러 충돌 방지 방법이 있음
