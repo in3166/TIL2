@@ -7,7 +7,22 @@
 ## 특징
 - 객체 속성(Object Property)을 만들 수 있는 원시 데이터 형식(Primitive data type)-Boolean/null/undefined/Number/String
 - 문자열을 인자로 허용: 설명으로 디버깅 용도 (let mySymbol = Symbol('des');)
+- 같은 문자열로 정의해도 독립적인 값이 됨
 
+```javascript
+var symbolProperty1  = Symbol('key'); // Symbol(key)
+var symbolProperty2  = Symbol('key'); // Symbol(key)
+var ob = {};
+
+ob[symbolProperty1] = 'value1'
+ob[symbolProperty2] = 'value2'
+
+console.log(ob[symbolProperty1] === 'value1');
+console.log(ob[symbolProperty2] === 'value2');
+console.log(symbolProperty1 !== symbolProperty2);
+
+console.log(ob); // {Symbol(key): "value1", Symbol(key): "value2"}
+```
 
 ## 사용
 - 객체의 프로퍼티 키는 빈 문자열을 포함하는 모든 문자열 가능
@@ -33,6 +48,12 @@ console.log(obj); // { [Symbol(mySymbol)]: 123 }
 console.log(obj[mySymbol]); // 123
 ```
 
+## 생성
+1. Symbol()
+
+2. Symbol.for()
+
+3. Symbol.iterator
 
 
 <출처>
