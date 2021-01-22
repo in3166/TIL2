@@ -296,6 +296,20 @@ let a = c.map(name => (c[name] | 0) + 1);
 a // [1, 1]
 ```
 
+- 예제4: filter()와 같이 쓰기
+```jacascript
+const originalArray = [1, 2, undefined, 3];
+ 
+const newArray = originalArray
+  .filter(value => {
+    return Number.isInteger(value);
+  }).map(value => {
+    return value * 2;
+  });
+ 
+console.log(newArray); // [2, 4, 6]
+```
+
 ## 10. join('구분자')
 - 배열의 원소를 연결하여 하나의 값으로 만들기
 - 구분자 기본은 콤마, 설정할 수 있음
