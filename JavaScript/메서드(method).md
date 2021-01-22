@@ -387,6 +387,21 @@ console.log(Object.values(object1));
 // expected output: Array ["somestring", 42, false]
 ```
 
+## 11. Object.entries()
+- 객체를 인자로 받아 객체의 key:value 쌍을 배열로 반환
+```javascript
+const object = {
+  a: 1,
+  b: 2,
+  c: 3,
+};
+ 
+const array = Object.entries(object);
+console.log(array); // [['a', 1], ['b', 2], ['c', 3]]
+ 
+const newArray = array.map(([key, value]) => [key, value * 2]);
+console.log(newArray); // [['a', 2], ['b', 4], ['c', 6]]
+```
 
 
 <출처>
