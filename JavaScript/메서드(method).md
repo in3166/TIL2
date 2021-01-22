@@ -360,6 +360,21 @@ var jbAry = [ 'Lorem', 'Ipsum', 'Dolor' ];
 }
 ```
 
+## 11. Object.values()
+- 전달된 파라미터 객체가 가지는 속성의 값들로 이루어진 배열 리턴
+```javascript
+const object1 = {
+  a: 'somestring',
+  b: 42,
+  c: false
+};
+
+console.log(Object.values(object1));
+// expected output: Array ["somestring", 42, false]
+```
+
+
+
 <출처>
 
 - https://2dubbing.tistory.com/55
@@ -368,3 +383,4 @@ var jbAry = [ 'Lorem', 'Ipsum', 'Dolor' ];
 - https://aljjabaegi.tistory.com/316 [알짜배기 프로그래머]
 - https://www.codingfactory.net/10450
 - https://velog.io/@daybreak/Javascript-map%ED%95%A8%EC%88%98
+- https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Object/values
