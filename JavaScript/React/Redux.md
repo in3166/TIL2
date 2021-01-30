@@ -37,8 +37,11 @@
   
 - Store: 전체적인 어플리케이션의 state을 감쌈
   - 여러 메서드들 존재
+  - state 변경: Dispatch로 action으로 변경
 
 
+## React Redux 설치
+- 
 
 <출처>
 - https://www.inflearn.com/course/%EB%94%B0%EB%9D%BC%ED%95%98%EB%A9%B0-%EB%B0%B0%EC%9A%B0%EB%8A%94-%EB%85%B8%EB%93%9C-%EB%A6%AC%EC%95%A1%ED%8A%B8-%EA%B8%B0%EB%B3%B8/lecture/37088?tab=curriculum
