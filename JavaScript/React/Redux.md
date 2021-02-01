@@ -49,7 +49,11 @@ import { Provider } from 'react-redux';
 // 적용
 
 ReactDOM.render(
-  <Provider>
+  <Provider
+    store={createStoreWithMiddleware(Reducer,
+      window.__REDUX_DEVTOOLS_EXTENSION__ &&
+      window.__REDUX_DEVTOOLS_EXTENSION__()
+    )}>
     <App />
   </Provider>,
   document.getElementById('root')
@@ -62,10 +66,26 @@ ReactDOM.render(
   - Redux-thunk: Dispatch한테 Function을 받는 방법을 알려줌
   - Redux-Promise: '' promise ''
 
+  <br><br>
   ```javascript
-  
-  ```
+  //  src/_reducers/index.js
+  import { combineReducers } from 'redux';
 
+  import user from './user_reducer';
+  import comment from './comment_reducer';
+  
+   const rootReducer = combineReducers({
+       user,
+       comment
+       ...
+   })
+
+   export default rootReducer;
+  ```
+  ### combineReducers
+    - Stroe 안에 여러가지의 Reducer 존재 (기능별 Reducer / 여러가지 state - user, post, comment, ...)
+    - Reducer: 어떻게 state가 변하는지 보여주고 변한 마지막 값을 리턴
+    - 위의 여러 Reducer을 CombineReducer로 RootReducer로 하나로 통합
 
 
 <출처>
