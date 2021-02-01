@@ -1,0 +1,117 @@
+# 올바른 프로젝트 구조
+- 코드 중복 최소화, 안정성 향상, 서비스 확장에 도움
+
+## 폴더 구조
+```
+src
+│   app.js          # App entry point
+└───api             # Express route controllers for all the endpoints of the app
+└───config          # Environment variables and configuration related stuff
+└───jobs            # Jobs definitions for agenda.js
+└───loaders         # Split the startup process into modules
+└───models          # Database models
+└───services        # All the business logic is here
+└───subscribers     # Event handlers for async task
+└───types           # Type declaration files (d.ts) for Typescript
+```
+
+## 3 계층 설계 (3 Layer Architecture)
+- 관심사 분리 원칙(principle of separation of concerns) 적용을 위해 비즈니스 로직을 node.js의 API Routes와 분리
+<img src="1" />
+- 반복되는 작업을 하다보면 CLI 도구를 통해 비지니스 로직 사용하고 싶어지기 때문
+- node.js Server에서 API 호출은 안 졸은 생각이다.
+<img src="2" />
+
+
+## 비지니스 로직 Controller에 넣지 말기!
+- 스파게티 코드가 되기 때문
+- 언제 클라이언트로 response를 보낼지, 언제 프로세스를 백그라운드에서 계속 실행해야 할지 구분하는 것은 어렵다.
+
+```javacript
+// 하지 말아야 할 예시
+route.post('/', async (req, res, next) => {
+
+  // This should be a middleware or should be handled by a library like Joi.
+  const userDTO = req.body;
+  const isUserValid = validators.user(userDTO)
+  if(!isUserValid) {
+    return res.status(400).end();
+  }
+
+  // Lot of business logic here...
+  const userRecord = await UserModel.create(userDTO);
+  delete userRecord.password;
+  delete userRecord.salt;
+  const companyRecord = await CompanyModel.create(userRecord);
+  const companyDashboard = await CompanyDashboard.create(userRecord, companyRecord);
+
+  ...whatever...
+
+
+  // And here is the 'optimization' that mess up everything.
+  // The response is sent to client...
+  res.json({ user: userRecord, company: companyRecord });
+
+  // But code execution continues :(
+  const salaryRecord = await SalaryModel.create(userRecord, companyRecord);
+  eventTracker.track('user_signup',userRecord,companyRecord,salaryRecord);
+  intercom.createUser(userRecord);
+  gaAnalytics.event('user_signup',userRecord);
+  await EmailService.startSignupSequence(userRecord)
+});
+```
+
+
+## Service 계층에 비지니스 로직 넣기!
+- 비지니스 로직은 service 계층에 있어야 한다.
+- 이는 분명한 목적이 있는 클래스들의 집합이며 SOLID 원칙을 node.js에 적용한 것이다.
+- 이 Layer에는 'SQL query' 형태의 코드가 있으면 안된다. (data access layer에서 사용해야 한다.)
+  - 코드를 express.js router와 분리하라.
+  - service 레이어에는 req와 res 객체를 전달하지 마라.
+  - 상태 코드 또는 헤더와 같은 HTTP 전송 계층과 관련된 것들은 반환하지 마라.
+```javascript
+route.post('/', 
+  validators.userSignup, // this middleware take care of validation
+  async (req, res, next) => {
+    // The actual responsability of the route layer.
+    const userDTO = req.body;
+
+    // Call to service layer.
+    // Abstraction on how to access the data layer and the business logic.
+    const { user, company } = await UserService.Signup(userDTO);
+
+    // Return a response to client.
+    return res.json({ user, company });
+  });
+```
+- service가 작동하는 방법
+```javacript
+import UserModel from '../models/user';
+import CompanyModel from '../models/company';
+
+export default class UserService() {
+
+  async Signup(user) {
+    const userRecord = await UserModel.create(user);
+    const companyRecord = await CompanyModel.create(userRecord); // needs userRecord to have the database id 
+    const salaryRecord = await SalaryModel.create(userRecord, companyRecord); // depends on user and company to be created
+    
+    ...whatever
+    
+    await EmailService.startSignupSequence(userRecord)
+
+    ...do more stuff
+
+    return { user: userRecord, company: companyRecord };
+  }
+}
+```
+
+## Pub/Sub 계층도 사용하라!
+...
+
+
+
+<출처>
+- 원본: https://softwareontheroad.com/ideal-nodejs-project-structure/
+- 번역: https://velog.io/@hopsprings2/%EA%B2%AC%EA%B3%A0%ED%95%9C-node.js-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90-%EC%84%A4%EA%B3%84%ED%95%98%EA%B8%B0
