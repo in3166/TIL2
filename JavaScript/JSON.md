@@ -29,10 +29,10 @@
    - objec -[serialize]-> string
    
    1. Object to JSON
-     - `JSON.stringfy(obj);`
+     - JSON.stringfy(obj);
      - 함수는 포함되지 않음
      - replacer: 콜백 함수나 배열을 인자로 줘서 원하는 프로퍼티만 적용 
-     - `JSON.stringfy(obj, ['name']);` // 객체의 name만 전달하고 싶을 때
+     - JSON.stringfy(obj, ['name']); // 객체의 name만 전달하고 싶을 때
 
  ```javascript
      JSON.stringfy(obj, (key, value) => {
