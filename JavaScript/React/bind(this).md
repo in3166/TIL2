@@ -38,7 +38,13 @@ export default Basic;
 ### `this.onClickButton = this.onClickButton.bind(this)`
 - bind하지 않으면 `<button onClick={this.onClickButton}>숨기기</button>` 부분에서 this는 `window`나 `undefined`가 된다.
   - why?
-  - `this.onClickButton`이 실행되는 순간 (function() { this.setState(() => {{ hidden: true })); })();가 실행된다. <br> -> 이 때, this는 window
+  ```javascript
+  // ES5 버전
+  onClickButton: function() {
+    this.setState(() => ({ hidden: true }));
+  }
+  ```
+  - `this.onClickButton`이 실행되는 순간 `(function() { this.setState(() => {{ hidden: true })); })();`가 실행된다. <br> -> 이 때, this는 window
   - JavaScript 엔진은 this가 뭔지 모르기 때문에 최상위와 연결
 - this.onClickButton.bind(this);
   -> Basic 컴포넌트의 onClcikButton 함수의 this를 현재 this로 bind 한다는 뜻.
