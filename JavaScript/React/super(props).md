@@ -46,7 +46,7 @@ class Checkbox extends React.Component {
   - super 호출 전에 this를 사용할 수 있다고 가정
   - `greetColleagues` 함수가 `super` 전에 선언되어 this.name이 아직 초기화되지 않은 상태에서 호출되는 문제 발생!
 
-*** => super를 사용하는 이유는 Ok ***
+***=> super를 사용하는 이유는 Ok***
 <br><br>
 
 ## Props를 인자로 전달하는 이유
