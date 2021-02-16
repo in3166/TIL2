@@ -1,5 +1,6 @@
 # HOC (Higher-order component)
-- 다른 컴포넌트를 받아 새로운 컴포넌트를 반환하는 함수
+- 다른 컴포넌트를 받아 새로운 컴포넌트를 반환하는 함수 (받은 컴포넌트에 특정 기능을 부여)
+- 반복되는 코드 해결, 컴포넌트 재사용
 - 백엔드에 사용자 상태 정보를 가져와서 HOC 포함된 컴포넌트 페이지에 해당 사용자가 권한이 있는지 판단
 
 <img src="https://github.com/in3166/TIL/blob/main/JavaScript/React/img/hoc.JPG" />
@@ -45,3 +46,4 @@ export default function (SpecifiComponent, option, adminRoute = null) {
 
 <출처>
 - https://www.inflearn.com/course/%EB%94%B0%EB%9D%BC%ED%95%98%EB%A9%B0-%EB%B0%B0%EC%9A%B0%EB%8A%94-%EB%85%B8%EB%93%9C-%EB%A6%AC%EC%95%A1%ED%8A%B8-%EA%B8%B0%EB%B3%B8
+- https://velopert.com/3537
