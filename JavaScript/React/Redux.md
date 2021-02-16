@@ -1,6 +1,7 @@
 # Redux
 - a predictable state container
 - 상태 관리 라이브러리
+- `전역 상태`를 생성하고 관리하기 위한 라이브러리
 
 
 ## Props
@@ -24,21 +25,97 @@
 ## Redux 데이터 Flow (strict unidirectional data flow)
 
 ***`[ Action ] -> [ Reducer ] -> [ Store ] - Subscribe -> [ React Component] - Dispatch(action) -> [ Action ]`***
-- Action: 무엇이 일어나는지 설명하는 객체
+
+### Store: 전체적인 어플리케이션의 state을 감쌈
+  - 전역 상태 보관 (자바스크립트 객체 형태)
+  - 리듀서로 접근 가능
+  - 하나의 애플리케이션에 하나의 저장소만 존재 (react 주로 index.js) -> Reucer도 하나
+  - immutable
+  - 여러 메서드들 존재
+  - state 변경: Dispatch로 action으로 변경
+  ```javascript
+  // index.js
+  import React from 'react';
+  import ReactDOM from 'react-dom';
+  import App from './App';
+ 
+  import { createStore } from 'redux';
+  import { Provider } from 'react-redux';
+
+  const store = createStore(/*your root reducer*/);
+
+  ReactDOM.render(
+    <Provider store={store}>
+    	<App />
+    </Provider>,
+    document.getElementById('root')
+  );
+  ```
+  
+### Reducer: Action을 함으로 인해 변한 것을 설명
+  - 상태 저장소 접근, 저장소에 유일하게 접근가능한 객체
+  - 들어오는 Action에 따라 행동
+  - 이전 state와 action object를 받아 변한 next state을 return
+  - 리듀서 함수 내에서 반환되는 값을 상태 저장소에 저장
+  - 상태 추가가 아닌 덮어씌우기 때문에 전체 상태를 복사하여 상태 갱신 후 반환
+  ```javscript
+  // 기본 상태값을 지정할 수 있습니다. (initState)
+  const rootReducer = (state = initState, action) => {
+    if (action.type === 'DELETE_POST') {
+      const newPosts = state.posts.filter((post) => post.id !== action.id);
+      return {
+        ...state,
+        posts: newPosts,
+      };
+    }
+    return state;
+  };
+  ```
+  
+### Action: 무엇이 일어나는지 설명하는 객체
+  - Reducer에 행동 지시
+  - 트리거(trigger) 역할
+  
   - Mary liked Article 42
   ```javascript
   { type: 'LIKE_ARTICLE', articleId: 42 }
     { type: 'Fetch_USER_SUCCESS', response: { id: 3, name: 'Mary' } }
     {type: 'ADD_TODO', text: 'Read the Redux docs.' }
   ```
+  ```javscript
+  export const deletePost = (id) => {
+    return {
+     type: 'DELETE_POST',
+      id: id,
+    };
+  };
+  ```
 
-- Reducer: Action을 함으로 인해 변한 것을 설명
-  - 이전 state와 action object를 받아 변한 next state을 return
-  
-- Store: 전체적인 어플리케이션의 state을 감쌈
-  - 여러 메서드들 존재
-  - state 변경: Dispatch로 action으로 변경
+### subScription
+  - 저장소에 보관된 전역 상태 가져오기
+  - 어느 컴포넌트에서도 저장소의 상태 값을 얻을 수 있다.
+  ```javascript
+  // Post.js
+  import { connect } from 'react-redux';
 
+  const mapStateToProps = (state, ownProps) => {
+    return {
+      posts: state.posts,
+    };
+  };
+
+  const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+      deletePost: (id) => {
+        dispatch(deletePost(id));
+      },
+    };
+  };
+
+  export default connect(mapStateToProps, mapDispatchToProps)(Post);
+  ```
+  - HOC(connect)를 통해 전역상태와 액션을 위한 Dispatch를 컴포넌트에 전달합니다.
+  - 이 컴포넌트에서는 props를 통해 전역상태와 Dispatch를 사용할 수 있습니다.
 
 ## React Redux 설치
 - `npm install redux react-redux redux-promis redux-thunk --save`
@@ -90,3 +167,4 @@ ReactDOM.render(
 
 <출처>
 - https://www.inflearn.com/course/%EB%94%B0%EB%9D%BC%ED%95%98%EB%A9%B0-%EB%B0%B0%EC%9A%B0%EB%8A%94-%EB%85%B8%EB%93%9C-%EB%A6%AC%EC%95%A1%ED%8A%B8-%EA%B8%B0%EB%B3%B8/lecture/37088?tab=curriculum
+- https://velog.io/@cada/React-Redux-vs-Context-API
