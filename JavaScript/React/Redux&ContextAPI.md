@@ -165,6 +165,95 @@ ReactDOM.render(
     - 위의 여러 Reducer을 CombineReducer로 RootReducer로 하나로 통합
 
 
+<br><br>
+# ContextAPI
+- Redux와 같이 상태의 중앙 관리를 위한 <h3>상태 관리 도구</h3>
+- Redux와 달리 여러 저장소 존재 가능
+
+### context: 전역 상태 저장
+- 컴포넌트가 Provide한 상태가 저장됨
+- Consumer는 이 context를 통해 전역 상태에 접근 가능
+- 여러 context 존재 가능, 하지만 하나의 context만 존재하면 성능상 이슈 발생 가능
+- context 안에는 Provider와 Consumer가 정의되어 있고 다른 컴포넌트에선 이것들을 사용해 상태에 접근
+```javscript
+// ./contexts/root.js
+import React from 'react'
+
+export default React.createContext({}) // 함수의 인자에는 상태의 초기값이 들어갑니다.
+```
+
+
+### Provider: 전역 상태 제공
+- context에 상태 제공
+- 다른 컴포넌트가 해당 상태에 접근하여 사용 가능
+- 제공된 상태에 접근하기 위해선 Provider의 하위 컴포넌트에 포함되어야 한다.
+  - 모든 컴포넌트에 접근해야하는 상태 제공하기 위해선 루트 컴포넌트 `index.js` or `app.js`에 Provider 정의
+```javascript
+import ShopContext from './path/to/shop-context'; // React.createContext() 객체
+
+class App extends Component {
+  render() {
+    return (
+      <ShopContext.Provider value={{
+          products: [],
+          cart: []
+        }
+      }>
+        {/* 이곳 Provider 사이에 있는 컴포넌트는 전역 상태에 접근할 수 있습니다. */}
+      </ShopContext.Provider />
+    );
+  }
+}
+```
+
+
+### Consumer: 전역 상태를 받아 사용
+- 제공된 상태에 접근하는 방법 중 하나
+- context는 Consumer 사이에 있는 처음의 객체를 context에 인자로 전달하기 때문에 바로 JSX를 작성하는 것이 아닌 빈 객체를 작성하고 나서 JSX를 작성해야한다.
+```JAVASCRIPT
+import ShopContext from '../context/shop-context' // React.createContext() 객체
+
+class ProductsPage extends Component {
+  render() {
+    return (
+      <ShopContext.Consumer>  { }
+        {context => (
+          <React.Fragment>
+            <MainNavigation
+              cartItemNumber={context.cart.reduce((count, curItem) => {
+                return count + curItem.quantity
+              }, 0)}
+            />
+            <main className="products">...</main>
+          </React.Fragment>
+        )}
+      </ShopContext.Consumer>
+    )
+  }
+}
+
+export default ProductsPage
+```
+
+### contextType
+- 
+
+
+<br><br>
+
+# Redux VS ContextAPI
+- 전역 상태 관리 측면에서 거의 비슷하다.
+- ContextAPI는 High-Frequency Updates에 좋지 않은 성능
+
+  ### Redux는 ContextAPI와 다르게 상태 관리외에 다양한 기능 제공
+  - 
+  - 
+
+
+
+
+<br><br><Br>
+
 <출처>
 - https://www.inflearn.com/course/%EB%94%B0%EB%9D%BC%ED%95%98%EB%A9%B0-%EB%B0%B0%EC%9A%B0%EB%8A%94-%EB%85%B8%EB%93%9C-%EB%A6%AC%EC%95%A1%ED%8A%B8-%EA%B8%B0%EB%B3%B8/lecture/37088?tab=curriculum
 - https://velog.io/@cada/React-Redux-vs-Context-API
