@@ -265,9 +265,21 @@ export default ProductsPage
       - 테스트 주도 개발
       - 매우 짧은 개발 사이클 반복하는 SW 개발 프로세스 ( 설계 -> 테스트(코드작성) -> 개발(코드작성성) )
 
-*** 오직 전역 상태 관리만 한다. -> Context API ***
-*** 상태 관리 외 여러 기능 필요 -> Redux ***
+<br>
 
+***오직 전역 상태 관리만 한다. -> Context API***
+***상태 관리 외 여러 기능 필요 -> Redux***
+- 앱이 많은 상태관리를 저장할 필요가 없거나, 컴포넌트 구조가 과도한 prop drilling을 피할 수 있을만큼 단순하다면 <br> -> 상태 관리 라이브러리를 쓸 필요는 없다.
+
+### Hooks
+- 함수 컴포넌트로 대체 가능
+- 메서드들: useState, useReducer, useContext(prop drilling없이 컴포넌트 간 앱 상태 공유 가능) 등은 더 좋은 상태 관리 방법 제공
+- Hooks 개발 이유
+  - 클래스 컴포넌트는 로직들을 재사용하기 어려움
+  - 구현한 LifeCycle 메서드들에 관련 없는 로직 포함되곤 함.
+  - 클래스는 컴퓨터와 인간 모두에게 이해하기 어려운 개념
+`=> 상태 관리가 편해졌다고 상태 관리 라이브러리가 필요없게 된 것은 아니다.` 
+- context는 
 
 <br><br><Br>
 
@@ -276,3 +288,4 @@ export default ProductsPage
 - https://velog.io/@cada/React-Redux-vs-Context-API
 - https://m.blog.naver.com/suresofttech/221569611618
 - https://stackoverflow.com/questions/33009657/what-is-optimistic-updates-in-front-end-development
+- https://delivan.dev/react/stop-asking-if-react-hooks-replace-redux-kr/#redux%EB%8A%94-%EC%84%A0%ED%83%9D%EC%82%AC%ED%95%AD%EC%9D%B4%EB%8B%A4
