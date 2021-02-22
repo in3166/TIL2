@@ -75,9 +75,23 @@ React가 DOM 보다 빠르다는건 잘못된 사실이에요. 사실은: 유지
 ```
 - 최적화 작업을 자동화 -> 생상성 
 
+
+### React의  data model 변화 감지와 render on the view
+- React는 리액트 컴포넌트에 state 변화가 있으면 어디가 바뀌었는지 찾는 대신, 전체 UI를 업데이트된 상태로 처음부터 re-render 한다.
+- DOM Updation은 느린 처리과정이다. (문제)
+- Virtual DOM 등장: Virtual DOM은 단지 실제 DOM을 객체 형태로 나타낸다.
+- 즉, 메모리에 존재하는 plain javascript 객체의 트리 데이터 구조일 뿐 (실제 화면에 렌더링되지 않으므로 빠름 - no reflow, repainting)
+
+- app을 로드할 때, React는 실제 DOM을 복사하여 Virtual DOM을 생성한다.
+- state가 변경되면 실제 DOM을 모든 실제 DOM을 re-render하지 않고 모든 새로운 Virtual DOM(updated state와 함께)을 렌더링한다.
+- 이전의 Virtaul DOM과 새로운 Virtual DOM을 비교 후 바뀐 부분만 Real DOM에 적용한다.
+
+***Updating in memory***
+
 <br><br><br>
 
 <출처>
 
 - https://noogoonaa.tistory.com/53
 - https://velopert.com/3236
+- https://stackoverflow.com/questions/61245695/how-exactly-is-reacts-virtual-dom-faster
