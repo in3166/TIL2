@@ -1,6 +1,6 @@
 # HOC (Higher-order component)
 - 다른 컴포넌트를 받아 새로운 컴포넌트를 반환하는 함수 (받은 컴포넌트에 특정 기능을 부여)
-- 반복되는 코드 해결, 컴포넌트 재사용
+- ***반복되는 코드 해결, 컴포넌트 재사용***
 - 백엔드에 사용자 상태 정보를 가져와서 HOC 포함된 컴포넌트 페이지에 해당 사용자가 권한이 있는지 판단
 
 <img src="https://github.com/in3166/TIL/blob/main/JavaScript/React/img/hoc.JPG" />
