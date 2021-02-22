@@ -139,6 +139,7 @@ export default Comments;
 - HOC 작성하기
 - 반복되는 코드를 없애기 위한 하나의 함수를 작성한다.
 - 일반적인 HOC이름 `with____` 형식
+
 - 원리
   - 파라미터로 컴포넌트를 받아오고
   - 함수 내부에서 새 컴포넌트를 만든 다음
@@ -146,15 +147,39 @@ export default Comments;
   - 자신이 받아온 props 들은 그대로 파라미터로 받아온 컴포넌트에 다시 주입
   - 필요에 따라 추가 props도 추가로 넣어준다.
 
+
 - withRequest.js
+- axios 를 통하여 받은 data 를 파라미터로 받은 컴포넌트에 넣어주도록 설정
 ```javascript
 import React, { Component } from 'react';
+import axios from 'axios';
 
-const withRequest = (url) => (WrappedComponent) => {
+const withRequest = (url) => (WrappedComponen) => {
   return class extends Component {
+
+    state = {
+      data: null
+    }
+
+    async initialize() {
+      try {
+        const response = await axios.get(url);
+        this.setState({
+          data: response.data
+        });
+      } catch (e) {
+        console.log(e);
+      }
+    }
+
+    componentDidMount() {
+      this.initialize();
+    }
+
     render() {
+      const { data } = this.state;
       return (
-        <WrappedComponent {...this.props}/>
+        <WrappedComponent {...this.props} data={data}/>
       )
     }
   }
@@ -162,8 +187,30 @@ const withRequest = (url) => (WrappedComponent) => {
 
 export default withRequest;
 ```
+<BR><BR>
+    
+## HOC 사용
+```javascript
+import React, { Component } from 'react';
+import withRequest from './withRequest';
+
+class Post extends Component {
+  render() {
+    const { data } = this.props;
+    
+    if (!data) return null;
+
+    return (
+      <div>
+        { JSON.stringify(this.props.data) }    
+      </div>
+    );
+  }
+}
 
 
+export default withRequest('https://jsonplaceholder.typicode.com/posts/1')(Post);
+```
 
 
 <br><br>
