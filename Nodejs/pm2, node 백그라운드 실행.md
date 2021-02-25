@@ -8,6 +8,7 @@
 ### 실행
 - `pm2 start <filename>[bin/www]`
 - `pm2 start <filename> --name=<app name>` // 별도 이름 지정
+- `pm2 start "npm run dev" --name myAppName`
 <br/><br/>
 ### 목록 보기
 - pm2 list
