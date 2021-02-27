@@ -3,6 +3,7 @@
 - 상태 관리 라이브러리
 - `전역 상태`를 생성하고 관리하기 위한 라이브러리
 
+<img src="https://github.com/in3166/TIL/blob/main/JavaScript/React/img/redux-flow.png" />
 
 ## Props
 - properties 줄임말
