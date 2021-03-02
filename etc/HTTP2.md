@@ -15,7 +15,7 @@
 - 속도 향상
 
 ## Multiplexed Streams
-<img src="" />
+<img src="https://github.com/in3166/TIL/blob/main/etc/img/http2.png" />
 
 - 한 Connection으로 동시에 여러 개의 메세지를 주고 받을 수 있다.
 - 순서에 상관없이 stream으로 주고 받는다. (HTTP/1.1의 Connection Keep-Alive, Pipelining의 개선)
