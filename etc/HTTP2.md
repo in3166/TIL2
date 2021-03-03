@@ -11,7 +11,7 @@
 <br><br>
 
 # HTTP/2
-- SPDY 기반
+- SPDY(스피디) 구글 비표준 개방형 네트워크 프로토콜 기반
 - 속도 향상
 
 ## Multiplexed Streams
