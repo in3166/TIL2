@@ -65,13 +65,31 @@
     
 ## 2. Item
 - order: item의 순서 결정, 잘 안쓰임.
-- flex-grow: 컨테이너에 크기에 맞춤 (비율로)
+- flex-grow: 컨테이너에 크기에 맞춤 (비율로), 여백을 비율 별로 각각의 item들이 가짐
    - default은 자신의 item 크기를 유지하다가 작아지면 줄어듬. 
+   ```css
+   .item{
+     flex-basis: 0;
+   }
+   .item:nth_child(1){
+     fles-grow: 1;
+   }
+   .item:nth_child(2){
+     fles-grow: 2;
+   }
+   ```
+
+- fles-basis: Items이 점유하는 공간을 설정해줌
+  - 0, auto: 0으로 하고 fles-grow로 비율을 설정해주면 여백이아닌 아이템 각각의 비율이 됨
+
 - flex-shrink: 컨테이너가 작아질 때 비율
    - 각각의 item 중 어떤게 더 크게 줄어들지
+
 - flex: 각 item이 차지하는 비율 %
+  - flex-basis를 0으로 설정안해도 실제 아이템들이 비율에 딱 맞음
+
 - align-self: 아이템 별로 정렬
-   - center 등
+   - center, flex-start 등
 
 
 
