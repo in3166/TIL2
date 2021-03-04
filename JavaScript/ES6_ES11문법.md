@@ -142,7 +142,7 @@ printManger(person2); // error
 
 - option1: if문 사용
 - option2: Ternary Operator 사용
-```javacript
+```javascript
 function printManager(person) {
   console.log(
   // person.job ? (person.job.manager ? (person.job.manager.name : undefined) :undefined )
@@ -156,7 +156,7 @@ function printManager(person) {
 ```
 
 - option3: && 연산자 사용
-```javacript
+```javascript
 function printManager(person) {
   console.log( // 앞이 있으면 뒤에 거를 실행
     person.job && person.job.manager && person.job.manager.name
@@ -165,7 +165,7 @@ function printManager(person) {
 ```
 
 - option3: ***Optional Chaining 사용***
-```javacript
+```javascript
 function printManager(person) {
   console.log(
     person.job ?.manager ?.name
