@@ -83,3 +83,6 @@ Sec-Fetch-Site: cross-site
 ### Credentialed Request
 
 
+<br><br><br>
+<출처>
+- https://evan-moon.github.io/2020/05/21/about-cors/#cors%EB%8A%94-%EC%96%B4%EB%96%BB%EA%B2%8C-%EB%8F%99%EC%9E%91%ED%95%98%EB%82%98%EC%9A%94
