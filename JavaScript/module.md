@@ -15,11 +15,6 @@
   - 항상 `엄격모드`로 실행 (최상위 레벨의 this는 undefined)
 
 
-- 현재는 몇 가지 이유로 `Webpack` 등의 모듈 번들러 사용
-  - 구형 브라우저는 ES6 모듈을 지원하지 않음
-  - ES6 모듈 기능을 사용해도 트랜스파일링이나 번들링 필요
-
-
 ## 모듈 스코프
 `ES6 모듈 기능 사용 X`
 ```javascript
@@ -99,8 +94,178 @@ class Person {
 export { pi, square, Person };
 ```
 
-## 현재 ES6 Module 사용을 위해 컴파일러 필요 (Babel, Traceur)
+<br/>
 
+## 현재 ES6 Module 사용을 위해 컴파일러 필요 (Babel, Traceur)
+- 현재는 몇 가지 이유로 `Webpack` 등의 모듈 번들러 사용
+  - 구형 브라우저는 ES6 모듈을 지원하지 않음
+  - ES6 모듈 기능을 사용해도 트랜스파일링이나 번들링 필요
+  - 지원하지 않는 기능, 몇 가지 이슈 등
+<br/>
+
+## Babel & Webpack
+### 트랜스파일러(Transfiler) Babel
+  - 구형 브라우저에서 지원하지 않는 기능을 ES5 이하 버전으로 변환
+  ```JAVASCRIPT
+  // ES6 화살표 함수와 ES7 지수 연산자
+  [1, 2, 3].map(n => n ** n); 
+  ```
+  ```JAVASCRIPT
+  // ES5
+  "use strict";
+
+  [1, 2, 3].map(function (n) {
+   return Math.pow(n, n);
+  });
+  ```
+  
+  - Babel CLI 설치
+  ```
+  # 프로젝트 폴더 생성
+  $ mkdir es6-project && cd es6-project
+  # package.json 생성
+  $ npm init -y
+  # babel-core, babel-cli 설치
+  $ npm install --save-dev @babel/core @babel/cli
+  ```
+  - .babelrc 설정 파일 작성
+    - Babel 사용을 위해 `@babel/preset-env` 설치 - Babel 플로그인 모아 둔 것 (Babel이 제공하는 공식 Babel 프리셋 중 하나)
+    - Babel이 제공하는 공식 Babel Preset
+    - `.browserslistrc`에 설정 가능, 설정 생략 시 기본값으로 설정
+    - 기본값으로 설정 하기
+    ```
+    # 섪치
+    npm install --save-dev @babel/preset-env
+    ```
+    ```
+    # package.json
+    {
+      {
+      "name": "es6-project",
+      "version": "1.0.0",
+      "devDependencies": {
+      "@babel/cli": "^7.7.0",
+      "@babel/core": "^7.7.2",
+      "@babel/preset-env": "^7.7.1"
+      }
+    }
+    ```
+    - 설치 완료 후 루드 디렉토리에 .babelrc 파일을 생성
+    ```
+    #babel.config.js
+    {
+     "presets": ["@babel/preset-env"]
+    }
+    ```
+    
+  - 트랜스파일링
+    - Babel CLI 명령어 사용하거나 `npm script` 사용  
+    - package.json에 scripts 추가\
+    -  src/js 폴더(타깃 폴더)에 있는 모든 ES6+ 파일들을 트랜스파일링한 후, 그 결과물을 dist/js 폴더에 저장
+    ```
+    {
+     "name": "es6-project",
+     "version": "1.0.0",
+     "scripts": {
+        "build": "babel src/js -w -d dist/js"
+      },
+     "devDependencies": {
+        "@babel/cli": "^7.7.0",
+        "@babel/core": "^7.7.2",
+        "@babel/preset-env": "^7.7.1"
+      }
+    }
+    ```
+
+
+### 모듈 번들러(Module Bundler) 
+- 의존 관계에 있는 모듈들을 하나의 자바스크립트 파일로 번들링
+- 다수의 자바스크립트 파일을 하나의 파일로 번들링하므로 html 파일에서 script 태그로 다수의 자바스크립트 파일을 로드해야 하는 번거로움도 사라진다.
+
+- Webpack 설치
+```
+# Webpack V4는 webpack-cli를 요구한다
+$ npm install --save-dev webpack webpack-cli
+```
+- babel-loader: Webpack이 모듈 번들링 시 Babel을 사용하여 ES6+ 코드를 트랜스파일링 하도록 설치
+```
+$ npm install --save-dev babel-loader
+```
+- npm script 변경하여 Babel 대신 Webpack 실행하도록 수정
+```
+{
+  "name": "es6-project",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "webpack -w"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.7.0",
+    "@babel/core": "^7.7.2",
+    "@babel/plugin-proposal-class-properties": "^7.7.0",
+    "@babel/preset-env": "^7.7.1",
+    "babel-loader": "^8.0.6",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
+  }
+}
+- webpack.config.js
+- Webpack이 실행될 때 참조하는 설정 파일
+```javascript
+const path = require('path');
+
+module.exports = {
+  // enntry file
+  entry: './src/js/main.js',
+  // 컴파일 + 번들링된 js 파일이 저장될 경로와 이름 지정
+  output: {
+    path: path.resolve(__dirname, 'dist/js'),
+    filename: 'bundle.js'
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        include: [
+          path.resolve(__dirname, 'src/js')
+        ],
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+            plugins: ['@babel/plugin-proposal-class-properties']
+          }
+        }
+      }
+    ]
+  },
+  devtool: 'source-map',
+  // https://webpack.js.org/concepts/mode/#mode-development
+  mode: 'development'
+};
+```
+- babel-polyfill
+  - 대체할 수없는 기능, 추가된 객체나 메소드는 트랜스파일링이 안됨, 이를 해결 `@babel/polyfill`
+  ```
+  npm install @babel/polyfill
+  ```
+  ```javascript
+  // src/js/main.js
+  import "@babel/polyfill";
+  ...
+  ```
+  - webpack 사용 시 위 과정 대신 webpack.config.js 파일의 entry 배열에 추가
+  ```javacript
+  // webpack.config.js
+  const path = require('path');
+
+  module.exports = {
+    // entry files
+    entry: ['@babel/polyfill', './src/js/main.js'],
+   ...
+  ```
+  
 
 
 <br><br><br>
