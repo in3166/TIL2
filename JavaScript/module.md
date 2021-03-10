@@ -209,6 +209,7 @@ $ npm install --save-dev babel-loader
     "webpack-cli": "^3.3.10"
   }
 }
+```
 - webpack.config.js
 - Webpack이 실행될 때 참조하는 설정 파일
 ```javascript
