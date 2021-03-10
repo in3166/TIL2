@@ -13,7 +13,6 @@
 - `<script type="module" src="lib.mjs"></script>`, module 속성 추가하면 파일이 모듈로 동작
   - JS 파일이 곧 모듈, 모듈에서 다른 모듈을 가져와 사용할 수 있고 반대도 가능
   - 항상 `엄격모드`로 실행 (최상위 레벨의 this는 undefined)
-  - 
 
 
 - 현재는 몇 가지 이유로 `Webpack` 등의 모듈 번들러 사용
@@ -99,6 +98,10 @@ class Person {
 // 변수, 함수 클래스를 하나의 객체로 구성하여 공개
 export { pi, square, Person };
 ```
+
+## 현재 ES6 Module 사용을 위해 컴파일러 필요 (Babel, Traceur)
+
+
 
 <br><br><br>
 <출처>
