@@ -26,9 +26,7 @@ export default function App() {
   */
   const password = useRef();
   password.current = watch("password");
-  console.log*watch('email'));
-
-  console.log(watch("example")); // watch input value by passing the name of it
+  console.log(watch("email")); // watch input value by passing the name of it
 
   return (
     {/* "handleSubmit" will validate your inputs before invoking "onSubmit" */}
