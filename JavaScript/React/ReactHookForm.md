@@ -65,6 +65,7 @@ export default function App() {
 
 ### 유효성 체크
 <img src="https://github.com/in3166/TIL/blob/main/JavaScript/React/img/reacthookform2.JPG" width="75%" />
+
 - (1): name이 example인 `input`(2)에 입력하면 watch로 관찰하여 출력, (3) ref에 register를 등록해줘야 관찰 가능
 - 어떤 것이 입력되고 있는지 알아야 유효성 체크 가능
 - (4): 유효성 체크 시 조건 주기
