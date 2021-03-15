@@ -235,6 +235,7 @@ document.addEventListener("DOMContentLoaded", function() {
 - 위의 두가지 방법으로 뷰포트 안에 들어오는 것을 감지하고 `lazy 클래스`를 삭제
 
 <br><br>
+
 ## lazy loading 기법으로 유저 인터페이스 향상시키는 방법
 - placholder가 보기 좋지 않다, 로딩 시간이 느리다 등의 이유로 유저 사용성에 좋지 않을 수  있다.
 
