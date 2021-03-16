@@ -231,6 +231,62 @@ function Class () {
 
 ## Field 선언
 `실험적 기능 - Babel 같은 build 시스템 사용시 사용 가능`
+- class filed, 어떤 종류의 프로퍼티도 클래스에 추가 가능
+
+- `<프로퍼티 이름> = <값>`
+```javascript
+class User{
+  name = 'John';
+  sayHi() {
+    alert(`Hello, ${this.name}!`);
+  }
+}
+
+new User().sayHi(); // hello john
+```
+
+- User.prototype이 아닌 개별 객체에만 클래스 필드가 설정
+```javascript
+class User {
+  name = "John";
+}
+
+let user = new User();
+alert(user.name); // John
+alert(User.prototype.name); // undefined
+```
+
+## 클래스 필드로 바인딩 된 메서드 만들기
+  ### 사라진 'this'
+  - 객체 메서드가 객체 내부가 아닌 다른 돗에 전달되어 호출되면 `this`가 사라진다!
+  ```javscript
+  let user = {
+    firstName: "John",
+    sayHi() {
+      alert(`Hello, ${this.firstName}!`);
+   }
+  };
+
+  setTimeout(user.sayHi, 1000); // Hello, undefined! user컨텍스트를 잃어버림
+  ```
+  - 브라우저에서 `this`에 `window`가 할당됨 -> `window.sayHi`
+
+  ### 해결법
+  1. 래퍼
+  ```javascript
+  setTimeout(function() {
+    user.sayHi(); // Hello, John!
+  }, 1000);
+  ```
+  ```javascript
+  setTimeout(() => user.sayHi(), 1000); // Hello, John!
+  ```
+  - 외부 렉시컬 환경에서 `user`를 받아서 보통 때처럼 메서드 호출했기 때문에 동작
+  - 1초가 지나기 전 `user`가 변경되면 변경된 객체의 메서드를 호출하는 문제
+
+  2. bind
+
+
 ## Public 필드 선언
 ## Private 필드 선언
 
@@ -251,9 +307,37 @@ function Class () {
 
 ## 클래스 재정의
 
+# 클래스는 순수 함수 (생성자 함수)의 편의 문법이 아니다.
+```javascript
+function User(name) {
+  this.name = name;
+}
 
+// 모든 함수의 프로토타입은 'constructor' 프로퍼티를 기본으로 갖고 있기 때문에
+// constructor 프로퍼티를 명시적으로 만들 필요가 없습니다.
 
+// 2. prototype에 메서드를 추가합니다.
+User.prototype.sayHi = function() {
+  alert(this.name);
+};
+
+// 사용법:
+let user = new User("John");
+user.sayHi();
+```
+- class 특수 내부 프로퍼티 존재
+  - class로 만든 함수엔 특수 내부 프로퍼티인 `[[FunctionKind]]:"classConstructor"`가 이름표처럼 붙는다.
+  - 자바스크립트는 다양한 방법을 사용해 함수에 [[FunctionKind]]:"classConstructor"가 있는지를 확인한다.
+  - 이런 검증 과정이 있기 때문에 클래스 생성자를 `new`와 함께 호출하지 않으면 에러가 발생합니다.
+
+- 클래스 메서드는 열거할 수 없음 (non-enumerable)
+  - 클래스의 `prototype` 프로퍼티에 추가된 메서드 전체의 `enumerable` 플래그는 `false`
+  - `for-in`으로 객체 순회 시, 메서드 제외하고자 할 때 유용
+
+- 클래스는 `엄격 모드`
 
 <br><br><br>
+
 <출처>
 - https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Classes
+- https://ko.javascript.info/class
