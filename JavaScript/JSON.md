@@ -26,8 +26,8 @@
    - 텍스트 기반 가볍고 읽기 쉬움
    - 플랫폼에 상관 없이 사용 가능 (자바, 파이썬 등)
    
-   - ***object - [serialize] -> string(JSON) ***
-   - ***object <- [deserialize] - string(JSON) ***
+   - ***object - [serialize] -> string(JSON)***
+   - ***object <- [deserialize] - string(JSON)***
    
 ## 1. Object to JSON
   - `JSON.stringfy(obj, replacer?);`
