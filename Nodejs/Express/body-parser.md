@@ -8,6 +8,8 @@ app.use(bodyParser.urlencoded({ extended: true }));  // application/x-www-form-u
 app.use(bodyParser.json()); // application/json 데이터를 분석해서 가져옴
 ```
 
+<BR>
+
 ## urlencoded({extended : }) 옵션
 - 자바스크립트의 데이터를 교환하는 형식: 객체
 - `extended: true`: 객체 형태로 전달된 데이터 내에 다른 중첩 객체 허용 / `false`: 허용하지 않음.
