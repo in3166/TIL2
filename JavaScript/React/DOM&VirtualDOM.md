@@ -7,6 +7,7 @@
   - 거대한 DOM 트리에서 속도 이슈
   - 지속적인 DOM 업데이트는 잦은 오류와 사용자 인터페이스에 악영향
   - DOM을 제대로 찾지 못하면 코드 분석 다시해야 함.
+<br>
 
 ## 브라우저의 Workflow
 <img src="https://github.com/in3166/TIL/blob/main/JavaScript/React/img/browserFlow.png" />
@@ -34,6 +35,7 @@
   - 렌더링된 요소에 색을 입히는 과정
   - 트리의 각 노드들을 거쳐가면서 paint() 메서드를 호출
   - 스크린에 원하는 정포 나타남
+<br>
 
 ## DOM 수정 시
 - DOM에 변화가 생기면 Render Tree를 재생성 (모든 요소들의 스타일이 다시 계산됨)
@@ -53,6 +55,7 @@
 - 더 가볍고 빠른 Rendering
 - 몇 가지 특수 키원드 (key, ref, htmlFor 등)이 존재
 - 실제 DOM과 구조상 큰 차이 없음
+<br>
 
 ## 가상 DOM의 중요성
 - DOM 조작은 각 조작이 레이아웃의 변화, 트리 변화와 렌더링을 일으킨다. <br> 만약 30개의 노드를 하나씩 수정하면, 30번의 (잠재적인) 레이아웃 재계산과, 30번의 리렌더링을 초래
@@ -74,6 +77,7 @@ React가 DOM 보다 빠르다는건 잘못된 사실이에요. 사실은: 유지
 - Dan Abramov (Redux 창시자, React 개발 팀원)
 ```
 - 최적화 작업을 자동화 -> 생상성 
+<br>
 
 
 ### React의  data model 변화 감지와 render on the view
