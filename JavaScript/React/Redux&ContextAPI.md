@@ -29,7 +29,7 @@
 ## Redux 데이터 Flow (strict unidirectional data flow)
 
 ***`[ Action ] -> [ Reducer ] -> [ Store ] - Subscribe -> [ React Component] - Dispatch(action) -> [ Action ]`***
-<img src="https://github.com/in3166/TIL/blob/main/JavaScript/React/img/redux2.png" />
+<img src="https://github.com/in3166/TIL/blob/main/JavaScript/React/img/redux2.PNG" />
 
 
 ### Store: 전체적인 어플리케이션의 state을 감쌈
