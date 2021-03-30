@@ -3,13 +3,16 @@
 - 상태 관리 라이브러리
 - `전역 상태`를 생성하고 관리하기 위한 라이브러리
 
+- `Single Source of Truth`: 하나의 상태를 갖는다. (하나의 객체안에 모든 데이터를 넣음) -> 복잡성 낮춤
+- `Dispatcher`, `reducer` 등을 통해서만 state 접근 가능 (외부 직접 제어 불가)
+- 해당 데이터가 변경되면 그와 관련된 app들은 각자 자기 할 일을 한다.
 <img src="https://github.com/in3166/TIL/blob/main/JavaScript/React/img/redux-flow.png" />
 
 ## Props
 - properties 줄임말
 - 컴포넌트 간의 데이터 교환하는데 상위 컴포넌트에서 하위 컴포넌트로만 전달
 - 자식 컴포넌트가 받느 Props는 변하지 않음 (변하기 위해선 부모 컴포넌트에서 다시 전달해줘야 함)
-
+<br>
 
 ## State
 - 컴포넌트 내에서 데이터 교환하기 위해 사용
@@ -26,10 +29,12 @@
 ## Redux 데이터 Flow (strict unidirectional data flow)
 
 ***`[ Action ] -> [ Reducer ] -> [ Store ] - Subscribe -> [ React Component] - Dispatch(action) -> [ Action ]`***
+<img src="https://github.com/in3166/TIL/blob/main/JavaScript/React/img/redux2.png" />
+
 
 ### Store: 전체적인 어플리케이션의 state을 감쌈
   - 전역 상태 보관 (자바스크립트 객체 형태)
-  - 리듀서로 접근 가능
+  - 리듀서로 접근 가능 (state는 직접 접근 불가)
   - 하나의 애플리케이션에 하나의 저장소만 존재 (react 주로 index.js) -> Reucer도 하나
   - immutable
   - 여러 메서드들 존재
@@ -290,3 +295,4 @@ export default ProductsPage
 - https://m.blog.naver.com/suresofttech/221569611618
 - https://stackoverflow.com/questions/33009657/what-is-optimistic-updates-in-front-end-development
 - https://delivan.dev/react/stop-asking-if-react-hooks-replace-redux-kr/#redux%EB%8A%94-%EC%84%A0%ED%83%9D%EC%82%AC%ED%95%AD%EC%9D%B4%EB%8B%A4
+- 생활코딩-redux
