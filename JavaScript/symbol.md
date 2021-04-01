@@ -27,11 +27,11 @@ myObject[prop3] = 3;
 myObject[prop4] = 4;
 
 for (var key in myObject){
-  console.log('key'); // prop3 prop4는 나오지 않음!
+  console.log('key'); //prop1 prop2,/  prop3 prop4는 나오지 않음!
 }
 
 console.log(myObject[prop3]) // 3
-console.log(myObject[prop3]) // 4
+console.log(myObject[prop4]) // 4
 ```
 
 - 프로퍼티 name 충돌 방지
