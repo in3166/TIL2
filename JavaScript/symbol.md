@@ -1,9 +1,128 @@
 # Symbol
 - ES6에서 Symbol 타입 추가
-- 객체의 고유한 식별자 의미
+- `유일한 식별자(unique identifier)`를 만들 때 사용
 - 이름의 충돌 위험이 없는 유일한 객체의 프로퍼티 키(property key)를 만들기 위해 사용
 - 고유한 심볼 테이블들이 심볼들을 가지고 있다.
+ 
+`let id = Symbol();`: id는 새로운 심볼
+- 심볼 이름
+```javascript
+// 심볼 id에 "id"라는 설명이 붙음
+let id = Symbol('id');
+```
 
+- 동일한 심볼 이름 가능
+- 심볼 자체는 서로 다름
+```javascript
+let id1 = Symbol("id1");
+let id2 = Symbol("id2");
+console.log(id1 == id2); // false
+```
+
+- 심볼은 문자형으로 자동 형 변환 불가
+- JavaScript는 암시적 형 변환이 자유롭지만 심볼형 값은 자동 형 변환이 되지 않는다.
+- 출력을 위해선 `.toString()` 사용
+```javascript
+let id = Symbol("id");
+alert(id); // TypeError: Cannot convert a Symbol value to a string
+alert(id.toString()); // Symbol(id)가 얼럿 창에 출력됨
+```
+- `symbol.description` 프로퍼티를 이용하면 설명만 출력 가능
+```javascript
+let id = Symbol("id");
+alert(id.description); // id
+```
+
+# '숨김' 프로퍼티
+- 외부 코드에서 접근이 불가능하고 값도 덮어쓸 수 없는 프로퍼티
+- 예시1
+  - 서드파티 코드에서 가져 온 `user` 객체
+  ```javascript
+   let user = {
+      name: "John"
+   };
+   
+   let id = Symbol("id");
+   user[id] = 1;
+   alert(user[id]); // 1
+  ```
+  - 문자열 `"id"` 대신 심볼 `Symbol("id")을 사용한 이유
+    - 서드파티에서 가져 온 `user`에 함부로 새로운 프로퍼티를 추가할 수 없다.
+    - 심볼을 서드파티에 접근할 수 없어서 서드파티 모르게 식별자 부여 가능.
+
+- 예시2
+  - 제 3의 스크립트(라이브러리 등)에서 `user`를 식별
+  - `user`의 원천인 서드파티 코드, 현재 작성 중인 스크립트, 제 3의 스크립트가 각자 서로 모른 채 `user` 식별해야 하는 상황
+  - 제 3의 스크립트에선 `Symbol("id")`을 이용해 전용 식별자를 만들어 사용할 수 있다.
+  ```javascript
+  let id = Symbol("id");
+  user[id] = "제 3의 스크립트 id 값";
+  ```
+  - 심볼은 유일성이 보장되므로 현재 작성 중인 스크립트에서 우리가 만든 식별자와 제3의 스크립트에서 만든 식별자가 충돌하지 않음.
+
+## 심볼형 프로퍼티 숨기기
+- 키가 심볼인 프로퍼티는 `for...in` 반복문에서 배제됨.
+```javascript
+let id = Symbol("id");
+let user = {
+  name: 'John',
+  age: 30,
+  [id]:  123
+};
+for(let key in user) alert(key); // name과 age만 출력
+// 직접 접근
+alert("직접 접근: ", user[id]);
+```
+
+- `Object.keys(user)에서도 심볼인 키는 배제
+- `Object.assign`은 키가 심볼인 프로퍼티 배제하지 않고 모든 프로퍼티 복사
+```javascript
+let id = Symbol("id");
+let user = {
+  [id]: 123
+};
+
+let clone = Object.assign({}, user);
+
+alert( clone[id] ); // 123
+```
+
+## 전역 심볼
+- 이름(설명)이 같은 심볼이 같은 개체를 가리키는 경우
+- 애플리케이션 곳곳에서 심볼 "id"를 이용해 특정 프로퍼티 접근하는 경우
+- `전역 심볼 레지스트리(global symbol registry)`안에 심볼을 만들고 접근하면 같은 이름은 항상 동일한 심볼 반환
+- 레지스트리에 심볼을 읽거나, 생성하려면 `Symbol.for(key)`를 사용, 이름이 `key`인 심볼을 반환
+- 조건에 맞는 심볼이 없으면 새로운 심볼 생성
+```javascript
+let id = Symbol.for("id");
+let idAgain = Symbol.for("id");
+alert(id === idAgain);  // true
+```
+
+## Symbol.keyFor
+- 전역 심볼을 찾는 `Symbol.for(key)`에 반대되는 메서드
+- 전역 레지스트리 안 심볼의 이름을 얻기
+```javascript
+// 이름을 사용해 심볼을 찾음
+let sym = Symbol.for("name");
+let sym2 = Symbol.for("id");
+// 심볼을 이용해 이름을 얻음
+alert( Symbol.keyFor(sym) ); // name
+alert( Symbol.keyFor(sym2) ); // id
+```
+- 전역 심볼을 제외한 모든 심볼은 `description` 프로퍼티가 존재하여 이를 사용
+
+## 시스텝 심볼
+- 자바스크립트 내부에서 사용되는 심볼
+- 객체를 미세 조정 가능
+- `Symbole.hasInstance`
+- `Symbole.iterator`
+- `Symbole.toPrimitive`
+- `Symbole.isConcatSpreadable`
+- 등등
+
+<hr>
+<br><br><br>
 
 ## 목적
 - for in loop / Object.keys와 같은 기존 메소드를 변경 과정 없이 새로 객체에 프로퍼티를 추가
@@ -126,9 +245,10 @@ console.log(s1 === s2); // true
   console.log(iterator.next()); // { value: 'c', done: false }
   console.log(iterator.next()); // { value: undefined, done: true }
   ```
-
+<br><br><br>
 
 <출처>
+- https://ko.javascript.info/symbol
 - https://poiemaweb.com/es6-symbol
 - https://pks2974.medium.com/javascript%EC%99%80-%EC%8B%AC%EB%B3%BC-symbol-bbdf3251aa28
 - https://medium.com/@hyunwoojo/javascript-symbol-%EC%97%90-%EB%8C%80%ED%95%B4%EC%84%9C-6aa5903fb6f1
