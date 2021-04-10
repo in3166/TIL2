@@ -15,6 +15,7 @@
 <br>
 
 - 서비스 워커는 브라우저가 종료돼도 독자적인 형태로 작동
+- 
 ## Service Worker 적용 방법
 - react 기본 Service Worker 코드
 ```javascript
@@ -132,6 +133,7 @@ export function unregister() {
 }
 ```
 - localhost가 아닌 환경에서는 https로 등록을 해야한다.
+<br>
 
 ### 단점
 - 프로세스 동작 중 설치 실패 알림 기능이 부족
