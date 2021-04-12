@@ -361,7 +361,7 @@ describe('App.ClickCounter', () => {
 <br><br>
 
 ## 화면에 보이는 부분의 모듈 만들기
-### ClickCounter 뷰 모듈
+### ClickCountView 모듈
 - counter 데이터는 DOM에 반영되어야 하는데 이 역할을 하는 모둘을 생성
 - 데이터를 출력하고 이벤트 핸들러를 바인딩하는 역할 담당
 
@@ -613,6 +613,219 @@ App.ClickCountView.messages = {
   noClickCounter: 'clickCount를 주입해야 합니다',
   noUpdateEl: 'updateEl를 주입해야 합니다'
 }
+```
+
+<br><br>
+
+# 모듈 이용 화면 만들기
+```html
+<html>
+  <body>
+    <span id="counter-display"></span>  <!-- updateEl -->
+    <button id="btn-increase">Increase</button> <!-- triggerEl -->
+
+    <script src="ClickCounter.js"></script> <!-- 테스트코드는 호그ㅘ디 않음 -->
+    <script src="ClickCountView.js"></script>
+
+    <script>
+      (() => {
+        // todo: 두 모듈과 markup으로 화면을 그릴 부분
+        const clickCounter = App.ClickCounter()
+        const updateEl = document.querySelector('#counter-display')
+        const triggerEl = document.querySelector('#btn-increase')
+        const view = App.ClickCountView(clickCounter, { updateEl, triggerEl })
+        view.updateView()
+      })()
+    </script>
+  </body>
+</html>
+```
+
+## 기존 코드와 비교
+```html
+<button onclick="counter++; countDisplay()">증가</button>
+```
+
+- button: 여러 관심사 혼재 (버튼 출력과 클릭이벤트 바인딩, 카운터 값 증가, 카운터 값 화면에 그리는 함수 호출)
+- 개선
+  - `<button id="btn-increase">Increase</button>`: 화면에 버튼만 출력
+  - `view.updateView()`: 화면 갱신은 view 객체의 updateView() 메서드가 맡음
+  - `ClickCounter`모듈의 increase() 함수 카운터 값 증가, 이 모듈이 클릭 관련 데이터를 관리
+  - `ClickCountView` 화면 관리 모듈: `options.triggerEl.addEventListener('click', () => { view.increaseAndUpdateView() }) - 버튼 클릭 이벤트 바인딩
+  - 가독성과 유지 보수 용이성 향상
+<br>
+
+```html
+<script>
+  var counter = 0;
+</script
+```
+- 전역 변수 counter: 변수 이름이 충돌할 여지 많음.
+- 개선: 데이터 관리는 `ClickCounter` 모듈에 위임
+  - 전역 변수를 모듈 안에 넣음
+  ```javascript
+  App.ClickCounter = () => { 
+  let value = 0; 
+    return {
+      getValue() {
+        return value
+      },
+      increase() {
+        value++
+      }
+    }
+  }
+  ```
+  - 이 value 함수는 다른 함수 `getValue`와 `increase`에서 호출 함으로써 **클로저**로 만듦. -> `ClickCounter` 모듈 안에서만 이 값을 접근 가능(외부 접근 불가)
+  
+<br>
+
+```html
+<script>
+  function countDisplay() {
+    var el = document.getElementById('counter-display');
+    el.innerHTML = counter;
+  }
+</script>
+```
+- 기존 `countDisplay()` 함수의 문제점: 재사용 불가
+- 개선: 화면 관리 모듈 `ClickCountView`
+  - `updateView()` 메서드: `options.updateEl.innerHTML =  clickCounter.getValue()`
+  - 호출 시 `updateEl`라는 이름으로만 전달해주면 화면을 그릴 수 있음.
+<br><br>
+
+# 추가 요구 사항도 쉡게 받을 수 있는 코드 만들기
+- counter 감소 버튼, 2씩 증가-감소, ...
+
+## ClickCounter 모듈 세번째 스펙: `ClickCounter 모듈은 '데이터'를 주입 받는다.`
+- 현재는 value가 클로저로 생성되어 공유 불가
+- 데이터를 주입 받음으로써 증가와 감소를 위한 데이터를 공유
+
+### TDD의 첫 단계: 실패하는 테스트 코드 만들기 (적색 단계)
+- 데이터를 주입받기 - 없을 경우 에러를 던지는 테스트 코드 작성
+```JAVAScript
+  it('초기값을 주입하지 않으면 에러를 던진다', () => {
+    // todo 
+    const actual = () => (counter = App.ClickCounter())
+    expect(actual).toThrowError()
+  })
+```
+
+### TDD의 두번째 단계: Test 통과하도록 모듈 코드 생성 (녹색 단계)
+```javascript
+App.ClickCounter = (_data) => {
+  if (!_data) throw Error('_data')
+  const data = _data; // 객체의 프로퍼티로 값을 변경하므로 const로 변경
+  // 정수같은 원시형 값을 인자로 넣어주면 그 값은 참조가 아니라 복사 (객체 사용)
+  data.value = data.value || 0;
+
+  return {
+    getValue() {
+      return data.value
+    },
+    increase() {
+      data.value++
+    }
+  }
+}
+```
+<br>
+
+...
+- data 객체와 연관된 test 코드 수정
+```javascript
+// ClickCounter.spec.js
+describe('App.ClickCounter', () => {
+  let counter, data
+  ...
+  beforeEach(() => {
+    data = { value: 0 }
+    counter = App.ClickCounter(data)
+  })
+...
+```
+```javascript
+// ClickCountView.spec.js
+  beforeEach(()=> {
+    const data = { value: 0 }
+    clickCounter = App.ClickCounter(data)
+```
+
+# ClickCounter 모듈 네번째 스펙: `ClickCounter 모듈의 increase 함수는 대체될 수 있다.`
+- 증가 뿐만 아니라 감소도 가능해야 한다.
+- 이름 변경: increase -> count
+
+### TDD의 첫 단계: 실패하는 테스트 코드 만들기 (적색 단계)
+```javascript
+// ClickCounter.spec.js
+...
+describe('setCountFn()', () => {
+    it('인자로 함수를 넘기면 count()를 대체한다', () => {
+      // 2를 더하는 함수 (테스트 준비)
+      const add2 = value => value +2
+      const expected = add2(data.value)
+      // 실행
+      counter.setCountFn(add2).count()
+      const actual = counter.getValue()
+      //검증
+      expect(actual).toBe(expected)
+    })
+  })
+})
+```
+<br>
+
+### TDD의 두번째 단계: Test 통과하도록 모듈 코드 생성 (녹색 단계)
+```javascript
+App.ClickCounter = _data => {
+  if (!_data) throw Error('_data')
+  const data = _data
+  data.value = data.value || 0
+
+  return {
+    getValue() {
+      return data.value
+    },
+
+    count() {
+      data.value++
+    },
+    setCountFn(fn) {
+      this.count = () => (data.value = fn(data.value)) // 함수 오버라이딩
+      return this // 함수 체이닝
+    }
+  }
+}
+```
+
+## 화면에 붙이기
+```html
+ <button id="btn-desc">Decrease</button>
+  <span id="counter-display"></span>
+  <button id="btn-increase">Increase</button>
+
+  <script src="ClickCounter.js"></script>
+  <script src="ClickCountView.js"></script>
+
+  <script>
+    (() => {
+      const data = { value: 0 } //data 객체 생성
+      const counterDesc = App.ClickCounter(data).setCountFn(v => v - 1);
+      const counterInc = App.ClickCounter(data)
+
+
+      const clickCounter = App.ClickCounter()
+
+      const updateEl = document.querySelector('#counter-display')
+      const btnInc = document.querySelector('#btn-increase')
+      const btnDes = document.querySelector('#btn-desc')
+
+      const descCounterView = App.ClickCountView(counterDesc, { updateEl, btnDes })
+      const incCounterView = App.ClickCountView(counterInc, { updateEl, btnInc })
+
+      descCounterView.updateView()
+    })()
+  </script>
 ```
 
 <br><br><br>
