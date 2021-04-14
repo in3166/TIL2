@@ -90,7 +90,7 @@ export default function App() {
       - 함수형 컴포넌트: useRef
       ```javascript
       function MyComponenet() {
-        const myRef = useRed(null);
+        const myRef = useRef(null);
         
         return (
           <div ref={myRef} />
