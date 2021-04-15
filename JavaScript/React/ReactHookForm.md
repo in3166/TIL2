@@ -1,5 +1,7 @@
 # React Hook Form 모듈
 - Formik+ Yup 보다 깔끔한 syntax, 간결한 코드
+- 좋은 성능
+
 
 ## 예제: 회원가입
 <img src="https://github.com/in3166/TIL/blob/main/JavaScript/React/img/reacthookform.JPG" width="55%" />
@@ -62,14 +64,16 @@ export default function App() {
   );
 }
 ```
+<br>
 
 ### 유효성 체크
-<img src="https://github.com/in3166/TIL/blob/main/JavaScript/React/img/reacthookform2.JPG" width="75%" />
+<img src="https://github.com/in3166/TIL/blob/main/JavaScript/React/img/reacthookform2.JPG"  />
 
-- (1): name이 example인 `input`(2)에 입력하면 watch로 관찰하여 출력, (3) ref에 register를 등록해줘야 관찰 가능
+- (1): Element의 name이 'example'인 `input`(2)에 입력하면 watch로 관찰하여 출력, (3) ref에 `register`를 등록해줘야 관찰 가능
+  - 버전 업: ref 대신 `{...register("email")}`로 변경
 - 어떤 것이 입력되고 있는지 알아야 유효성 체크 가능
 - (4): 유효성 체크 시 조건 주기
-- (5): (4)의 유효성 체크에 걸리면 출력(렌더링)을 해준다.
+- (5): (4)의 유효성 체크(error)에 걸리면 `출력(렌더링)`을 해준다.
 
 -  const password = useRef();
   - useRef?
@@ -87,6 +91,7 @@ export default function App() {
         }
       }
       ```
+      
       - 함수형 컴포넌트: useRef
       ```javascript
       function MyComponenet() {
