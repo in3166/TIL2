@@ -1,7 +1,8 @@
 # Class 정의
 - 객체를 생성하기 위한 템플릿
 - 데이터와 이를 조작하는 코드를 하나로 추상화
-
+<Br>
+  
 ## Class 선언
 - class 키워드 사용
 ```javascript
@@ -12,6 +13,7 @@ class Rectangle {
   }
 }
 ```
+
   ### Hoisting
   - class 선언은 `호이스팅`이 일어나지 않는다.
   - class 사용을 위해선 먼저 선언해야 한다.
