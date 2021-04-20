@@ -126,13 +126,14 @@ function App() {
 
 ## Route의 prop
 - ReactRouter의 `<Route>` 컴포넌트의 prop으로 넘어오는 값들?
-```javascript
+```js
 <Router>
   <Route path="/about" component={About} />
 </Router>
 ```
 - ReactRouter는 `match`, `location`, `history` 3개의 prop을 `<About>` 컴포넌트에 넘겨준다.
-```import React from "react"
+```js
+import React from "react"
 
 function About({ match, location, history }) {
   return (
@@ -157,7 +158,7 @@ export default Aboutjavascript
 ### App 컴포넌트
 - 최상위 컴포넌트에서 메뉴의 경로에 대응되는 컴포넌트 맵핑하는 기본 라우팅 구현
 - `/user` 경로 `<User>` 컴포넌트를 맵핑
-```javsacript
+```js
 import React from "react"
 import { Link, Route, Switch, BrowserRouter as Router } from "react-router-dom"
 import Home from "./Home"
