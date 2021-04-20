@@ -151,8 +151,10 @@ export default Aboutjavascript
 ## 중첩 라우팅 구현
 - `/user`: 유저 목록 페이지
 - `/user/:id`: 유저 상세 페이지
+
 ### App 컴포넌트
 - 최상위 컴포넌트에서 메뉴의 경로에 대응되는 컴포넌트 맵핑하는 기본 라우팅 구현
+- `/user` 경로 `<User>` 컴포넌트를 맵핑
 ```javsacript
 import React from "react"
 import { Link, Route, Switch, BrowserRouter as Router } from "react-router-dom"
@@ -193,12 +195,85 @@ export default App
 <br>
 
 ### User 컴포넌트
+- 위에서 `<Route>` 컴포넌트의 `component` prop의 인자로 `<User>` 컴포넌트를 넘겼으므로 3개의 prop을 넘겨받음.
+  - `{ match, location, history }`
+- 1. 유저 목록 페이지: `/user` 경로에 `<UserList>` 컴포넌트 맵핑 (exact 사용)
+- 2. 유저 상세 페이지: `/user/:id` 경로에 `<UserDetail>` 컴포넌트 맵핑
+```javascript
+import React from "react"
+import { Route } from "react-router-dom"
+import UserList from "./UserList"
+import UserDetail from "./UserDetail"
 
+function Users({ match }) {
+  return (
+    <>
+      <h1>Users</h1>
+      <Route exact path={match.path} component={UserList} />
+      <Route path={`${match.path}/:id`} component={UserDetail} />
+    </>
+  )
+}
 
+export default Users
+```
 
+### UserList 컴포넌트
+- `<Link>` 컴포넌트를 이용해 각 유저의 상세 페이지 이동 링크 생성
+- `match.url` 뒤에 `id`를 붙여 `to` prop에 넘겨준다. (경로 패턴 사용 - path X)
+```javascript
+import React from "react"
+import { Link } from "react-router-dom"
+import { users } from "./data.json"
 
+function UserList({ match }) {
+  return (
+    <>
+      <h2>User List</h2>
+      <ul>
+        {users.map(({ id, name }) => (
+          <li key={id}>
+            <Link to={`${match.url}/${id}`}>{name}</Link>
+          </li>
+        ))}
+      </ul>
+    </>
+  )
+}
+
+export default UserList
+```
+
+### UserDetail 컴포넌트
+- `match.params`를 통해 경로에 포함된 URL 파라미터 읽음 (`/user/1` -> `{ id : 1 }`)
+- `history` prop의 `goBack()` 함수를 사용해 돌아가기 버튼 생성
+```javascript
+import React from "react"
+import { users } from "./data.json"
+
+function UserDetail({ match, history }) {
+  const user = users.find((user) => user.id === match.params.id)
+  return (
+    <>
+      <h2>User Detail</h2>
+      <dt>id</dt>
+      <dd>{user.id}</dd>
+      <dt>name</dt>
+      <dd>{user.name}</dd>
+      <button onClick={() => history.goBack()}>Back</button>
+    </>
+  )
+}
+
+export default UserDetail
+```
+
+<img src="https://github.com/in3166/TIL/blob/main/JavaScript/React/img/reactrouter1.JPG" />
+<img src="https://github.com/in3166/TIL/blob/main/JavaScript/React/img/reactrouter2.JPG" />
 
 
 <br><br><br>
+
 <출처>
 - https://www.daleseo.com/react-router-basic/
+- https://www.daleseo.com/react-router-nested/
