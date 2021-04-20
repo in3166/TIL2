@@ -1,5 +1,5 @@
 ## React Router 없이 라우팅 구현
-```javsacript
+```javascript
 import React, { useState } from "react"
 import Home from "./Home"
 import About from "./About"
@@ -44,7 +44,9 @@ function App() {
 ```javascript
 <Link to="/about">About</Link>
 ```
-
+- a 태그의 기본적인 속성은 페이지를 이동시키면서, 페이지를 아예 새로 불러오게됩니다. 
+- 그렇게 되면서 우리 리액트 앱이 지니고있는 상태들도 초기화되고, 렌더링된 컴포넌트도 모두 사라지고 새로 렌더링을 하게됩니다.
+- 그렇기 때문에 Link 컴포넌트를 사용하는데요, 이 컴포넌트는 HTML5 History API 를 사용하여 브라우저의 주소만 바꿀뿐, 페이지를 새로 불러오지는 않습니다.
 
 ### Route
 - 현재 주소창의 경로와 매치될 경우 보여줄 컴포넌트 지정
@@ -277,3 +279,4 @@ export default UserDetail
 <출처>
 - https://www.daleseo.com/react-router-basic/
 - https://www.daleseo.com/react-router-nested/
+- https://velog.io/@bigbrothershin/React-Router
