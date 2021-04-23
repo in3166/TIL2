@@ -230,9 +230,72 @@ documnet.querySelector("div").addEventListener("click", function({type, target})
 <br><br>
 
 # Set으로 유니크한 배열 만들기
+- 중복 없이 유일한 값을 저장, 이미 존재하는지 체크할 때 유용
+```js
+let mySet = new Set();
+console.log(toString.call(mySet)); // [objdect Set]
+
+mySet.add("a");
+mySet.add("b");
+mySet.add("a");
+
+console.log(mySet.has("a")); // true
+mySet.forEach((v)=>{
+  console.log(v); // "a" , "b"
+});
+
+mySet.delete("a");
+```
 
 
-## Weak Set으로 효과적 객체 타입 저장하기
+## WeakSet으로 효과적 객체 타입 저장하기
+- 참조를 가지고 있는 `객체`만 저장 가능
+- 객체 형태를 중복없이 저장하려 할 때 유용
+- 객체가 `null`이 되거나 필요가 없어지면 가비지 컬렉션의 대상이 된다.
+  - WeakSet에서도 그 정보가 없어진다. (참조를 모니터링)
+
+```js
+let arr = [1, 2, 3];
+let arr2 = [5, 6, 7];
+let obj = { arr, arr2 };
+let ws = new WeakSet();
+
+ws.add(arr);
+ws.add(arr2);
+ws.add(obj); 
+ws.add(111); // 오류 발생
+console.log(ws); // { [1, 2, 3], [5, 6, 7], Object {arr: Array(3), arr2:; Array(3)} }
+
+arr = null을 했다고 하더라도,
+가비지 컬렉터 입장에서 보면 ws에서 참조 중이기 때문에 가비지 컬렉견 대상으로는 되지 않을 것 같습니다.
+가비지 컬렉션 대상으로 인식한다는 근거로 제시하신 것이 has(null)이니 당연히 false
+
+//arr = null;
+//console.log(ws); // { [1, 2, 3], [5, 6, 7], Object {arr: Array(3), arr2:; Array(3)} } 동일, ws에 존재하는 것처럼 보임
+//console.log(ws.has(arr)); // false 유효하지 않은 객체
+```
+<br><br>
+
+# Map & WeakMap
+- key, value 구조
+```js
+let wm = new WeakMap();
+let myfun = function(){};
+// 이 함수가 얼마나 실행됐는지
+
+wm.set(myfun, 0);
+cosole.log(wm); // {function => 0}
+
+let count = 0;
+for(let i=0; i<10; i++){
+  count = wm.get(myfun); // get value
+  count++;
+  wm.set(myfun, count);
+}
+cosole.log(wm.get(myfun); // 10
+```
+
+## WeakMap 클래스 인스턴스 변수 보호하기
 
 
 <br><br><br>
