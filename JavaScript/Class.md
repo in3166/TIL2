@@ -60,6 +60,7 @@ console.log(Rectangle.name); // "Rectangle2"
 - `class`로 생성된 객체를 생성하고 초기화하기 위한 특수한 메서드
 - class 안에 한 개만 존재
 - 부모 클래스의 constructor를 호출하기 위해 `super`키워드 사용할 수 있다.
+<br>
 
 ## 프로토타입 메서드
   ### ECMAScript2015 부터 객체 초기자(initializer)에 메서드 정의를 위한 짧은 구문 도입
