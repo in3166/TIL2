@@ -1,17 +1,18 @@
 # NoSQL (Not only SQL)
 
-- NoSQL은 단순히 기존 관계형 DBMS가 갖고 있는 특성뿐만 아니라, 다른 특성들을 부가적으로 지원하는 데이터베이스 관리 시스템
-- 더 융통성 있는 데이터 모델을 사용
-- 데이터의 저장 및 검색을 위한 특화된 매커니즘을 제공. 
-- 단순 검색 및 추가 작업에 있어서 매우 최적화된 키-값 저장 기법을 사용. 
+- 기존 관계형 DBMS가 갖고 있는 특성뿐만 아니라, 다른 특성들을 부가적으로 지원하는 데이터베이스 관리 시스템
+- 더 융통성있는 데이터 모델을 사용
+
+- 데이터의 **저장 및 검색**을 위한 특화된 매커니즘을 제공. 
+- 단순 검색 및 추가 작업에 있어서 매우 최적화된 `Key-Value` 저장 기법을 사용. 
 - 응답속도나 처리 효율 등에 매우 뛰어난 성능
 - 데이터가 일관성이 없고 복잡한 쿼리를 사용할 수 없는 환경에서 NoSQL은 스키마가 필요 없고 데이터 분산이 용이
+-  비정형 데이터를 보다 쉽게 저장하고 처리 가능
 
-*쿼리(query): 정보 수집에 대한 요청에 쓰이는 컴퓨터 언어*
+`쿼리(query): 정보 수집에 대한 요청에 쓰이는 컴퓨터 언어`
 - 데이터의 정확한 처리가 필수적인 시스템에서는 관계형 데이터베이스를 사용. 
 - SQL이라고 하는 데이터 처리 언어의 편의성 때문에 NoSQL 등 다른 데이터베이스 시스템들은 많이 활용되지 않았음
 
--  비정형 데이터를 보다 쉽게 저장하고 처리
 <br>
 
 ## NoSQL 디자인 필수 사항
@@ -42,6 +43,7 @@
 
 - Column Family: 테이블 형태 데이터 저장을 위해 확장된 개념 사용
   - Key 안에 (Column, Value) 조합의 여러 필드를 갖는다.
+  
   <img src="https://github.com/in3166/TIL/blob/main/DB/MongoDB/img/nodatamodel1.png" />
   
   - 예) 사용자 프로필 저장: 사용자 이름(key) / 성별, 주소, 나이은 각각의 Column
@@ -50,6 +52,7 @@
 ### 2. Ordered Key/Value Store
 - Key/Value Store 확장 형태, 데이터가 내부적으로 Key를 순서로 Sorting 저장
 - 결과값을 업데이트 날짜 등으로 sorting하여 보여주는 것 유리 (Hbase, Cassandra 등)
+
 <img src="https://github.com/in3166/TIL/blob/main/DB/MongoDB/img/nodatamodel2.png" />
 
 ### 3. Document Key/Value Store
@@ -57,6 +60,7 @@
 - Key에 해당하는 Value 필드에 데이터를 저장하는 구조는 같지만 저장되는 Value 데이터 타입이 `Document` 타입 사용
 - Document 타입: XML, JSON, YAML 같이 구조화된 데이터 타입, 복잡한 계층 구조 표현 가능
 - 대부분 추가적인 기능 (Sorting, Join, Grouping) 제공 (MongoDB, CouchDB, Riak 등)
+
 <img src="https://github.com/in3166/TIL/blob/main/DB/MongoDB/img/nodatamodel3.png" />
 
 
@@ -76,6 +80,7 @@
 
 ## NoSQL 데이터 모델링
 - NoSQL에 저장할 데이터 구조 - 테이블 설계 정의
+
 - RDBMS와 차이
   - 1) 개체 모델 지향에서 쿼리 결과 지향의 모델링
     - REBMS 모델링: 저장할 도메인 모델 분석 후 개체 간 관계 식별, 테이블 추출, 테이블 이용 쿼리 구현하여 결과 도출
@@ -91,10 +96,12 @@
 - 어떤 데이터 개체가 있고 개체 간 관계는 어떻게 되는지 분석하고 ERD로 그려 도식화 (기존 RDBMS 모델링 접근 방법)
 - 예) 블로그 시스템 데이터 도메인 모델
   - 사용자 ID 기반 블로그 카테고리 가지고 분류별 글 작성 가능, 글에 파일 첨부 가능, 댓글 가능
+  
   <img src="https://github.com/in3166/TIL/blob/main/DB/MongoDB/img/nodatamodel4.png" />
 
 2. 쿼리 결과 디자인 (데이터 출력 형태 디자인)
 - '도메인 모델' 기반 애플레케이션에 의해 쿼리되는 결과값을 먼저 정한다.
+
   <img src="https://github.com/in3166/TIL/blob/main/DB/MongoDB/img/nodatamodel5.png" />
   
   - 1) 화면 좌측 상단: 블로그 사용자 포스팅 분류명 목록식 출력 
