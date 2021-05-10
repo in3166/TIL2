@@ -135,6 +135,84 @@ function render(){
 <br><br>
 
 - Redux를 사용한 경우
+1. 설치 or CDN: `npm install --save redux` - redux 객체 생성
+2. `store` 생성: 인자 `reudcer`, `dispatch`로 액션이 들어오면 액션과 기존 `state` 값으로 새로운 `state` 생성
+3. `reducer`로 `state` 초깃값 설정
+4. `action` 발생 시 `dispatch`로 `action`을 넘기면 `reducer` 함수가 호출되어 새로운 `state` 값 생성
+  - `Object.assign({}, 복제할객체);` 이전 `state`를 복제하여 사용!
+5. `state` 변경 시 `subscribe`로 업데이트 하기
+```html
+<body>
+  <style>
+    .container{
+      border: 5px solid black;
+      padding: 10px;
+    }
+  </style>
+  
+  <div id="red"></div>
+  <div id="green"></div>
+  
+  <script>
+    function reducer(state, action){
+      // 초기화 단계
+      if(state === undefined){
+        return {color:'yellow'}
+      }
+      // dispatch
+      var newState;
+      if(action.type === "CHANGE_COLOR"){
+        // state.color = 'red'; 이전의 state 값을 변경하여 return하지 말고 복제하여 사용 -> redux 이점 사용을 위해(state 과거 기록 등)
+        newState = Object.assign({}, state, {color:action.color});
+      }
+      return newState;
+    }
+    // store 생성 - 전역 변수 store에 저장
+    var store = Redux.createStore(reducer);
+    console.log(store.getState()) // {color:'yellow'}
+    
+    function red(){
+      var state = store.getState();
+      document.querySelector('#red').innerHTML = `
+        <div class="container" id="component_red" style="background-color:${state.color}">
+          <h1>Red</h1>
+          <input type="button" value="fire" onclick="store.dispatch({type:'CHANGE_COLOR', color:'red'})"/>
+        </div>
+      `;
+    }
+    sotre.subscribe(red); // state가 바뀌면 red 함수 호출
+    red();
+    
+    function green(){
+      var state = store.getState();
+      document.querySelector('#green').innerHTML = `
+        <div class="container" id="component_red" style="background-color:${state.color}">
+          <h1>green</h1>
+          <input type="button" value="fire" onclick="store.dispatch({type:'CHANGE_COLOR', color:'green'})"/>
+        </div>
+      `;
+    }
+    sotre.subscribe(green); // state가 바뀌면 green 함수 호출
+    green();
+  
+    // ...
+  </script>
+</body>
+```
+
+### Chrome의 Redux Dev Tools 사용
+1. 설치
+2. 코드 적용
+```js
+var store = Redux.createStore(
+  reducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ &&
+  window.__REDUX_DEVTOOLS_EXTENSION__()
+);
+```
+- `action` 들의 replay 가능 (과거로 돌아갈 수 있고 어떤 상태인지 볼 수 있음) - 시간여행
+- 특정 시점의 상태의 export/import 기능 지원
+- 각각의 `state`들은 독립적, 불변해야 한다.
 
 
 <br><br><br>
