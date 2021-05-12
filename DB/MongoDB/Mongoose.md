@@ -1,20 +1,23 @@
 # Mongoose
-- MongoDB를 Node.js에서 사용하기 쉽게 추상화해 놓은 ODM(Object Data Modeling) 라이브러리
+- MongoDB를 Node.js에서 사용하기 쉽게 추상화해 놓은 `ODM(Object Data Modeling) 라이브러리`
 - 스키마 정의, 데이터 모델링 및 관계 설정, 쉬운 데이터 유효성 검증, 간단한 쿼리 API와 미들웨어 등 기능 제공
-- 스키마 정의 시 데이터 모델링을 하는데, 데이터 구조 정하기, 각 데이터의 디폴트값과 유효성 체크 여부 등 결정 가능
-- Mongoose Model은 Schema를 감싸는 Wrapper로 MongoDB의 CRUD를 위한 인터페이스 제공
+
 <br>
 
-
 ## 스키마
-- Mogoose의 Schema: MongoDB에 저장되는 `document`의 Data 구조(필드 타입) 정보를 JSON 형태로 정의한 것
-
-- NoSQL은 테이블이 없어 Document에 아무거나 넣어도 에러가 발생하지 않는다.
-- 같은 필드인데 자료형이 다르거나 오타가 들어가는 등의 문제 발생 가능
-- 이런 문제를 막기 위해 `Schema` 도입
-
+- MongoDB에 저장되는 `document`의 **Data 구조(필드 타입) 정보를 JSON 형태로 정의**한 것
 - Mongoose는 사용자가 작성한 스키마 기준 데이터를 DB에 넣기 전 먼저 검사 (테이블과 비슷한 역할)
 - 인덱스, 기본값 설정 등이 가능
+
+- NoSQL은 테이블이 없어 Document에 아무거나 넣어도 에러가 발생하지 않는다. 같은 필드인데 자료형이 다르거나 오타가 들어가는 등의 문제 발생 가능한데 이런 문제를 막기 위해 `Schema` 도입
+
+## Model
+`mongoose.model('ModelName', Schema)`
+- MongoDB에서 데이터를 저장하는 기본 단위인 `Document`의 형태 (Schema 인터페이스로 생성)
+- 스키마 정의 시 데이터 모델링: 데이터 구조 정하기, 각 데이터의 디폴트값과 유효성 체크 여부 등 결정 가능
+- Mongoose Model은 Schema를 감싸는 Wrapper로 MongoDB의 CRUD를 위한 인터페이스 제공
+
+<br><br>
 
 ## 모델 스키마 정의
 - 애플리케이션에서 몽구스 모델이 MongoDB에 접근 가능한 인터페이스를 제공
@@ -42,7 +45,20 @@ const Tour = mongoose.model('Tour', tourSchema);
 module.exports = Tour;
 ```
 
-<BR>
+<BR><br>
+
+## Model 사용
+- 생성한 모델의 인스턴스를 한 번 생성하여 데이터베이스 작업 수행
+```js
+var instance = new someModel();
+instance.title = 'hello';
+instance.save(function (err){
+            // save 실행 후 콜백 함수의 내용
+});
+instance.find({}, function(err, docs){
+            // find 실행 후 콜백 함수의 내용
+});
+```
   
 ## Document 생성
 - 정의한 모델을 가져와 클라이언트의 요청이 들어오면 토큐먼트 생성
