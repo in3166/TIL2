@@ -2,6 +2,14 @@
 - 반복 가능한 문자(배열, 문자열)를 0개 이상의 인수(함수 호출) 또는 요소로 확장하여
 - 0개 이상의 키-값의 쌍으로 객체로 확장 가능
 
+- 전개 구문
+```javascript
+function myFunction(x, y, z) { }
+var args = [0, 1, 2];
+myFunction(...args);
+```
+<br>
+
 ## `apply()` 대체
 - 배열의 엘리먼트를 인수로 사용하고자 할 때
 ```javascript
@@ -9,13 +17,8 @@ function myFunction(x, y, z) { }
 var args = [0, 1, 2];
 myFunction.apply(null, args);
 ```
+<br><br>
 
-- 전개 구문
-```javascript
-function myFunction(x, y, z) { }
-var args = [0, 1, 2];
-myFunction(...args);
-```
 
 ## 배열 리터럴
 - 0개 이상의 식(expression) 목록
@@ -48,6 +51,21 @@ var arr1 = [0, 1, 2];
 var arr2 = [3, 4, 5];
 arr1 = [...arr1, ...arr2]; // arr1 은 이제 [0, 1, 2, 3, 4, 5]
 ```
+
+<br><br>
+
+## 객체 리터럴 전개
+```js
+var obj1 = { foo: 'bar', x: 42 };
+var obj2 = { foo: 'baz', y: 13 };
+
+var clonedObj = { ...obj1 };
+// Object { foo: "bar", x: 42 }
+
+var mergedObj = { ...obj1, ...obj2 };
+// Object { foo: "baz", x: 42, y: 13 }
+```
+
 
 <br><Br><br>
 - https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/Spread_syntax
