@@ -160,6 +160,80 @@ let user = {
   user.sayHi(); // [user] -   firstName: '보라', sayHi: [Function: sayHi], sayBye: [Function: sayBye]
   user.sayBye(); // [global]
 ```
+<br><br>
+
+
+## 문제1
+```js
+function makeUser() {
+  return {
+    name: "John",
+    ref: this // 함수 자체를 바라봄
+  };
+};
+
+let user = makeUser();
+
+alert( user.ref.name ); // Error: Cannot read property 'name' of undefined
+```
+- `this` 값 설정 시 객체 정의가 사용되지 않았다.
+- `this`는 호출 시점에 결정
+- `makeUser()` 내 `this`는 `undefined` - 메서드로써 호출이 아니라 **함수로써 호출**
+- `this`값은 전체 함수이고, 코드 블록과 객체 리터럴은 여기에 영햘을 주지 않는다.
+- `ref: this`는 함수의 현재 `this`를 가져온다.
+
+- 수정
+  - `user.ref()`가 메서드가 되고 `this`는 앞 `.`의 객체가 된다.
+```js
+function makeUser() {
+  return {
+    name: "John",
+    ref() {
+      return this;
+    }
+  };
+};
+
+let user = makeUser();
+
+alert( user.ref().name ); // John
+```
+
+## 문제2: 체이닝 기능 추가
+```js
+let ladder = {
+  step: 0,
+  up() {
+    this.step++;
+  },
+  down() {
+    this.step--;
+  },
+  showStep: function() { // 사다리에서 몇 번째 단에 올라와 있는지 보여줌
+    alert( this.step );
+  }
+};
+```
+```js
+let ladder = {
+  step: 0,
+  up() {
+    this.step++;
+    return this;
+  },
+  down() {
+    this.step--;
+    return this;
+  },
+  showStep() {
+    alert( this.step );
+    return this;
+  }
+}
+
+ladder.up().up().down().up().down().showStep(); // 1
+```
+
 
 <br><br><br>
 <출처>
