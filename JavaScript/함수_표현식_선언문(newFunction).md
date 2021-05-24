@@ -78,8 +78,46 @@ arr.forEach(function () {
 });
 ```
 
+<br><br>
+
+# new Function 문법
+- 함수 표현식과 함수 선언문 이외 함수를 만들 수 있는 방법
+- 기존 방식과 차이점: 런타임에서 받은 문자열을 사용해 함수를 만들 수 있다. (원래는 개바잘가 직접 스크립트를 작성해야만 한다.)
+- 서버에서 전달받은 문자열을 이용해 함수를 생성해 실행할 수 있다.
+
+```js
+let func = new Function ([arg1, arg2, ...argN], functionBody);
+```
+
+- 예제
+```js
+let sum = new Function('a', 'b', 'return a + b');
+alert( sum(1, 2) ); // 3
+
+let sayHi = new Function('alert("Hello")');
+sayHi(); // Hello
+```
+
+<br>
+
+## new Fucntion - 클로저
+- 함수는 특별한 프로퍼티 `[[Environment]]`에 저장된 정보를 이용해 자기 자신이 태아난 곳을 기억한다.
+- `[[Environment]]`는 함수가 만들어진 렉시컬 환경을 참조
+- `new Function`을 이용해 함수를 만들면 함수의 `[[Environment]]` 프로퍼티가 현재 렉시컬 환경이 아닌 **'전역 렉시컬 환경'**을 참조
+- 그래서. 외부 변수에 접근할 수 없고, 오직 전역 변수에만 접근 가능한다.
+```js
+function getFunc() {
+  let value = "test";
+  let func = new Function('alert(value)');
+  return func;
+}
+
+getFunc()(); // ReferenceError: value is not defined
+```
+
 
 
 <br><br><br>
 <출처>
 - https://joshua1988.github.io/web-development/javascript/function-expressions-vs-declarations/
+- https://ko.javascript.info/new-function
