@@ -116,6 +116,220 @@ export default function App() {
 - `setState()`도 비동기, `POST 요청`도 비동기로 처리되며 심지어 POST 요청의 우선 순위가 더 높아 업데이트된 state 값이 전달되지 않는 문제
 - 따라서 setState()를 굳이 실행하지 않고 일반 객체로 만들어 전달하여 해결
 
+<br><br>
+
+# useState
+```js
+export default function App() {
+  const [count, setCount] = useState(0);
+
+  const increase1 = () => {
+    setCount(count+1);
+    setCount(count+1);
+    setCount(count+1);
+  }
+
+  const increase2 = () => {
+    setCount(count => count + 1);
+    setCount(count => count + 1);
+    setCount(count => count + 1);
+  }
+
+  return (
+    <div className="App">
+      <h1>{count}</h1>
+      <button onClick={increase1}>increase fn 1</button>
+      <button onClick={increase2}>increase fn 2</button>
+    </div>
+  );
+}
+```
+- 첫 번째 함수 클릭 결과: 1
+- 두 번째 함수 클릭 결과: 3
+<br>
+
+## 이유
+- 차이: 변수를 넣었는가, 함수를 넣었는가
+- 새로운 상태가 바로 이전 상태를 사용해서 계산되어야 한다면, '함수'를 인자로 넣어라.
+- 함수는 바로 이전 상태의 값을 바탕으로 새로운 값을 계산한다.
+
+### 이전 상태
+- React의 Bactch Process
+  - 동기적인 하나의 Lifecycle Method나 이벤트 핸들러 안의 여러 업데이트들을 한 번에 묶어 처리하나다.
+  - 이 후 '마지막으로 Update 된 값으로 state을 결정'하고 단 한번만 렌더링 한다.
+  - 다음 함수의 결과는 '10'
+  ```js
+  const increase = () => {
+    setCount(count+1);
+    setCount(count+1);
+    setCount(count+10);
+  }
+  ```
+  <br>
+  
+## useState의 내부 구현
+- Initialize Hook: 컴포넌트가 마운트되면 Hook을 초기화하는 함수
+```js
+function mountState(initialState) {
+  var hook = mountWorkInProgressHook();
+
+  if (typeof initialState === 'function') {
+    initialState = initialState();
+  }
+
+  hook.memoizedState = hook.baseState = initialState;
+  var queue = hook.queue = {
+    last: null,
+    dispatch: null,
+    lastRenderedReducer: basicStateReducer,
+    lastRenderedState: initialState
+  };
+  var dispatch = queue.dispatch = dispatchAction.bind(null, currentlyRenderingFiber$1, queue);
+  return [hook.memoizedState, dispatch];
+}
+```
+<br>
+
+- `mountWorkInProgressHook()`을 실행하여 hook 변수에 할당, 초기 null, 함수의 끝에는 다음의 포맷
+```js
+{
+  memoizedState: 0, 
+  baseState: 0, 
+  queue: {
+    last: null,
+    dispatch: dispatchAction.bind(null, currentlyRenderingFiber$1, queue),
+    lastRenderedReducer: basicStateReducer(state, action),
+    lastRenderedState: 0, 
+  },
+  baseUpdate: null,
+  next: null,
+}
+```
+- `useState`에 초기값이 들어오면 이 함수로 설정
+- `memoizedState`와 `dispatch`를 리턴하여 초기 설정 완료
+- `next`는 LinkedList의 일종, 하나의 컴포넌트 안에서 여러개의 hook 사용 시 이를 연결(hook을 조건문에 넣지 말고 최상위에 위치시켜야하는 이유)
+- 컴포넌트 마운트 시 hook이 여러 개 있으면 다음과 같이 next를 통해 연결되는 구조
+```js
+{
+  memoizedState: 0, // first hook
+  baseState: 0,
+  queue: { /* ... */},
+  baseUpdate: null,
+  next: { // second hook
+    memoizedState: false, 
+    baseState: false,
+    queue: { /* ... */},
+    baseUpdate: null,
+    next: { // third hook
+      memoizedState: {
+        tag: 192,
+        create: () => {},
+        destory: undefined,
+        deps: [0, false],
+        next: { /* ... */}
+      }, 
+      baseState: null,
+      queue: null,
+      baseUpdate: null,
+      next: null
+    }
+  }
+}
+```
+<br><Br>
+  
+## Update Hook
+- 위와 같은 상태구조에서 hook 구조에 상태 변경이 일어날 때 (setState 호출 시) 구조 변경
+  - 1. update 일어나기전 hook 상태
+  ```js
+  {
+    memoizedState: 0, 
+    baseState: 0,
+    queue: {
+      last: null,
+      dispatch: dispatchAction.bind(bull, currenctlyRenderingFiber$1, queue),
+      lastRenderedReducer: basicStateReducer(state, action),
+      lastRenderedState: 0,
+    },
+    baseUpdate: null,
+    next: null
+  }
+  ```
+  
+  - 2. queue의 last 값 할당
+  ```js
+  {
+    memoizedState: 0, 
+    baseState: 0,
+    queue: {
+     last: {
+        expirationTime: 1073741823,
+        suspenseConfig: null,
+        action: 1, // setCount를 통해 설정한 값.
+        eagerReducer: basicStateReducer(state, action),
+        eagerState: 1, // 실제로 상태 업데이트를 마치고 렌더링되는 값.
+        next: { /* ... */},
+        priority: 98
+      },
+      dispatch: dispatchAction.bind(bull, currenctlyRenderingFiber$1, queue),
+      lastRenderedReducer: basicStateReducer(state, action),
+      lastRenderedState: 0,
+    },
+    baseUpdate: null,
+    next: null
+  }
+  ```
+  
+  - last에 setCount를 통해 넘어온 'action'과 최종적으로 update될 상태를 담은 `eagerState` 변수, action으로부터 `eagerState`변수를 계산하는 `eagerReducer` 값 세팅
+  - 사용자가 넘긴 action으로부터 Bacth Process 이후 최종 반환될 `eagerState`를 계산하는 함수 `eagerReducer`
+  - 이 Reducer에 넘기는 action은 함수일 경우 이전 상태를 파라미터로 넘겨주어 함수를 실행한 값을 리턴, 값일 경우 값을 리턴
+  - Reducer로 값을 할당하기 때문에 action에 함수를 넣어주면 update 시 함수를 이요해 eagerState를 계산하고 다음 update에 넘어가므로 지속적 값 업데이트 가능
+  ```js
+  function basicStateReducer(state, action) {
+    return typeof action === 'function' ? action(state) : action;
+  }
+  ```
+
+### 초반 Counter 예제
+- queue: (setCount(count+1));
+```js
+last: {
+	  ...other options // 필요한 부분만 남겨놓고 생략하였음.
+      action: count + 1,
+      eagerReducer: basicStateReducer(state, action),
+      eagerState: count + 1, 
+      next: {
+      	last: {
+        	... otherOptions,
+            action: count + 1,
+            eagerReducer: basicStateReducer(state, action),
+            eagerState: count + 1, 
+            next: null
+        }
+      }
+ },
+```
+
+- queue: (setCount(count => count + 1))
+```js
+last: {
+	  ...other options // 필요한 부분만 남겨놓고 생략하였음.
+      action: count => count + 1,
+      eagerReducer: basicStateReducer(state, action),
+      eagerState: count + 1, 
+      next: {
+      	last: {
+        	... otherOptions,
+            action: count => count + 1,
+            eagerReducer: basicStateReducer(state, action),
+            eagerState: (count + 1) + 1, 
+            next: null
+        }
+      }
+ },
+```
 
 <br><br><br>
+<출처>
 - https://leehwarang.github.io/2020/07/28/setState.html
+- https://yeoulcoding.tistory.com/169
