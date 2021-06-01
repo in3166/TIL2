@@ -17,7 +17,11 @@ app.use(bodyParser.json()); // application/json 데이터를 분석해서 가져
 - true: 설치가 필요한 npm qs 라이브러리 사용
 - 둘 다 url 퀖리 스트링을 파싱해주지만 qs가 추가적인 보안 기능을 가진 확장 형태이다. (기본적으로 false를 사용)
 
-
+<br><br>
+### 현재 deprecated!
+- express 자체 라이브러리에서 사용 가능  
+  
+  
 <BR><BR>
 
 <출처>
