@@ -1,4 +1,5 @@
-# 함수 선언문
+# 함수 선언문 (function declaration)
+- 
 ```js
 function 함수명() {
   구현 로직
