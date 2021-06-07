@@ -1,10 +1,14 @@
 # 함수의 `this` 키워드
-- 함수의 호출 방법에 의해 결정
+- 일반적으로 객체지향에서 객체 자신을 가리킴
+- 함수의 호출 방법에 의해 결정 (실행 컨텍스트를 가리킴)
+  - 내가 함수를 호출한 시점에 나는 어떤 객체에 위치해있었는가
+  
 - bind 메서드로 함수의 호출과 관계없이 설정 가능
 - 스스로의 this 바인딩을 제공하지 않는 화살표함수
 
 
 ## 전역 문맥
+- `window` 객체: 브라우저 상 자바스크립트의 전역 객체
 - 전역 실행 문맥(Global Execution Context)에서 this는 엄격 모드 여부에 관계없이 전역 객체를 참조
 ```javascript
 // 웹 브라우저에서는 window 객체가 전역 객체
@@ -95,10 +99,15 @@ add.apply(o, [10, 20]); // 34
   bar.call(undefined); // [object global]
   ```
 
-<Br><br>
-## bind 메서드
-- f.bind(Object) 호출하면 f와 같은 본문(코드)과 범위를 가졌지만 this는 ㅜ언본 함수를 가진 새로운 함수를 생성
-- 새 함수의 this는 호출 방식과 상관없이 영구적으로 bind()의 첫 번째 매개변수로 고정
+<br><br>
+
+# this가 window 객체를 가리키지 않으려면..?
+## 1. 바인딩 이용
+- `call`, `apply`, `bind` 같은 메서드를 사용
+
+### 'bind' 사용
+- `f.bind(Object)` 호출하면 'f'와 같은 본문(코드)과 같은 범위를 가졌지만 this는 원본 함수를 가진 새로운 함수를 생성
+- 새 함수의 `this`는 호출 방식과 상관없이 영구적으로 `bind()`의 첫 번째 매개변수로 고정
 ```javascript
 function f() {
   return this.a;
@@ -113,7 +122,46 @@ console.log(h()); // azerty
 var o = {a: 37, f: f, g: g, h: h};
 console.log(o.a, o.f(), o.g(), o.h()); // 37, 37, azerty, azerty
 ```
+
+### 'call' 사용
+- 앞의 인자는 This로 사용될 인자(Arg)이고, 뒤의 인자는 원래 함수의 인자
+```js
+function thisTest(arg){
+    console.log(arg, this);
+}
+
+thisTest('test'); // test, Window 객체 출력
+
+let customThis = {
+    message: 'it is custom this!!'
+}
+// 함수의 this 객체는 'customThis' 객체를 넣고, 함수의 인자로 'test' 문자열을 넣음
+thisTest.call(customThis, 'test');  // test {message: "it is custom this!!"}
+```
+
+### 'apply' 사용
+- `[인자1, 인자2]` 형식으로 사용
+```js
+thisTest.apply(customThis, ['test']);
+```
 <br><br>
+
+## 2. new 키워드 사용
+```js
+function thisTest2(something){
+	this.something = something; 
+}
+
+thisTest2('abcd'); // undefined
+window.something; // 'abcd'
+
+const newObj = new thisTest2('ABCD');
+newObj; // thisTest2 {something: 'ABCD'}
+```
+
+
+<br><br>
+
 ## 화살표 함수
 - this는 자신을 감싼 정적 범위(lexical context)
 - 전역 코드에서는 전역 객체를 가리킴
@@ -315,3 +363,4 @@ for (var i = 0; i < elements.length; i++) {
 
 <출처>
 - https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/this
+- https://velog.io/@jakeseo_me/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%ED%8C%81-This-%EC%A0%95%EB%A6%AC-x4k5upn6i6
