@@ -2,7 +2,7 @@
 - 이벤트를 취소할 수 있는 경우, 이벤트의 전파를 막지않고 그 이벤트를 취소 (고유 동작 막음)
 
 - a 태그 클릭 시 href 링크로 이동하지 않게 할 경우
-```javascript
+```js
 $("a").click(function(e){
 	e.preventDefault();
 	alert("e.preventDefault()");
@@ -12,7 +12,7 @@ $("a").click(function(e){
   
   
 - form 안에 submit 역할을 버튼을 눌러도 새로 실행하지 않게 하고 싶을 경우
-```javscript
+```js
 form.addEventListener("submit", e => {
   e.preventDefault
   if(result === Number(input.value)) {
@@ -30,7 +30,7 @@ form.addEventListener("submit", e => {
  - submit 됨과 동시에 창이 다시 실행 -> 초기 화면으로 돌아감
  
  - 예제: 소문자만 입력하기
- ```javascript
+ ```js
  <html>
 <head>
 <title>preventDefault 예제</title>
@@ -67,9 +67,11 @@ var charCode = evt.charCode;
  <br><br>
  
  # stopPropagation()
- - 이벤트 캡쳐링과 버블링에 있어 현재 이벤트 이후의 전파를 막는다.
-   - 캡쳐링: 부모 Element에서 발생된 event가 자식 Element 순으로 전달되는 현상
-   - 버블링: 자식 Element에서 발생된 event가 부모 Element 순으로 전달되는 현상
+ - 이벤트 캡쳐링과 버블링에 있어 현재 이벤트 **이후의 전파를 막는다.**
+ 
+   - **캡쳐링**: 부모 Element에서 발생된 event가 `자식 Element` 순으로 전달되는 현상
+   - **버블링**: 자식 Element에서 발생된 event가 `부모 Element` 순으로 전달되는 현상
+   
  ```html
  <div class="first-cover">
   <ul class="second-cover">
@@ -94,13 +96,19 @@ $(".first-cover").click(function(){
 	alert("first-cover");
 });
  ```
- 
- 
- <br><br><br>
- 
- <출처>
- - https://programming119.tistory.com/100
- - https://developer.mozilla.org/ko/docs/Web/API/Event/preventDefault
- - https://developer.mozilla.org/ko/docs/Web/API/Event/stopPropagation
- - http://megaton111.cafe24.com/2015/04/30/preventdefault-%EC%99%80-stoppropagation-%EC%B0%A8%EC%9D%B4/
- - https://pa-pico.tistory.com/20
+<br><Br>
+
+
+# stopImmediatePropagation
+
+
+
+
+<br><br><br>
+
+<출처>
+- https://programming119.tistory.com/100
+- https://developer.mozilla.org/ko/docs/Web/API/Event/preventDefault
+- https://developer.mozilla.org/ko/docs/Web/API/Event/stopPropagation
+- http://megaton111.cafe24.com/2015/04/30/preventdefault-%EC%99%80-stoppropagation-%EC%B0%A8%EC%9D%B4/
+- https://pa-pico.tistory.com/20
