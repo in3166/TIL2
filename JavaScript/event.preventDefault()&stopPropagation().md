@@ -284,21 +284,46 @@ $(".first-cover").click(function(){
 
 <img src="https://github.com/in3166/TIL/blob/main/JavaScript/img/stoppro.png" />
 
-- 최상위 엘리먼트 `div#app` 클릭 시 해당 엘리먼트 핸들러가 캡쳐링 단계에서 먼저 실행 (핸들러가 `cature: true`인 경우만 실행됨)
+- 최상위 엘리먼트 `div#app` 클릭 시 해당 엘리먼트 핸들러가 캡쳐링 단계에서 먼저 실행 (핸들러가 `cature: true`인 경우만 실행됨-직접 app을 클릭한게 아니라서?)
 - 핸드러 내부에서 `stopPropagation`을 실행하지 않기 때문에 이벤트의 다음 흐름은 `div#parent`로 넘어간다.
 
 - `parent`는 인라인으로 등록된 핸들러 존재하므로 인라인 콜백이 먼저 실행되고 그 다음 `addEventListener`로 등록한 콜백이 실행
 - 그 후 `capture: false`로 등록된 콜백이 먼저 실행되고 `capture:true`로 등록된 콜백이 실행
-  - 캡쳐링과 버블링은 실제 이벤트가 발생한 DOM 엘리먼트로 이벤트 실행 순서(turn)가 넘어가기 전/후 단계에서 해당 이벤트를 사전/사후에 감지할 수 있는 시스템이기때문에 
+  
+  - 캡쳐링과 버블링은 실제 이벤트가 발생한 DOM 엘리먼트로 이벤트 실행 순서(turn)가 넘어가기 전/후 단계에서 해당 이벤트를 사전/사후에 감지할 수 있는 시스템이기 때문에 
   - 이벤트가 발생한 실제 DOM 엘리먼트에서는 캡쳐링이나 버블링에 대한 설정 값은 의미가 없다.
 
+- `parent` 엘리먼트의 마지막 실행 콜백은 `stopPropagation`을 내부적으로 실행해 그 시점 이후버터 이벤트 전파는 일어나지 않는다.
 
 <br><br>
 
 # stopImmediatePropagation
+```js
+window.addEventListener('click', () => log(1));
+window.addEventListener('click', () => log(2));
+window.addEventListener('click', () => log(3));
+```
+- 위의 예시에서 마지막 3이 출력되지 않게 하기
+  - `stopImmediatePropagation`을 사용하면 해당 이벤트 핸들러를 마지막으로 그 뒤에 실행 예정인 어떤 것도 실행되지 않는다.
+  - 캡쳐링, 버블링을 포함해 **다른 모든 이벤트 핸들러의 실행도 막는다.**
+  ```js
+   window.addEventListener('click', (e) => {
+    e.stopImmediatePropagation();
+    log(2);
+   });`
+  ```
+- https://codesandbox.io/s/stopimmediatepropagation-qwenh?from-embed=&file=/src/index.js:439-452
+- 주의
+  - DOM 엘리먼트에 이벤트 버블링을 먼저 등록 후 캡쳐링 이벤트를 등록하면, 등록된 순서대로 실행
 
+<br><br>
 
-
+### 정리
+- `stopPropagation`
+  - 이벤트의 캡쳐링과 버블링의 전파만 막고 싶을 때 사용
+  
+- `stopImmediatePropagation `
+  - 캡쳐링과 버블링 뿐만 아니라 현재 실행중인 이벤트 핸들러 이후의 모든 핸들러를 실행시키지 않는다. (inline handler)
 
 <br><br><br>
 
