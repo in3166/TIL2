@@ -1,6 +1,7 @@
 # Jest
 - 페이스북에서 만든 **테스팅 라이브러리**
-- Jest 이전 `JS 코드 테스트`를 위해선 여러 테스팅 라이브러리 조합 (Test Runner: [Mocha, Jasmin], TestMatcher: [Chai, Expect], TestMock: [Sinon, Testdouble] 등)
+- Jest 이전 `JS 코드 테스트`를 위해선 여러 테스팅 라이브러리 조합 
+  - (Test Runner: [Mocha, Jasmin], TestMatcher: [Chai, Expect], TestMock: [Sinon, Testdouble] 등)
 - Jest는 3가지 기능을 모두 제공해 편리
 <br>
 
