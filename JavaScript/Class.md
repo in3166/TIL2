@@ -544,7 +544,144 @@ let User = makeClass("Hello");
 
 new User().sayHi(); // Hello
 ```
+<br><br>
 
+# Private, Protected 프로퍼티와 메서드
+- OOP의 중요한 점 중 하나 '내부 인터페이스와 외부 인터페이스의 구분'
+- 커피머신: 몇가지 버튼이면 동작, 내부 구조는 복잡
+<br>
+
+- 내부 인터페이스(internal interface): 동일한 클래스 내 다른 메서드에선 접근 가능, 클래스 밖에서 접근 불가한 프로퍼티와 메서드
+- 외부 인터페이스(external interface): 클래스 밖에서도 접근 가능한 프로퍼티와 메서드
+
+### 자바스크립트 두 가지 타입 객체 필드(프로퍼티와 메서드)
+- public: 어디서든 접근 가능, 외부 인터페이스 구성
+- private: 클래스 내부에서만 접근 가능, 내부 인터페이스 구성
+
+- JS 이외의 다수의 언어에서 클래스 자신과 자손 클래스에서만 접근 가능한 `protected` 필드를 지원
+
+<br><br>
+
+## 프로퍼티 보호하기 (커피 머신 구현)
+```js
+class CoffeeMachine {
+  waterAmount = 0;
+  
+  constructor(power){
+    this.power = power;
+    alert(`전력량이 ${power}인 커피머신을 만듭니다.`);
+  }
+}
+// 커피머신 생성
+let coffeeMachine = new CoffeeMachine(100);
+
+// 물 추가
+coffeeMachine.waterAmout = 200;
+```
+
+- pubilc인 `waterAmout`를 'protected'로 바꿔 통제 ('0' 미만 설정 불가하게)
+- **protected 프로퍼티 명 앞에 '_'이 붙는다.** (외부 접근이 불가한 필드 표시)
+
+```js
+class CoffeeMachine {
+  _waterAmount = 0;
+
+  set waterAmount(value) {
+    if (value < 0) throw new Error("물의 양은 음수가 될 수 없습니다.");
+    this._waterAmount = value;
+  }
+
+  get waterAmount() {
+    return this._waterAmount;
+  }
+
+  constructor(power) {
+    this._power = power;
+  }
+}
+
+// 커피 머신 생성
+let coffeeMachine = new CoffeeMachine(100);
+
+// 물 추가
+coffeeMachine.waterAmount = -10; // Error: 물의 양은 음수가 될 수 없습니다.
+```
+
+## 읽기 전용 프로퍼티
+- 프로퍼티 생성 시에만 값을 할당 가능하고 그 후 수정 불가
+- setter는 생성하지 않고 getter만 생성
+```js
+class CoffeeMachine {
+  // ...
+  constructor(power) {
+    this._power = power;
+  }
+
+  get power() {
+    return this._power;
+  }
+}
+
+// 커피 머신 생성
+let coffeeMachine = new CoffeeMachine(100);
+
+alert(`전력량이 ${coffeeMachine.power}인 커피머신을 만듭니다.`); // 전력량이 100인 커피머신을 만듭니다.
+
+coffeeMachine.power = 25; // Error (setter 없음)
+```
+
+- `getter` / `setter` 함수
+  - 위 처럼 get, set 문법으로 만들 수 도 있지만 아래 형식 선호
+  ```js
+  class CoffeeMachine {
+    _waterAmount = 0;
+
+    setWaterAmount(value) { // 다수의 인자 받을 수 있게된다!
+      if (value < 0) throw new Error("물의 양은 음수가 될 수 없습니다.");
+      this._waterAmount = value;
+    }
+
+    getWaterAmount() {
+      return this._waterAmount;
+    }
+  }
+
+  new CoffeeMachine().setWaterAmount(100);
+  ```
+  
+- `protected` 필드는 상속된다.
+  - `class MegaMachine extends CoffeeMachine`로 클래스를 상속
+  - 새로운 클래스 메서드에서 `this._waterAmount`나 `this._power`를 사용해 접근 가능
+
+- `private` 프로퍼티
+  - 스펙에 최근 추가, 지원안되는 엔진 존재 - 폴리필을 구현
+  - `#`으로 시작, 클래스 안에서만 접근 가능
+  - `#waterLimit`: 물 용량 한도 프로퍼티, `#checkWater`: 물 양 확인 메서드
+  ```js
+  class CoffeeMachine {
+    #waterLimit = 200;
+
+    #checkWater(value) {
+      if (value < 0) throw new Error("물의 양은 음수가 될 수 없습니다.");
+      if (value > this.#waterLimit) throw new Error("물이 용량을 초과합니다.");
+    }
+  }
+
+  let coffeeMachine = new CoffeeMachine();
+
+  // 클래스 외부에서 private에 접근할 수 없음
+  coffeeMachine.#checkWater(); // Error
+  coffeeMachine.#waterLimit = 1000; // Error
+  ```
+  
+- 자손 클래스에서 직접 접근 불가
+```js
+class MegaCoffeeMachine extends CoffeeMachine {
+  method() {
+    alert( this.#waterAmount ); // Error: CoffeeMachine을 통해서만 접근할 수 있습니다.
+  }
+}
+```
 
 
 <br><br><br>
@@ -553,3 +690,4 @@ new User().sayHi(); // Hello
 - https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Classes
 - https://ko.javascript.info/class
 - https://velog.io/@jakeseo_me/2019-05-03-1005-%EC%9E%91%EC%84%B1%EB%90%A8-evjv7dy8vh
+- https://ko.javascript.info/private-protected-properties-methods
