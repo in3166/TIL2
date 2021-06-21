@@ -65,7 +65,8 @@ for (let num of range) {
 <br>
 
 - 두 객체를 합쳐서 `range` 자체를 이터레어터로 만들면 코드 간결해진다.
-  - 단점: 두 개의 `for...of` 반복문을 하나의 객체에 동시에 사용할 수 없다. (반복 상태 공유)
+  - 단점: 두 개의 `for...of` 반복문을 하나의 객체에 동시에 사용할 수 없다.
+    - 이터레이터가 하나라서 두 반복문이 반복 상태를 공유
 ```js
 let range = {
   from: 1,
@@ -89,6 +90,7 @@ for (let num of range) {
   alert(num); // 1, then 2, 3, 4, 5
 }
 ```
+
 <br><br>
 
 ## 문자열은 이터러블이다.
@@ -100,7 +102,7 @@ for (let char of "test") {
 ```
 
 ## 이터레이터 명시적 호출
-- 직접 호출을 통한 순회
+- 직접 호출을 통한 순회하기
 - 문자열 이터레이터를 만들고 값을 '수동'으로 가져오기
 ```js
 let str = "Hello";
@@ -108,7 +110,7 @@ let str = "Hello";
 // for..of를 사용한 것과 동일한 작업을 합니다.
 // for (let char of str) alert(char);
 
-let iterator = str[Symbol.iterator]();
+let iterator = str[Symbol.iterator]();  // 명시적 이터레이터 호출
 
 while (true) {
   let result = iterator.next();
@@ -118,6 +120,7 @@ while (true) {
 ```
 - 반복 과정 통제 가능
 - 반복 중간에 잠시 멈추고 다른 작업 가능 (반복 과정 쪼개기)
+<br>
 
 ## 이터러블과 유사 배열
 - 이터러블(iterable)은 메서드 `Symbol.iterator`가 구현된 객체
