@@ -16,10 +16,12 @@ let range = {
 // for(let num of range) ... num=1,2,3,4,5
 ```
 - `range`를 이터러블로 만들기 위해(`for...of` 동작) 객체에 `Symbol.iterator`(특수 내장 심볼)라는 메서드를 추가해 아래의 일들 실행
-  - 1.`for...of`가 시작되자마자 `for...of`는 `Symbol.iterator`를 호출. `Symbol.iterator`는 반드시 이터레이터(메서드 `next`가 있는 객체) 반환
-  - 2. `for...of`는 반환된 객체 이터레이터만을 대상으로 동작
-  - 3. `for...of`에 다음 값이 필요하면, 이터레이터의 `next()` 메서드 호출
-  - 4. `next()`의 반환 값은 `{done: Boolean, value: any}`와 같은 형태여야 한다. 
+
+  - 1) `for...of`가 시작되자마자 `for...of`는 `Symbol.iterator`를 호출.
+    - `Symbol.iterator`는 반드시 이터레이터(메서드 `next`가 있는 객체) 반환
+  - 2) `for...of`는 반환된 객체 이터레이터만을 대상으로 동작
+  - 3) `for...of`에 다음 값이 필요하면, 이터레이터의 `next()` 메서드 호출
+  - 4) `next()`의 반환 값은 `{done: Boolean, value: any}`와 같은 형태여야 한다. 
     - `done=true`는 반복이 종료됨을 의미한다.
     - `done=false`일땐 `value`에 다음 값이 저장된다.
 
