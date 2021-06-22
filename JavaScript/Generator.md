@@ -18,7 +18,7 @@ alert(generator); // [object Generator]
 - 동작 방식
   - Generator 함수 호출 시 코드 실행 대신, 실행을 처리하는 특별 객체 `제너레이터 객체`가 반환
   - `제너레이터 객체`가 생성되도 함수 본문 코드는 아직 실행 전
-  <img src="" />
+  <img src="https://github.com/in3166/TIL/blob/main/JavaScript/img/gener1.JPG" />
 
 - `next()` 메서드
   - `value`: 산출 값
@@ -39,7 +39,7 @@ let one = generator.next();
 
 alert(JSON.stringify(one)); // {value: 1, done: false}
 ```
-<img src="" />
+<img src="https://github.com/in3166/TIL/blob/main/JavaScript/img/gener2.JPG" />
 
 <br><br>
 
