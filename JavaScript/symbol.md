@@ -1,7 +1,7 @@
 # Symbol
 - ES6에서 Symbol 타입 추가
 - `유일한 식별자(unique identifier)`를 만들 때 사용
-- 이름의 충돌 위험이 없는 유일한 객체의 프로퍼티 키(property key)를 만들기 위해 사용
+- 이름의 충돌 위험이 없는 **유일한 객체의 프로퍼티 키(property key)**를 만들기 위해 사용
 - 고유한 심볼 테이블들이 심볼들을 가지고 있다.
  
 `let id = Symbol();`: id는 새로운 심볼
@@ -14,8 +14,8 @@ let id = Symbol('id');
 - 동일한 심볼 이름 가능
 - 심볼 자체는 서로 다름
 ```javascript
-let id1 = Symbol("id1");
-let id2 = Symbol("id2");
+let id1 = Symbol("id");
+let id2 = Symbol("id");
 console.log(id1 == id2); // false
 ```
 
@@ -32,9 +32,10 @@ alert(id.toString()); // Symbol(id)가 얼럿 창에 출력됨
 let id = Symbol("id");
 alert(id.description); // id
 ```
+<br>
 
 # '숨김' 프로퍼티
-- 외부 코드에서 접근이 불가능하고 값도 덮어쓸 수 없는 프로퍼티
+- 외부 코드에서 **접근이 불가능**하고 값도 덮어쓸 수 없는 프로퍼티
 - 예시1
   - 서드파티 코드에서 가져 온 `user` 객체
   ```javascript
@@ -46,22 +47,23 @@ alert(id.description); // id
    user[id] = 1;
    alert(user[id]); // 1
   ```
-  - 문자열 `"id"` 대신 심볼 `Symbol("id")을 사용한 이유
+  - 문자열 `"id"` 대신 심볼 `Symbol("id")`을 사용한 이유
     - 서드파티에서 가져 온 `user`에 함부로 새로운 프로퍼티를 추가할 수 없다.
     - 심볼을 서드파티에 접근할 수 없어서 서드파티 모르게 식별자 부여 가능.
 
 - 예시2
   - 제 3의 스크립트(라이브러리 등)에서 `user`를 식별
   - `user`의 원천인 서드파티 코드, 현재 작성 중인 스크립트, 제 3의 스크립트가 각자 서로 모른 채 `user` 식별해야 하는 상황
-  - 제 3의 스크립트에선 `Symbol("id")`을 이용해 전용 식별자를 만들어 사용할 수 있다.
+  - 제 3의 스크립트에선 `Symbol("id")`을 이용해 **전용 식별자**를 만들어 사용할 수 있다.
   ```javascript
   let id = Symbol("id");
   user[id] = "제 3의 스크립트 id 값";
   ```
   - 심볼은 유일성이 보장되므로 현재 작성 중인 스크립트에서 우리가 만든 식별자와 제3의 스크립트에서 만든 식별자가 충돌하지 않음.
+<br>
 
 ## 심볼형 프로퍼티 숨기기
-- 키가 심볼인 프로퍼티는 `for...in` 반복문에서 배제됨.
+- 키가 심볼인 프로퍼티는 `for...in` **반복문에서 배제**됨.
 ```javascript
 let id = Symbol("id");
 let user = {
@@ -122,6 +124,7 @@ alert( Symbol.keyFor(sym2) ); // id
 - 등등
 
 <hr>
+
 <br><br><br>
 
 ## 목적
