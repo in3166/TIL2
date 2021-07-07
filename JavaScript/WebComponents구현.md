@@ -326,7 +326,7 @@ window.customElements.define('custom-square', CustomSquare);
 </html>
 ```
 - DOM Tree
-<img src="" />
+<img src="https://github.com/in3166/TIL/blob/main/JavaScript/img/wencom1.png" />
 
 - **Shadow DOM**
   - 독립적으로 DOM 자체를 분리
@@ -335,7 +335,7 @@ window.customElements.define('custom-square', CustomSquare);
   - `Shadow Tree` : Shadow DOM 내부의 DOM Tree
   - `Shadow Boundary` : Shadow DOM의 시작 Node부터 Shadow DOM의 끝 Node까지의 공간
   - `Shadow Root` : Shadow Tree의 Root node
-<img src="" />
+<img src="https://github.com/in3166/TIL/blob/main/JavaScript/img/webcom2.png" />
 <br>
 
 ## 2.2 기본 사용법
