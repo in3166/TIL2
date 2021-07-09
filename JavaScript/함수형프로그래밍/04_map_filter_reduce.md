@@ -175,8 +175,21 @@ log( reduce((total, product) => total + product.price, 0, products );
 <br>
 
 # map+filter+reduce 중첩 사용과 함수형 사고
+- products의 일정 금액 이하의 가격들을 합하기
+- map이 받는 products를 축약
 ```js
-
+const add = (a, b) => a + b;
+log(
+  reduce(
+    add, 
+    map(p => p.price, 
+      filter( p => p.price < 20000, products))));
+// 동일
+log(
+  reduce(
+    add, 
+    filter(n => n < 20000, 
+      map( p => p.price, products))));
 ```
 
 
