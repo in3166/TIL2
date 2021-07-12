@@ -52,7 +52,8 @@ log([1, 2, 3]map(a => a + 1)) // [2, 3, 4]
 ```js
 log(map(el => el.nodeName, document.querySelectorAll('*'))); // 우리가 만든 map 함수는 잘 동작한다.
 
-const it =document.querySelectorAll('*')[Symbol.iterator](); // Array Iterator
+const it =document.querySelectorAll('*')[Symbol.iterator](); // Array Iterator -> iterable 객체이므로 위의 map 함수 적용이 가능하다.
+log(it.next()); // {value: html, done:false}
 
 function *gen() [
   yield 2;
