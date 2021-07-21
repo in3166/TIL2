@@ -79,7 +79,7 @@
 <br><br>
 
 ## 제공하는 것
-<img src="https://github.com/in3166/TIL/tree/main/etc/img" />
+<img src="https://github.com/in3166/TIL/blob/main/etc/img/iaas_paas_saas3.webp" />
 
 
 <br>
