@@ -1,13 +1,15 @@
 # null 병합 연산자 '??'
-- nullish coalescing operator `??`
+- `nullish coalescing operator`
 - 여러 피연산자 중 값이 '확정'되어 있는 변수 찾기 가능
 - `a ?? b`의 평가 결과
   - `a`가 `null`, `undefined`가 아니면 `a`
   - 그 외 `b`
+
 ```js
 x = a ?? b; // 동일
 x = ( a !== null & a !== undefined) ? a : b;
 ```
+
 - 사용
 ```js
 let firstName = null;
@@ -16,6 +18,21 @@ let nickName = "Supercoder";
 
 // null이나 undefined가 아닌 첫 번째 피연산자
 alert(firstName ?? lastName ?? nickName ?? "Anonymous"); // Supercoder
+```
+```
+function printMessage(text) {
+  let message = text;
+  if (text == null || text == undefined) {
+    message = 'nothing';
+  }
+  console.log(message);
+}
+
+// 수정
+function printMessage(text) {
+  const message = text ?? 'nothing';
+  console.log(message);
+}
 ```
 
 ## '||'와 차이
@@ -29,6 +46,8 @@ let height = 0;
 alert(height || 100); // 100: 0을 false로 취급
 alert(height ?? 100); // 0: '0'이 할당될 수 있는 변수를 사용해 기능을 개발할 때 유용
 ```
+
+<br>
 
 ## 연산자의 우선순위
 - 우선순위 `5`
@@ -53,3 +72,4 @@ let x = 1 && 2 ?? 3; // SyntaxError: Unexpected token '??'
 <br><br><br>
 <출처>
 - https://ko.javascript.info/nullish-coalescing-operator
+- https://www.youtube.com/watch?v=BUAhpB3FmS4
