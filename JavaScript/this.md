@@ -6,7 +6,6 @@
 - bind 메서드로 함수의 호출과 관계없이 설정 가능
 - 스스로의 this 바인딩을 제공하지 않는 화살표함수
 
-
 ## 전역 문맥
 - `window` 객체: 브라우저 상 자바스크립트의 전역 객체
 - 전역 실행 문맥(Global Execution Context)에서 this는 엄격 모드 여부에 관계없이 전역 객체를 참조
@@ -21,7 +20,6 @@ this.b = "MDN";
 console.log(window.b)  // "MDN"
 console.log(b)         // "MDN"
 ```
-
 
 ## 함수 문맥
 1. 단순 호출
@@ -217,6 +215,7 @@ console.log(fn2()() == window); // true
 - obj.bar 함수에 this 설정 유지
 
 <br><br>
+
 ## 객체의 메서드로서 `this` 호출
 - this 값: 그 객체
 ```javascript
@@ -250,6 +249,8 @@ o.b = {g: independent, prop: 42};
 console.log(o.b.g()); // logs 42
 ```
 
+<br>
+
 ## 객체의 프로토타입 체인에서 `this`
 - 객체의 포로토타입 체인 어딘가에 정의한 메서드도 마찬가지로 어떤 객체의 프로토타입 체인 위에 메서드가 존재하면, this의 값은 그 객체가 메서드를 가진 것 마냥 설정
 ```javascript
@@ -262,7 +263,8 @@ p.b = 4;
 
 console.log(p.f()); // 5
 ```
-- 
+
+<br>
 
 ## 접근자와 설정자의 `this`
 - 접근자나 설정자로 사용하느 함수의 this는 접근하거나 설정하는 속성을 가진 객체로 묶임
@@ -286,7 +288,7 @@ Object.defineProperty(o, 'sum', {
 console.log(o.average, o.sum); // 2, 6
 ```
 
-- 
+<br>
 
 ## 생성자로서
 - 함수를 new 키워드와 함께 생성자로 사용하면 this 새로 생긴 객체에 묶임
@@ -327,6 +329,8 @@ o = new C2();
 console.log(o.a); // 38
 ```
 
+<br>
+
 ## DOM 이벤트 처리기로서
 - 함수를 이벤트 처리기로 사용하면 this는 이벤트를 발사한 요소로 설정
 ```javascript
@@ -349,6 +353,8 @@ for (var i = 0; i < elements.length; i++) {
 }
 ```
 
+<br>
+
 ## 인라인 이벤트 핸들러에서
 - 코드를 인라인 이벤트 처리기로 사용하면 this는 처리기를 배치한 DOM 요소로 설정
 ```javascript
@@ -361,6 +367,89 @@ for (var i = 0; i < elements.length; i++) {
 </button>
 ```
 
+<br><br>
+
+# 참조 타입
+```js
+let user = {
+  name: "John",
+  hi() { alert(this.name); },
+  bye() { alert("Bye"); }
+};
+
+user.hi(); // John 
+
+// name에 따라 user.hi나 user.bye가 호출
+(user.name == "John" ? user.hi : user.bye)(); // TypeError: Cannot read property 'name' of undefined
+```
+- `obj.method()` 연산 2가지
+  - 1. 점 `.`은 객체 프로퍼티 `obj.method`에 접근
+  - 2. 괄호 `()`는 접근한 프로퍼티(메서드)를 실행
+- 위를 쪼개보면
+```js
+// 메서드 접근과 호출을 별도의 줄에서 실행함
+let hi = user.hi;
+hi(); // this가 undefined이기 때문에 에러가 발생.
+```
+
+- `user.hi()`를 의도한 대로 동작시키기 위해 JS는 `.`이 함수가 아닌, **참조 타입(Reference T)** 값을 반환
+  - 참조 타입: '명세서' 에서만 사용디는 타입, 개발자 실제 사용 불가
+  - 참조 타입 값: `(base, name, strict)` 조합
+    - `base`: 객체
+    - `name`: 프로퍼티 이름
+    - `strict`: 엄격 모드에선 true
+    
+  - `user.hi`로 프로퍼티에 접근하면 참조 타입 반환: `(user, "hi", true)`
+  - 참조형 값에 괄호 `()`를 붙여 호출하면 객체, 객체의 메서드와 연관된 정보를 받는덷 이 정보를 기반 `this(=user)`가 결정
+  - 참조 타입은 점 `.` 연산에서 알아낸 정보를 괄호`()`에 절단해주는 '중개인' 역할
+  - 그런데 점 연산 이외의 연산(할당 등)은 참조 타입을 통째로 버리고 `user.hi`값(함수)만 받아 전달, 이 때문에 점 이외의 연산에서 `this`가 사라진다.
+  - 그래서 `obj.method()` 같이 점을 사용하거나, `obj[method]()` 같이 대괄호를 사용해 함수를 호출했을 때만 this 값이 의도한 대로 전달
+
+### 예제1
+```js
+let user = {
+  name: "John",
+  go: function() { alert(this.name) }
+}
+
+(user.go)()
+```
+- 에러 발생 이유
+  - `let user = {}` 뒤에 **'세미콜론'**이 없다.
+  - 자바스크립트는 괄호(`(user.go)`) 앞에 세미콜론을 자동으로 넣어주지 않는다.
+  ```js
+  let user = { go:... }(user.go)()
+  ```
+  - 위와 같아지므로 인수가 `(user.go)`인 객체 형태의 함수를 호출한 것처럼 된다.
+  - 또한 객체 `user`가 정의되지 않은 채로 같은 줄에 `let user`를 사용하고 있어 에러가 발생한다.
+
+- `(user.go)`처럼 괄호를 감싸는 것은 아무런 역할을 하지 않는다.
+- 괄호는 대개 연산자 우선순위를 바꾸는 데 사용되는데, 위에선 점 `.` 연산자가 먼저 동작하므로 의미가 없다.
+
+### 예제2
+```js
+let obj, method;
+
+obj = {
+  go: function() { alert(this); }
+};
+
+obj.go();               // (1) [object Object]  - 일반적인 메서드 호출
+(obj.go)();             // (2) [object Object]  - 괄호가 추가되엇지만 연산 우선순위를 바꾸진 않으므로 점 연산자가 먼저 실행
+(method = obj.go)();    // (3) undefined  - `(expression).method()`
+(obj.go || obj.stop)(); // (4) undefined  - (3)과 동일한 패턴의 호출. expression이 obj.go || obj.stop라는 차이점만
+```
+
+- (3)은 아래와 같이 쪼갤 수 있다.
+```js
+f = obj.go; // 표현식 계산하기
+f();        // 저장된 것 호출하기 - f()는 (메서드가 아닌) 함수로써 호출, this 정보 없음
+```
+
+**`메서드 호출을 제외하고, 참조 타입 값에 행해지는 모든 연산은 참조 타입 값을 일반 값으로 변환시킨다!`**
+
+<br><br><br>
 <출처>
 - https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/this
 - https://velog.io/@jakeseo_me/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%ED%8C%81-This-%EC%A0%95%EB%A6%AC-x4k5upn6i6
+- https://ko.javascript.info/reference-type
