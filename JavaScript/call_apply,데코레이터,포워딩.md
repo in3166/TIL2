@@ -90,6 +90,15 @@ func(2);
 
 ### `func.call(cotext, args)`
 - `this`를 명시적으로 고정해 함수를 호출할 수 있게 해주는 특별한 내장 함수 메서드
+```js
+var example = function (a, b, c) {
+  return a + b + c;
+};
+example(1, 2, 3);
+example.call(null, 1, 2, 3);
+example.apply(null, [1, 2, 3]);
+```
+
 - 메서드를 호출하면 첫 번째 인수 `this`, 이어지는 인수가 `func`의 인수가 된 후, `func`이 호출된다.
 
 ```js
@@ -203,6 +212,21 @@ func.apply(context, args);
 let wrapper = function() {
   return func.apply(this, argumnets);
 }
+```
+
+### func.bind
+```js
+var obj = {
+  string: 'zero',
+  yell: function() {
+    alert(this.string);
+  }
+};
+var obj2 = {
+  string: 'what?'
+};
+var yell2 = obj.yell.bind(obj2);
+yell2(); // 'what?'
 ```
 <br>
 
