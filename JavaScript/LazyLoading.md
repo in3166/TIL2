@@ -22,8 +22,10 @@
 
 
 ## Lazy Loading 여러 기술
-1. <img> 태그 이용
-- src 속성 대신 다른 속성에 이미지 URL 넣기
+1. `<img>` 태그 이용
+- `<img>`의 `src` 속성은 첫 번째 이미지든 1000번째 이미지이든, 혹은 뷰포트 밖에 있든 상관없이, 이미지를 무조건 로드
+- `src` 속성 대신 다른 속성에 이미지 URL 넣고 언제 로딩할 것인지 브라우저에 알리기
+
 ```JAVASCRIPT
 <img data-src="https://ik.imagekit.io/demo/default-image.jpg" />
 ```
@@ -140,7 +142,7 @@
     ```
 
 2. Native Lazy Loading 방식
-- 최신 Googlw Chrome 브라우저(76)에서 지원
+- 최신 Googl Chrome 브라우저(76)에서 지원
 - 임베딩할 이미지에 `loading` 속성만 추가
 ```javascript
 <img src="example.jpg" loading="lazy" alt="..." width="200" height="200" style="height:200px; width:200px;" />
