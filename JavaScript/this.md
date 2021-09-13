@@ -448,6 +448,58 @@ f();        // 저장된 것 호출하기 - f()는 (메서드가 아닌) 함수�
 
 **`메서드 호출을 제외하고, 참조 타입 값에 행해지는 모든 연산은 참조 타입 값을 일반 값으로 변환시킨다!`**
 
+
+<br><br>
+
+## 예제들
+```js
+let user = {
+    firstName: "John",
+    sayHi() {
+      console.log(`Hello, ${this.firstName}!`);
+    }
+  };
+  
+  function b() {
+    let h1 = user.sayHi; // 아직 호출하지 않음.
+    let h2 = user.sayHi(); // 호출을 user 에서 함
+      function c() {
+          user.sayHi(); // Hello, John!
+          h1();
+          h2;
+      }
+      c();
+  }
+
+b();
+
+  setTimeout(function() {
+    user.sayHi(); // Hello, John!
+  }, 1000);
+  
+// Hello, John!
+// Hello, John!
+// h1(): Hello, undefined!
+// Hello, John! 
+
+
+  let obj1 = {
+    outer: function () {
+      console.log("outer this: ", this); // outer
+      let inner = function () {
+        console.log('inner this: ', this); // window
+      }
+      inner();
+    }
+  } 
+
+  obj1.outer();
+  
+  // outer this:  { outer: [Function: outer] }
+  // inner this:  Object [global]
+```
+
+
 <br><br><br>
 <출처>
 - https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/this
