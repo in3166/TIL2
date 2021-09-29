@@ -90,7 +90,7 @@ Origin: https://request-site.com
 
 <예제>
 - 요청: 사이트의 RSS 파일 요청
-```javscript
+```js
 const headers = new Headers({
   'Content-Type': 'text/xml',
 });
@@ -101,7 +101,7 @@ fetch('https://evanmoon.tistory.com/rss', { headers });
   - `Origin` 정보 외에 본 요청에서 보낼 다른 정보도 포함
   - `Access-Control-Request-Headers: content-type` - 브라우저가 본 요청에서 `content-type`헤더를 사용할 것을 알림
   - `Access-Control-Request-Method`: GET` - 본 요청에서 `GET` 메서드를 사용할 것을 알림
-```HTML
+```http
 OPTIONS https://evanmoon.tistory.com/rss
 
 Accept: */*
@@ -123,7 +123,7 @@ Sec-Fetch-Site: cross-site
   - 위에서 요청 보낸 출처가 위의 출처와 다르므로 에러 발생될 것
   - 예비 요청에 대한 응답은 `200`으로 정상적, 하지만 출처가 다름
   - 반대로, 예비 요청에 대한 응답이 에러가 발생해도 위의 `Access-Control-Allow-Origin` 값이 제대로 있으면 `CORS` 정책 위반이 아니다.
-```HTML
+```http
 OPTIONS https://evanmoon.tistory.com/rss 200 OK
 
 Access-Control-Allow-Origin: https://evanmoon.tistory.com
@@ -146,6 +146,41 @@ X-UA-Compatible: IE=Edge
   - 요청 메서드: `GET`, `HEAD`, `POST` 중 하나
   - `Accept`, `Accept-Language`, `Content-Language`, `Content-Type`, `DPR`, `Downlink`, `Save-Data`, `Viewport-Width`, `Width`를 제외한 헤더를 사용 금지
   - `Content-Type`를 사용하는 경우에는 `application/x-www-form-urlencoded`, `multipart/form-data`, `text/plain`만 허용
+
+<예제>
+- 요청
+```JS
+const xhr = new XMLHttpRequest(); 
+const url = 'https://bar.other/resources/public-data/'; 
+xhr.open('GET', url); 
+xhr.onreadystatechange = someHandler; xhr.send();
+```
+
+- 브라우저는 위 요청이 `Cross-Origin` 요청 판단 후 요청에 `Origin: -` 헤더를 추가하여 외부 서버로 요청
+```http
+# 요청 헤더 GET /resources/public-data/ HTTP/1.1 
+Host: bar.other 
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:71.0) Gecko/20100101 Firefox/71.0 
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8 
+Accept-Language: en-us,en;q=0.5 Accept-Encoding: gzip,deflate 
+Connection: keep-alive Origin: https://foo.example
+```
+
+- 서버는 `Origin` 헤더를 확인하여 값이 허용되었는지 판단
+  - `Access-Control-Allow-Origin: [서버에서 설정(허용)한 값]"` 을 응답 헤더에 추가하여 클라이언트로 응답
+```http
+# 응답 헤더 HTTP/1.1 200 OK 
+Date: Mon, 01 Dec 2008 00:23:53 GMT 
+Server: Apache/2 
+Access-Control-Allow-Origin: * 
+Keep-Alive: timeout=2, max=100 
+Connection: Keep-Alive 
+Transfer-Encoding: chunked
+Content-Type: application/xml 
+[...Payload...]
+```
+
+- 이후, 브라우저는 받은 응답의 `Access-Control-Allow-Origin` 헤더 값을 찾아 허용 여부 판단 후 허용되었으면 리소스 접근을 허락하고 그렇지 않으면 에러를 던진다.
 
 
 <br><br>
