@@ -190,6 +190,11 @@ TLS: 전송 계층 보안-모든 종류의 인터넷 트래픽을 암호화, SSL
 - UDP의 경우 서버의 Connection ID를 사용하여 서버와 연결을 생성
 - `Connection ID`는 랜덤한 값일 뿐, 클라이언트의 IP와는 전혀 무관한 데이터이기 때문에 클라이언트의 IP가 변경되더라도 기존의 연결을 계속 유지
 
+- IP가 바뀌어도 세션이 유지된다.
+  - IP가 바뀐 클라이언트가 기존 Connection ID를 가지고 있어 서버에서 원래 클라이언트가 보낸 메시지로 간주한다.
+  - 중간에 아무 통신 없이 서버가 클라이언트의 IP를 알 수 있는 것은 아니다.
+  - 
+
 <br>
   
 <img src="https://github.com/in3166/TIL/blob/main/etc/img/http32.gif" width="60%" />
