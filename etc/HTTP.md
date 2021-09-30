@@ -1,9 +1,31 @@
-# HTTP 규약 (Protocol)
-- Browser가 web server와 통신하기 위한 규약
+# HTTP (HyperText Transfer Protocol)
+- 브라우저가 웹 서버와 통신하기 위한 규약
 - Browser에서 요청하면 응답하는 간단한 구조
 - W3C, IETF 등에서 제정한 인터넷 표준 (RFC-2616)
 
 <img src="https://github.com/in3166/TIL/blob/main/etc/img/http-protocol-1.jpg" />
+
+<br>
+
+## HTTP 특징
+- Connectionless (비연결)
+  - 클라이언트가 서버에 요청했을 때, 요청에 맞는 응답을 보낸 후 연결을 끊는 처리 방식
+  - HTTP 1.1에선 연결을 유치하고 재활용하는 기능이 추가됨
+  
+- Stateless (무상태성)
+  - 클라이언트의 상태 정보를 가지고 있지 않는 서버 처리 방식
+  - 이전의 통신에서의 데이터를 유지하지 않음
+    - 로그인 유지, 장바구니 등 이전의 정보를 유지해야 하는 경우를 대처하여 쿠키와 세션을 사용
+
+## HTTP 요청 메서드
+- `GET`: 존재하는 자원에 대한 요청
+- `POST`: 새로운 자원을 생성
+- `PUT`: 존재하는 자원에 대한 수정
+- `DELETE`: 존재하는 자원에 대한 삭제
+
+- 기타 메서드
+  - `HEAD`: 서버 헤더 정보 획득, `GET`과 비슷하나 Response Body 반환 안 함.
+  - `OPTIONS`: 서버 옵션들을 확인하기 위한 요청, `CORS`에서 사용
 
 <br><br>
 
@@ -26,3 +48,4 @@
 <br><br><br>
 <출처>
 - https://searchadvisor.naver.com/guide/seo-basic-http
+- https://hahahoho5915.tistory.com/32
