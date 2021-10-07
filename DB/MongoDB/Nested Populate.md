@@ -86,10 +86,7 @@ const siteSchema = mongoose.Schema(
 Engine.find()
     .populate("requiredParts.part")
     .populate("maintenanceHistory.parts.part")
-    .populate({
-      path: "maintenanceHistory.site",
-      populate: { path: "engines" },
-    })
+    .populate({ path: "maintenanceHistory.site", model: "Site" })
     .exec((err, engines) => {
     ...
 ```
