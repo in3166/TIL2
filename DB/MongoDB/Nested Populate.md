@@ -81,7 +81,7 @@ const siteSchema = mongoose.Schema(
 );
 ```
 
-- populate
+- Engine populate
 ```js
 Engine.find()
     .populate("requiredParts.part")
@@ -89,4 +89,29 @@ Engine.find()
     .populate({ path: "maintenanceHistory.site", model: "Site" })
     .exec((err, engines) => {
     ...
+```
+
+- Site populate
+```js
+// 전문가 권한 유저 목록 가져오기
+router.post("/", (req, res) => {
+  Site.find()
+    .populate({
+      path: "engines",
+      populate: {
+        path: "requiredParts.part", 
+        model: "Part",
+      },
+    })
+    .populate("partStock.part")
+    .exec((err, sites) => {
+      if (err) {
+        return res.json({ success: false, err });
+      }
+      return res.status(200).send({
+        success: true,
+        sites: sites,
+      });
+    });
+});
 ```
