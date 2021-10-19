@@ -81,3 +81,4 @@ let promise = Test.findOne({}).exec();
 - https://mongoosejs.com/docs/api.html#Query
 - https://mongoosejs.com/docs/queries.html#queries-are-not-promises
 - https://stackoverflow.com/questions/53970784/mongoose-promises-documentation-says-queries-are-not-promises
+- https://www.zerocho.com/category/MongoDB/post/59b6228e92f5830019d41ac4
