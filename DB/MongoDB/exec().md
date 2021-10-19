@@ -16,19 +16,32 @@ A.findByIdAndUpdate()                     // returns Query
 
 - 콜백 함수없이, 쿼리를 실행시키기 위해 쿼리 호출 후 **`exec()`를 호출**해야 한다.
   - **Promise** 리턴
+  - 코드 중첩 완화, 조건부 쿼리, 에러 한 번에 처리 가능
   
 ```js
 const q = Model.where({ _id: id });
 q.update({ $set: { name: 'bob' }}).update(); // not executed
 q.update({ $set: { name: 'bob' }}).exec(); // executed
-q.update({ $set: { name: 'bob' }})
-  .exec()
-  .then(q => {
-      ...
+
+Users.findOne({ name: 'zerocho' }).exec()
+  .then((result) => {
+    return Users.update({ name: result.name }, { updated: true }).exec();
   })
-  .catch(err => {
-      ...
+  .then((updatedResult) => {
+    console.log(updatedResult);
   })
+  .catch((err) => {
+    console.error(err);
+  });
+  
+// save 메서드는 자체적으로 Promise
+newUser.save()
+  .then((savedUser) => {
+    console.log(savedUser);
+  })
+  .catch((err) => {
+    console.error(err);
+  });
 ```
 <br>
 
