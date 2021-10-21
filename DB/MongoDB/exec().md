@@ -17,6 +17,7 @@ A.findByIdAndUpdate()                     // returns Query
 ### 콜백 함수없이, 쿼리를 실행시키기 위해 쿼리 호출 후 **`exec()`를 호출**해야 한다.
   - **Promise** 리턴
   - 코드 중첩 완화, 조건부 쿼리, 에러 한 번에 처리 가능
+  - better stack trace
  
 ```js
 const q = Model.where({ _id: id });
@@ -60,8 +61,16 @@ User.find({name: 'John'}).exec(); // Will execute returning a promise
 ```js
 User.find({name: 'John'}).then(); // Will execute
 Promise.all([User.find({name: 'John'}), User.find({name: 'Bob'})]) // Will execute all queries in parallel
+
+const user = await UserModel.findOne(userCondition);
+// does exactly as the before line does, but you get a better stack trace if any error happened
+// if you use await with exec() you get a better "stack trace"
+const user = await UserModel.findOne(userCondition).exec(); 
+
 ```
 
+- You have two ways to execute a query on a model. Using callback or using exec() function. "But" you can use await too. exec() function returns a promise, that you can use it with then() or async/await to execute a query on a model "asynchronous". So the question is "If I can just use user = await UserModel.find() and it works currectly
+- Just when you call a query without exec() or callback, it returns a thenable which is something like promise but it's not a promise.
 
 <br><br>
 
