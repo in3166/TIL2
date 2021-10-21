@@ -14,10 +14,10 @@ A.findByIdAndUpdate()                     // returns Query
 ```
 <br>
 
-- 콜백 함수없이, 쿼리를 실행시키기 위해 쿼리 호출 후 **`exec()`를 호출**해야 한다.
+### 콜백 함수없이, 쿼리를 실행시키기 위해 쿼리 호출 후 **`exec()`를 호출**해야 한다.
   - **Promise** 리턴
   - 코드 중첩 완화, 조건부 쿼리, 에러 한 번에 처리 가능
-  
+ 
 ```js
 const q = Model.where({ _id: id });
 q.update({ $set: { name: 'bob' }}).update(); // not executed
@@ -33,7 +33,7 @@ Users.findOne({ name: 'zerocho' }).exec()
   .catch((err) => {
     console.error(err);
   });
-  
+  ---------------------------------------
 // save 메서드는 자체적으로 Promise
 newUser.save()
   .then((savedUser) => {
@@ -42,8 +42,28 @@ newUser.save()
   .catch((err) => {
     console.error(err);
   });
+  
+-----------------------------------------
+User
+  .findOne({ name: 'daniel' })
+  .exec(function (err, user) {
+      //
+  });
+  
+-----------------------------------------
+User.find({name: 'John'}).exec(); // Will execute returning a promise
 ```
 <br>
+
+### `exec()`없이 `then()` 사용 가능 `thneable()`
+- Mongoose queries do provide a then function. 
+```js
+User.find({name: 'John'}).then(); // Will execute
+Promise.all([User.find({name: 'John'}), User.find({name: 'Bob'})]) // Will execute all queries in parallel
+```
+
+
+<br><br>
 
 # Query is "promise like"
 
@@ -82,3 +102,4 @@ let promise = Test.findOne({}).exec();
 - https://mongoosejs.com/docs/queries.html#queries-are-not-promises
 - https://stackoverflow.com/questions/53970784/mongoose-promises-documentation-says-queries-are-not-promises
 - https://www.zerocho.com/category/MongoDB/post/59b6228e92f5830019d41ac4
+- https://stackoverflow.com/questions/31549857/mongoose-what-does-the-exec-function-do
