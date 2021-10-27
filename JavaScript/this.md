@@ -164,6 +164,7 @@ newObj; // thisTest2 {something: 'ABCD'}
 
 ## 화살표 함수
 - `this`는 자신을 감싼 `정적 범위(Lexical Context)`
+- `this` 값을 재정의하지 않고 밖의 값을 갖고옴
 - 전역 코드에서는 전역 객체를 가리킴
 - `call()`, `bind()`, `apply()`로 호출 시 `this` 무시, 매개변수 지정은 가능하지만 첫번째 매개변수는 `null`로 지정
 ```javacript
@@ -216,6 +217,21 @@ console.log(fn2()() == window); // true
 ```
 - obj.bar 함수에 this 설정 유지
 
+
+```js
+// forEach의 콜백은 그냥 일반 함수로 this === window
+let obj = {
+  names: [1],
+  func: function () {
+     console.log("func this: ", this); // obj
+  },
+  func2: function () {
+     console.log("func2 this: ", this); // window
+  },
+};
+obj.func();
+obj.func2();
+```
 <br><br>
 
 ## 객체의 메서드로서 `this` 호출
@@ -249,6 +265,17 @@ console.log(o.f()); // logs 37
 ```javascript
 o.b = {g: independent, prop: 42};
 console.log(o.b.g()); // logs 42
+```
+
+- 객체 메서드로서 화살표 함수
+```js
+var obj = {
+  f1: () => {
+    return this; // window
+  }
+}
+obj.f1();
+}
 ```
 
 <br>
@@ -360,19 +387,6 @@ for (var i = 0, l = stack.length; i < l; i++) {
 document.getElementById("labe").addEventListener("click", () => {
   console.log(this);
 }); // window
-
-// forEach의 콜백은 그냥 일반 함수로 this === window
-let obj = {
-  names: [1],
-  func: function () {
-     console.log("func this: ", this);
-     obj.names.forEach(function () {
-        // 일반함수
-        console.log(this); // window
-     });
-  },
-};
-obj.func();
 ```
 
 <br>
