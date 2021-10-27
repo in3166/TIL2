@@ -37,8 +37,8 @@ f1() === global; // true
 ```
 
 
-- 엄격 모드에서 this 값은 실행 문맥에 진입하며 설정되는 값을 유지, undefined
-- f2를 객체의 메서드나 속성(window.f2())가 아닌 직접 호출해서 this는 undefined
+- 엄격 모드에서 `this` 값은 실행 문맥에 진입하며 설정되는 값을 유지, `undefined`
+- `f2`를 객체의 메서드나 속성(`obj.f2()`)가 아닌 직접 호출해서 this는 `undefined`
 ```javascript
 function f2(){
   "use strict"; // 엄격 모드 참고
@@ -49,9 +49,56 @@ f2() === undefined; // true
 ```
 
 
-- this의 값을 다른 문맥으로 넘기려면 call(), apply()
+<br><br>
+
+# this가 window 객체를 가리키지 않으려면..?
+- `this`의 값을 다른 문맥으로 넘기려면
+## 바인딩 이용
+- `call`, `apply`, `bind` 같은 메서드를 사용
+
+### 'bind' 사용
+- `f.bind(Object)` 호출하면 'f'와 같은 본문(코드)과 같은 범위를 가졌지만 this는 원본 함수를 가진 새로운 함수를 생성
+- 새 함수의 `this`는 호출 방식과 상관없이 영구적으로 `bind()`의 첫 번째 매개변수로 고정
 ```javascript
-call 또는 apply의 첫 번째 인자로 객체가 전달될 수 있으며 this가 그 객체에 묶임
+function f() {
+  return this.a;
+}
+
+var g = f.bind({a: 'azerty'});
+console.log(g()); // azerty
+
+var h = g.bind({a: 'yoo'}); // bind는 한 번만 동작함!
+console.log(h()); // azerty
+
+var o = {a: 37, f: f, g: g, h: h};
+console.log(o.a, o.f(), o.g(), o.h()); // 37, 37, azerty, azerty
+```
+
+### 'call' 사용
+- 앞의 인자는 `this`로 사용될 인자(Arg)이고, 뒤의 인자는 원래 함수의 인자
+```js
+function thisTest(arg){
+    console.log(arg, this);
+}
+
+thisTest('test'); // test, Window 객체 출력
+
+let customThis = {
+    message: 'it is custom this!!'
+}
+// 함수의 this 객체는 'customThis' 객체를 넣고, 함수의 인자로 'test' 문자열을 넣음
+thisTest.call(customThis, 'test');  // test {message: "it is custom this!!"}
+```
+
+### 'apply' 사용
+- `[인자1, 인자2]` 형식으로 사용
+```js
+thisTest.apply(customThis, ['test']);
+```
+
+
+```js
+// call 또는 apply의 첫 번째 인자로 객체가 전달될 수 있으며 this가 그 객체에 묶임
 var obj = {a: 'Custom'};
 
 // 변수를 선언하고 변수에 프로퍼티로 전역 window를 할당
@@ -81,11 +128,10 @@ add.call(o, 5, 7); // 16
 add.apply(o, [10, 20]); // 34
 ```
 
-
-- 비엄격 모드에서 this로 전달된 값이 객체가 아닌 경우
-- call과 apply는 이를 객체로 변환 시도
-- null, undefined 값은 전역 객체가 됨
-- 7이나 'foo' 같은 원시값은 관련된 생성자를 사용해 객체로 변환
+- 비엄격 모드에서 `this`로 전달된 값이 객체가 아닌 경우
+- `call()`과 `apply()`는 이를 객체로 변환 시도
+- `null`, `undefined` 값은 전역 객체가 됨
+- 7 이나 'foo' 같은 원시값은 관련된 생성자를 사용해 객체로 변환
   - 7 -> new Number(7), 'foo' -> new String('foo') 객체로 변환
   ```javascript
   function bar() {
@@ -96,55 +142,11 @@ add.apply(o, [10, 20]); // 34
   bar.call('foo'); // [object String]
   bar.call(undefined); // [object global]
   ```
-
-<br><br>
-
-# this가 window 객체를 가리키지 않으려면..?
-## 1. 바인딩 이용
-- `call`, `apply`, `bind` 같은 메서드를 사용
-
-### 'bind' 사용
-- `f.bind(Object)` 호출하면 'f'와 같은 본문(코드)과 같은 범위를 가졌지만 this는 원본 함수를 가진 새로운 함수를 생성
-- 새 함수의 `this`는 호출 방식과 상관없이 영구적으로 `bind()`의 첫 번째 매개변수로 고정
-```javascript
-function f() {
-  return this.a;
-}
-
-var g = f.bind({a: 'azerty'});
-console.log(g()); // azerty
-
-var h = g.bind({a: 'yoo'}); // bind는 한 번만 동작함!
-console.log(h()); // azerty
-
-var o = {a: 37, f: f, g: g, h: h};
-console.log(o.a, o.f(), o.g(), o.h()); // 37, 37, azerty, azerty
-```
-
-### 'call' 사용
-- 앞의 인자는 This로 사용될 인자(Arg)이고, 뒤의 인자는 원래 함수의 인자
-```js
-function thisTest(arg){
-    console.log(arg, this);
-}
-
-thisTest('test'); // test, Window 객체 출력
-
-let customThis = {
-    message: 'it is custom this!!'
-}
-// 함수의 this 객체는 'customThis' 객체를 넣고, 함수의 인자로 'test' 문자열을 넣음
-thisTest.call(customThis, 'test');  // test {message: "it is custom this!!"}
-```
-
-### 'apply' 사용
-- `[인자1, 인자2]` 형식으로 사용
-```js
-thisTest.apply(customThis, ['test']);
-```
+  
 <br><br>
 
 ## 2. new 키워드 사용
+- 생성자로 
 ```js
 function thisTest2(something){
 	this.something = something; 
@@ -161,9 +163,9 @@ newObj; // thisTest2 {something: 'ABCD'}
 <br><br>
 
 ## 화살표 함수
-- this는 자신을 감싼 정적 범위(lexical context)
+- `this`는 자신을 감싼 `정적 범위(Lexical Context)`
 - 전역 코드에서는 전역 객체를 가리킴
-- call(), bind(), apply()로 호출 시 this 무시, 매개변수 지정은 가능하지만 첫번째 매개변수는 null로 지정
+- `call()`, `bind()`, `apply()`로 호출 시 `this` 무시, 매개변수 지정은 가능하지만 첫번째 매개변수는 `null`로 지정
 ```javacript
 var globalObject = this;
 var foo = (() => this);
@@ -332,32 +334,52 @@ console.log(o.a); // 38
 <br>
 
 ## DOM 이벤트 처리기로서
-- 함수를 이벤트 처리기로 사용하면 this는 이벤트를 발사한 요소로 설정
-```javascript
-// 처리기로 호출하면 관련 객체를 파랗게 만듦
-function bluify(e) {
-  // 언제나 true
-  console.log(this === e.currentTarget);
-  // currentTarget과 target이 같은 객체면 true
-  console.log(this === e.target);
-  this.style.backgroundColor = '#A5D9F3';
+- `addEventListener`의 콜백으로 등록한 함수의 `this`는 해당 이벤트 요소(e.CurrentTarget Element)이다.
+- `addEventListener`의 콜백 함수는 `button.onclick = function`와 비슷
+```js
+document.getElementById("labe").addEventListener("click", function (e) {
+   console.log(this); // e.currentTarget
+   
+   let arr = [1, 2, 3];
+   arr.forEach(function (a) {
+     console.log(this); // window
+   });
+   
+   arr.forEach(() => {
+     console.log(this); // <label>... lexical context
+   });
+});
+
+// 위 처럼 콜백 함수를 이벤트 리스너에 등록하면
+// 아래처럼 this를 event target에 설정
+for (var i = 0, l = stack.length; i < l; i++) {
+   stack[i].call(this, event); // stack array = callback function
 }
 
-// 문서 내 모든 요소의 목록
-var elements = document.getElementsByTagName('*');
+// 화살표 함수는 함수가 생성된 context와 동일한 값을 갖는다.
+document.getElementById("labe").addEventListener("click", () => {
+  console.log(this);
+}); // window
 
-// 어떤 요소를 클릭하면 파랗게 변하도록
-// bluify를 클릭 처리기로 등록
-for (var i = 0; i < elements.length; i++) {
-  elements[i].addEventListener('click', bluify, false);
-}
+// forEach의 콜백은 그냥 일반 함수로 this === window
+let obj = {
+  names: [1],
+  func: function () {
+     console.log("func this: ", this);
+     obj.names.forEach(function () {
+        // 일반함수
+        console.log(this); // window
+     });
+  },
+};
+obj.func();
 ```
 
 <br>
 
 ## 인라인 이벤트 핸들러에서
 - 코드를 인라인 이벤트 처리기로 사용하면 this는 처리기를 배치한 DOM 요소로 설정
-```javascript
+```html
 <button onclick="alert(this.tagName.toLowerCase());">
   this 표시
 </button>
