@@ -186,9 +186,29 @@ alert( user.ref.name ); // Error: Cannot read property 'name' of undefined
 ```
 - `this` 값 설정 시 객체 정의가 사용되지 않았다.
 - `this`는 호출 시점에 결정
-- `makeUser()` 내 `this`는 `undefined` - 메서드로써 호출이 아니라 **함수로써 호출**
-- `this`값은 전체 함수이고, 코드 블록과 객체 리터럴은 여기에 영햘을 주지 않는다.
+- `makeUser()` 내 `this`는 `undefined`
+  - 메서드로써 호출이 아니라 **함수로써 호출**
+- `this`값은 전체 함수(global?)이고, 코드 블록과 객체 리터럴은 여기에 영햘을 주지 않는다.
 - `ref: this`는 함수의 현재 `this`를 가져온다.
+
+```js
+// 결과 확인해보기
+function makeUser() {
+  console.log(this) // Object [global]
+  return {
+    name: "John",
+    ref: this // 함수 자체를 바라봄
+  };
+};
+
+let user = makeUser();
+
+console.log( user ); 
+// {
+//   name: 'John',
+// +  ref: Object [global]
+// }
+```
 
 - 수정
   - `user.ref()`가 메서드가 되고 `this`는 앞 `.`의 객체가 된다.
