@@ -16,7 +16,7 @@ var person = {
   name: 'kim',
   age: 26,
 }
-var hobbies = ['football', 'balling'];
+var hobbies = ['football', 'bowling'];
 ```
 <br>
 
