@@ -1,7 +1,8 @@
-# DOM (Document Object Model)
-- 문서 객체 모델
-- 웹 페이지에 대한 인터페이스
-- 트리 구조로 되어있는 객체 모델로 Javascript가 getElementnyId() 같은 함수로 HTML 각 요소에 접근하고 사용할 수 있다.
+# DOM (Document Object Model) 문서 객체 모델
+- XML이나 HTML 문서에 접근하기 위한 일종의 **인터페이스**
+- 문서 내의 모든 요소를 정의하고, 각각의 요소에 접근하는 방법을 제공
+
+  - **트리 구조**로 되어있는 객체 모델로 Javascript가 getElementnyId() 같은 함수로 HTML 각 요소에 접근하고 사용할 수 있다.
 
   ### 문제점
   - 거대한 DOM 트리에서 속도 이슈
@@ -44,7 +45,7 @@
 
 ### => 가상 DOM의 사용
 
-<BR><BR>
+<br><br>
   
 # Virtual DOM
 - DOM 문서를 추상화한 개념
@@ -95,7 +96,7 @@ React가 DOM 보다 빠르다는건 잘못된 사실이에요. 사실은: 유지
 <br><br><br>
 
 <출처>
-
 - https://noogoonaa.tistory.com/53
 - https://velopert.com/3236
 - https://stackoverflow.com/questions/61245695/how-exactly-is-reacts-virtual-dom-faster
+- http://www.tcpschool.com/javascript/js_dom_concept
