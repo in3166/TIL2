@@ -1,6 +1,6 @@
 # 🎇 Today I Learned
 
-- [💻 페이지](til-in3166.netlify.app)
+- [💻 페이지](https://til-in3166.netlify.app/)
 
 학습한 내용을 올리는 페이지입니다.
 
