@@ -4,6 +4,7 @@
 - 배열 메서드
 
 - 1. 제거
+
 ```js
 let bread = ['loaf1','loaf2','loaf3','loaf4','loaf5','loaf6'];
 let newArr = bread.splice(1, 3);
@@ -12,6 +13,7 @@ let newArr = bread.splice(1, 3);
 ```
 
 - 2. 제거 후 새로운 요소 추가
+
 ```js
 let bread = ['loaf1','loaf2','loaf3','loaf4','loaf5','loaf6'];
 let newArr = bread.splice(1, 3, 'newLoaf1', 'newLoaf2');
@@ -20,6 +22,7 @@ let newArr = bread.splice(1, 3, 'newLoaf1', 'newLoaf2');
 ```
 
 - 3. 추가
+
 ```js
 let bread = ['loaf1','loaf2','loaf3','loaf4','loaf5','loaf6'];
 let newArr = bread.splice(3, 0, 'newLoaf1', 'newLoaf2');
@@ -32,8 +35,10 @@ let newArr = bread.splice(3, 0, 'newLoaf1', 'newLoaf2');
 # Slice
 - 기존 배열 변하지 않고, 원하는 부분을 복사해서 새로운 배열 반환
 - 배열 메서드
+
 ```js
-//loaf3과 loaf5를 새 배열에 복사하고 싶어욧..
+
+//loaf3과 loaf5를 새 배열에 사하고 싶어욧..
 
 let bread=['loaf1','loaf2','loaf3','loaf4','loaf5','loaf6'];
 newArr=bread.slice(2,5);
@@ -58,4 +63,3 @@ console.log(newString2) // ['t', 'h', 'e', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' 
 <br><br><br>
 <출처>
 - https://velog.io/@chloeee/Slice-vs-Splice-vs-Split%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90
-- 

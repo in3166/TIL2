@@ -9,6 +9,7 @@
 ## 전역 문맥
 - `window` 객체: 브라우저 상 자바스크립트의 전역 객체
 - 전역 실행 문맥(Global Execution Context)에서 this는 엄격 모드 여부에 관계없이 전역 객체를 참조
+
 ```javascript
 // 웹 브라우저에서는 window 객체가 전역 객체
 console.log(this === window); // true
@@ -24,6 +25,7 @@ console.log(b)         // "MDN"
 ## 함수 문맥
 1. 단순 호출
 - 비엄격 모드, this의 값이 호출에 의해 설정되지 않으므로 기본값으로 브라우저에서 window 전역 객체
+
 ```javascript
 function f1() {
   return this;
@@ -39,6 +41,7 @@ f1() === global; // true
 
 - 엄격 모드에서 `this` 값은 실행 문맥에 진입하며 설정되는 값을 유지, `undefined`
 - `f2`를 객체의 메서드나 속성(`obj.f2()`)가 아닌 직접 호출해서 this는 `undefined`
+
 ```javascript
 function f2(){
   "use strict"; // 엄격 모드 참고
@@ -59,6 +62,7 @@ f2() === undefined; // true
 ### 'bind' 사용
 - `f.bind(Object)` 호출하면 'f'와 같은 본문(코드)과 같은 범위를 가졌지만 this는 원본 함수를 가진 새로운 함수를 생성
 - 새 함수의 `this`는 호출 방식과 상관없이 영구적으로 `bind()`의 첫 번째 매개변수로 고정
+
 ```javascript
 function f() {
   return this.a;
@@ -76,6 +80,7 @@ console.log(o.a, o.f(), o.g(), o.h()); // 37, 37, azerty, azerty
 
 ### 'call' 사용
 - 앞의 인자는 `this`로 사용될 인자(Arg)이고, 뒤의 인자는 원래 함수의 인자
+
 ```js
 function thisTest(arg){
     console.log(arg, this);
@@ -92,6 +97,7 @@ thisTest.call(customThis, 'test');  // test {message: "it is custom this!!"}
 
 ### 'apply' 사용
 - `[인자1, 인자2]` 형식으로 사용
+
 ```js
 thisTest.apply(customThis, ['test']);
 ```
@@ -112,6 +118,7 @@ whatsThis();          // this는 'Global'. 함수 내에서 설정되지 않았�
 whatsThis.call(obj);  // this는 'Custom'. 함수 내에서 obj로 설정한다.
 whatsThis.apply(obj); // this는 'Custom'. 함수 내에서 obj로 설정한다.
 ```
+
 ```javascript
 function add(c, d) {
   return this.a + this.b + c + d;
@@ -133,6 +140,7 @@ add.apply(o, [10, 20]); // 34
 - `null`, `undefined` 값은 전역 객체가 됨
 - 7 이나 'foo' 같은 원시값은 관련된 생성자를 사용해 객체로 변환
   - 7 -> new Number(7), 'foo' -> new String('foo') 객체로 변환
+
   ```javascript
   function bar() {
     console.log(Object.prototype.toString.call(this));
@@ -147,6 +155,7 @@ add.apply(o, [10, 20]); // 34
 
 ## 2. new 키워드 사용
 - 생성자로 
+
 ```js
 function thisTest2(something){
 	this.something = something; 
@@ -167,11 +176,13 @@ newObj; // thisTest2 {something: 'ABCD'}
 - `this` 값을 재정의하지 않고 밖의 값을 갖고옴
 - 전역 코드에서는 전역 객체를 가리킴
 - `call()`, `bind()`, `apply()`로 호출 시 `this` 무시, 매개변수 지정은 가능하지만 첫번째 매개변수는 `null`로 지정
-```javacript
+
+```js
 var globalObject = this;
 var foo = (() => this);
 console.log(foo() === globalObject); // true  , window
 ```
+
 ```javascript
 // 객체로서 메서드 호출
 var obj = {func: foo};
@@ -189,6 +200,7 @@ console.log(foo() === globalObject); // true
 ```
 
 - 예시
+
 ```javascript
 // this를 반환하는 메소드 bar를 갖는 obj를 생성합니다.
 // 반환된 함수는 화살표 함수로 생성되었으므로,
@@ -215,6 +227,7 @@ var fn2 = obj.bar;
 // fn2의 this를 따르므로 window를 반환할것입니다.
 console.log(fn2()() == window); // true
 ```
+
 - obj.bar 함수에 this 설정 유지
 
 
@@ -232,10 +245,12 @@ let obj = {
 obj.func();
 obj.func2();
 ```
+
 <br><br>
 
 ## 객체의 메서드로서 `this` 호출
 - this 값: 그 객체
+
 ```javascript
 var o = {
   prop: 37,
@@ -249,6 +264,7 @@ console.log(o.f()); // 37
 
 - 함수가 정의된 방법이나 위치와 상관 x
 - 함수 먼저 정의하고 추가해도 동일
+
 ```javascript
 var o = {prop: 37};
 
@@ -262,12 +278,14 @@ console.log(o.f()); // logs 37
 ```
 
 - this 바인딩은 가장 즉각으로 멤버 대상에 영향
+
 ```javascript
 o.b = {g: independent, prop: 42};
 console.log(o.b.g()); // logs 42
 ```
 
 - 객체 메서드로서 화살표 함수
+
 ```js
 var obj = {
   f1: () => {
@@ -282,6 +300,7 @@ obj.f1();
 
 ## 객체의 프로토타입 체인에서 `this`
 - 객체의 포로토타입 체인 어딘가에 정의한 메서드도 마찬가지로 어떤 객체의 프로토타입 체인 위에 메서드가 존재하면, this의 값은 그 객체가 메서드를 가진 것 마냥 설정
+
 ```javascript
 var o = {
   f:function() { return this.a + this.b; }
@@ -297,6 +316,7 @@ console.log(p.f()); // 5
 
 ## 접근자와 설정자의 `this`
 - 접근자나 설정자로 사용하느 함수의 this는 접근하거나 설정하는 속성을 가진 객체로 묶임
+
 ```javascript
 function sum() {
   return this.a + this.b + this.c;
@@ -321,26 +341,8 @@ console.log(o.average, o.sum); // 2, 6
 
 ## 생성자로서
 - 함수를 new 키워드와 함께 생성자로 사용하면 this 새로 생긴 객체에 묶임
-```javascript
-/*
- * Constructors work like this:
- *
- * function MyConstructor(){
- *   // Actual function body code goes here.
- *   // Create properties on |this| as
- *   // desired by assigning to them.  E.g.,
- *   this.fum = "nom";
- *   // et cetera...
- *
- *   // If the function has a return statement that
- *   // returns an object, that object will be the
- *   // result of the |new| expression.  Otherwise,
- *   // the result of the expression is the object
- *   // currently bound to |this|
- *   // (i.e., the common case most usually seen).
- * }
- */
 
+```javascript
 function C() {
   this.a = 37;
 }
@@ -363,6 +365,7 @@ console.log(o.a); // 38
 ## DOM 이벤트 처리기로서
 - `addEventListener`의 콜백으로 등록한 함수의 `this`는 해당 이벤트 요소(e.CurrentTarget Element)이다.
 - `addEventListener`의 콜백 함수는 `button.onclick = function`와 비슷
+
 ```js
 document.getElementById("labe").addEventListener("click", function (e) {
    console.log(this); // e.currentTarget
@@ -393,6 +396,7 @@ document.getElementById("labe").addEventListener("click", () => {
 
 ## 인라인 이벤트 핸들러에서
 - 코드를 인라인 이벤트 처리기로 사용하면 this는 처리기를 배치한 DOM 요소로 설정
+
 ```html
 <button onclick="alert(this.tagName.toLowerCase());">
   this 표시
@@ -406,6 +410,7 @@ document.getElementById("labe").addEventListener("click", () => {
 <br><br>
 
 # 참조 타입
+
 ```js
 let user = {
   name: "John",
@@ -417,11 +422,13 @@ user.hi(); // John
 
 // name에 따라 user.hi나 user.bye가 호출
 (user.name == "John" ? user.hi : user.bye)(); // TypeError: Cannot read property 'name' of undefined
+
 ```
 - `obj.method()` 연산 2가지
   - 1. 점 `.`은 객체 프로퍼티 `obj.method`에 접근
   - 2. 괄호 `()`는 접근한 프로퍼티(메서드)를 실행
 - 위를 쪼개보면
+
 ```js
 // 메서드 접근과 호출을 별도의 줄에서 실행함
 let hi = user.hi;
@@ -442,6 +449,7 @@ hi(); // this가 undefined이기 때문에 에러가 발생.
   - 그래서 `obj.method()` 같이 점을 사용하거나, `obj[method]()` 같이 대괄호를 사용해 함수를 호출했을 때만 this 값이 의도한 대로 전달
 
 ### 예제1
+
 ```js
 let user = {
   name: "John",
@@ -450,6 +458,7 @@ let user = {
 
 (user.go)()
 ```
+
 - 에러 발생 이유
   - `let user = {}` 뒤에 **'세미콜론'**이 없다.
   - 자바스크립트는 괄호(`(user.go)`) 앞에 세미콜론을 자동으로 넣어주지 않는다.
@@ -463,6 +472,7 @@ let user = {
 - 괄호는 대개 연산자 우선순위를 바꾸는 데 사용되는데, 위에선 점 `.` 연산자가 먼저 동작하므로 의미가 없다.
 
 ### 예제2
+
 ```js
 let obj, method;
 
@@ -477,6 +487,7 @@ obj.go();               // (1) [object Object]  - 일반적인 메서드 호출
 ```
 
 - (3)은 아래와 같이 쪼갤 수 있다.
+
 ```js
 f = obj.go; // 표현식 계산하기
 f();        // 저장된 것 호출하기 - f()는 (메서드가 아닌) 함수로써 호출, this 정보 없음
@@ -488,6 +499,7 @@ f();        // 저장된 것 호출하기 - f()는 (메서드가 아닌) 함수�
 <br><br>
 
 ## 예제들
+
 ```js
 let user = {
     firstName: "John",

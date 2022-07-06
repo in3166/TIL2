@@ -8,7 +8,7 @@
 - 어떤 파일이 필요한 사용자가 추상레이어에 접근하여 파일의 `해시`를 호출하면 IPFS는 노드에서 파일을 찾아 사용자에게 전달한다.
 
 ## 작동 방식
-<img src="https://github.com/in3166/TIL/blob/main/etc/img/ipfs1.png" width="50%" />
+<img src="05_ETC/img/ipfs1.png" width="50%" />
 
 - A가 PDF 파일을 IPFS에 올린다.
 - A는 자신의 워킹 디렉토리에 파일을 놓는다.
@@ -96,14 +96,14 @@
 ## 4. Encryption
 - 네트워크에는 `전송 암호화`와 `콘텐츠 암호화` 2 종류가 있다.
 
-<img src="https://github.com/in3166/TIL/blob/main/etc/img/ipfs2.png" width="50%"/>
+<img src="05_ETC/img/ipfs2.png" width="50%"/>
 
 - `전송 암호화`
   - 양 당사자 간에 데이터를 전송할 때 사용한다.
   - 데이터가 한 장소에서 다른 곳으로 이동하는 동안 제 3자가 볼 수 없다.
 <br>
 
-<img src="https://github.com/in3166/TIL/blob/main/etc/img/ipfs3.png" width="50%"/>
+<img src="05_ETC/img/ipfs3.png" width="50%"/>
 
 - `콘텐츠 암호화`
   - 다른 사용자가 액세스해야 할 때가지 데이터를 보호한다.

@@ -9,6 +9,7 @@
   - 반복 작업 `for await (let item of iterable)` 반복문 사용
 
 - 일반 이터레이터
+
 ```js
 let range = {
   from: 1,
@@ -42,6 +43,7 @@ for(let value of range) {
 ```
 
 - async 이터레이터
+
 ```js
 let range = {
   from: 1,
@@ -82,11 +84,13 @@ let range = {
 
 })()
 ```
+
 <br><br>
 
 ## async 제너레이터
 - 일반 제너레이터는 동기적 문법, `await` 사용 불가
 - 제너레이터 본문에서 `await`를 사용해야 할 때 `async`를 앞에 붙여준다.
+
 ```js
 async function* generateSequence(start, end) {
 
@@ -109,12 +113,15 @@ async function* generateSequence(start, end) {
 
 })();
 ```
+
 - async 제너레이터의 `generator.next()` 메서드는 비동기적이 되고, 프라미스를 반환
 - 일반 제너레이터는 `result = generator.next()`를 사용해 값을 얻지만, async 제너레이터는 `result = await generator.next()`
+
 <br>
 
 ## async 이터러블
 - 반복 가는 객체를 만드려면 `Symbol.iterator`를 추가하는데 `next`가 일반 객체를 반환하기 보단 제너레이터를 반환하는 경우가 대다수
+
 ```js
 let range = {
   from: 1,
@@ -139,6 +146,7 @@ let range = {
 
 })();
 ```
+
 <br><br>
 
 ### 실제 사례
@@ -152,6 +160,7 @@ let range = {
 
 
 - 커밋 정보가 담긴 이터러블 객체를 만들어 객체를 대상으로 반복 작업을 할 수 잇게 해주는 간단한 API 만들기
+
 ```JS
 let repo = 'javascript-tutorial/en.javascript.info'; // 커밋 정보를 얻어올 GitHub 리포지토리
 
@@ -182,12 +191,14 @@ async function* fetchCommits(repo) {
   }
 }
 ```
+
 1. `fetch` 메서드로 다운로드, 인증 정보나 헤더 등을 실어 `fetch`로 요청
 2. `fetch` 전용 메서드인 `response.json()`을 사용해 요청 결과를 JSON 파싱
 3. 응다브이 `Link` 헤더에서 다음 페이지 URL 얻음
 4. 커밋을 하나씩 반환하는데, 전체 다 반환되면 다음 `while(url)` 반복문 트리거 다시 서버 요청 보냄
 
 - 사용법
+
 ```js
 (async () => {
 

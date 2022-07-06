@@ -5,6 +5,7 @@
 
 ## Generator 함수
 - 제너레이터를 만들기 위해 '제너레이터 함수'라는 특별한 문법 구조 `function*`이 필요
+
 ```js
 function* generateSequence() {
   yield 1;
@@ -15,17 +16,20 @@ function* generateSequence() {
 let generator = generateSequence();
 alert(generator); // [object Generator]
 ```
+
 - 동작 방식
   - Generator 함수 호출 시 코드 실행 대신, 실행을 처리하는 특별 객체 `제너레이터 객체`가 반환
   - `제너레이터 객체`가 생성되도 함수 본문 코드는 아직 실행 전
-  <img src="https://github.com/in3166/TIL/blob/main/JavaScript/img/gener1.JPG" />
+  <img src="02_JavaScript/img/gener1.JPG" />
 
 - `next()` 메서드
   - `value`: 산출 값
   - `done`: 함수 코드 실행이 끝나면 `true`, 아니면 `false`
+
 <br>
 
 ### `Generator` 생성 후 첫 번째 산출 값 받기
+
 ```js
 function* generateSequence() {
   yield 1;
@@ -39,13 +43,15 @@ let one = generator.next();
 
 alert(JSON.stringify(one)); // {value: 1, done: false}
 ```
-<img src="https://github.com/in3166/TIL/blob/main/JavaScript/img/gener2.JPG" />
+
+<img src="02_JavaScript/img/gener2.JPG" />
 
 <br><br>
 
 ## Generator와 Iterable
 - `Generator`는 `Iteravle` 이다.
 - `for...of` 반복문 사용 가능
+
 ```js
 function* generateSequence() {
   yield 1;
@@ -59,8 +65,10 @@ for(let value of generator) {
   alert(value); // 1, 2가 출력됨
 }
 ```
+
 - '3'은 출력되지 않는다. -> `for..of` Iteration은 `done: true`일 때 마지막 `value`를 무시
 - 마지막에 `yield`로 반환해야 모두 출력가능
+
 ```js
 function* generateSequence() {
   yield 1;
@@ -70,6 +78,7 @@ function* generateSequence() {
 ```
 
 - 전개 문법도 사용 가능
+
 ```js
 let sequence = [0, ...generateSequence()[;
 alert(sequence); // 0, 1, 2, 3
@@ -78,6 +87,7 @@ alert(sequence); // 0, 1, 2, 3
 
 ### 이터러블 대신 제너레이터 사용하기
 - iterable 객체 챕터의 `range` 예제 수정
+
 ```js
 let range = {
   from: 1,
@@ -109,6 +119,7 @@ alert([...range]); // 1,2,3,4,5
 ```
 
 - `Symbol.iterator` 대신 `Generator` 함수를 사용하면 제너레이터 함수로 반복 가능
+
 ```js
 let range = {
   from: 1,
@@ -123,12 +134,14 @@ let range = {
 
 alert( [...range] ); // 1, 2, 3, 4, 5
 ```
+
 <br><br>
 
 ## 제너레이터 컴포지션 (Generator Composition)
 - 제너레이터 안에 제너레이터를 '임베딩(embedding, composing)' 할 수 있게 해주는 기능
 
 - 연속된 숫자를 생성하는 제너레이터 함수
+
 ```js
 function* generateSequence(start, end) {
   for (let i = start; i <= end; i++) yield i;

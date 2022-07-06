@@ -1,5 +1,7 @@
 # 🎇 Today I Learned
 
+- [💻 페이지](til-in3166.netlify.app)
+
 학습한 내용을 올리는 페이지입니다.
 
 Docsify와 Netlify를 사용해 웹 사이트로 배포했습니다.

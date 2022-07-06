@@ -11,6 +11,7 @@
 
 ### CSS 미디어 유형, 미디어 쿼리 사용
 - 특수한 경우에만 사용하는 CSS는 렌더링을 차단하지 않도록 한다.
+
 ```HTML
 <link href="style.css"    rel="stylesheet">
 <link href="style.css"    rel="stylesheet" media="all">

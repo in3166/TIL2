@@ -20,6 +20,7 @@
 
 # CSR(Client Side Rendering)
 - 서버에서 아주 간단한 빈 HTML을 가져온다.
+
 ```HTML
 <body>
   <div id="root"></div>
@@ -52,6 +53,7 @@
 
 ## TTV (Time To View)와 TTI (Time To Interact)
 - 서버 성능 분석에도 중요한 요소
+
 ### CSR의 경우 시간 순 처리 과정
 - 1. Client가 서버에 주소 요청 (사이트 접속)
 - 2. JS링크가 담긴 빈 HTML 파일 전송
@@ -109,7 +111,7 @@
 ## CI/CD
 - 애플리케이션 개발 단계를 자동화하여 애플리케이션을 보다 짧은 주기로 고객에게 제공하는 방법
 - 지속적인 통합, 지속적인 서비스 제공, 지속적인 배포
-<img src="https://github.com/in3166/TIL/blob/main/JavaScript/img/cicd.jpg" />
+<img src="02_JavaScript/img/cicd.jpg" />
   
 ### CI (Continuous Integration)
 - 지속적인 통합
@@ -123,7 +125,7 @@
 ### CD (Continuous Delivery & Continuous Deployment) 
 - 지속적인 서비스 제공: 공유 레포지토리로 자동으로 Release하는 것
 - 지속적인 배포: Production 레벨까지 자동으로 deploy 하는 것
-<img src="https://github.com/in3166/TIL/blob/main/JavaScript/img/cicd2.png" />
+<img src="02_JavaScript/img/cicd2.png" />
 
 - CI가 새로운 소스코드의 빌드, 테스트, 병합을 의미한다면
 - CD는 개발자의 변경 사항이 레포지토리를 넘어 고개의 프로덕션 환경까지 릴리즈 되는 것

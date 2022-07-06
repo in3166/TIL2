@@ -1,5 +1,6 @@
 # EventListenerOptions
 - `addEventListener`의 3번째 인자로 `useCapture` 속성을 포함한 객체를 사용할 수 있음
+
 ```js
 // it's same
 document.addEventListener('touchstart', listener, true);
@@ -9,6 +10,7 @@ document.addEventListener('touchstart', listener, { capture:true });
 - `capture` : 이벤트 전달 방식으로 capturing(true) 또는 bubbling(false) 선택
 - `once` : true일 경우 이벤트를 한번만 받고 해제
 - `passive` : true일 경우 이벤트에 의해 스크롤이 블럭되는 것을 방지
+
 <br>
 
 ## { passive: true }
@@ -20,7 +22,7 @@ document.addEventListener('touchstart', listener, { capture:true });
 - 모던 웹 브라우저 내부엔 `네트워크`, `브라우저`, `UI`, `GPU`, `플러그인`, `렌더러` 등 여러 프로세스 존재
 
 - 크롬은 탭 내의 웹 콘텐츠를 렌더러 프로세스가 처리하고 렌더러 프로세스 내부에서도 하위 스레드들이 돌아간다.
-<img src="https://github.com/in3166/TIL/blob/main/JavaScript/img/pass1.png" width="50%" />
+<img src="02_JavaScript/img/pass1.png" width="50%" />
 
 - 렌더러 프로세스가 화면을 그리는 과정
   - `JS -> Style -> Layout -> Paint -> Composite`

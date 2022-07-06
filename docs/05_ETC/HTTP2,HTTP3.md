@@ -15,6 +15,7 @@ Host: www.modusecurity.xyz
 User-Agent: curl/7.66.0
 Accept: */*
 ```
+
 ```http
 HTTP/1.1 200 OK
 X-Powered-By: Express
@@ -30,6 +31,7 @@ Connection: keep-alive
 <html lang="en">
 ..... 생략.....
 ```
+
 ## 개선 사항
 - 커넥션 재사용 가능 (기존 연결에 대한 Handshake 생략 가능)
 - Pipelining 추가, 이전 요청에 대한 응답이 완전히 전송되기 전 다음 전송 가능 (커뮤니케이션 레이턴시 감소)
@@ -67,6 +69,7 @@ Connection: keep-alive
 SSL: 보안 소켓 계층, 안전한 데이터 전송을 위한 인터넷 통신 규약 프로토콜 (SSL 2.0 및 3.0 모두 IETF에 의해 사용 중지)
 TLS: 전송 계층 보안-모든 종류의 인터넷 트래픽을 암호화, SSL 프로토콜의 차세대 버전 (https는 SSL/TLS 적용한 것)
 ```
+
 - TCP와 TLS
 <img src="https://github.com/in3166/TIL/blob/main/etc/img/http13.png" width="30%"/>
 
@@ -197,7 +200,7 @@ TLS: 전송 계층 보안-모든 종류의 인터넷 트래픽을 암호화, SSL
 
 <br>
   
-<img src="https://github.com/in3166/TIL/blob/main/etc/img/http32.gif" width="60%" />
+<img src="05_ETC/img/http32.gif" width="60%" />
 
 - 주요 특징
   - 전달 속도의 개선, 클라이언트와 서버의 연결 최소화 

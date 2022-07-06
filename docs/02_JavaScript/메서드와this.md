@@ -1,17 +1,20 @@
 # 객체
 - 사용자, 주문 등 실제 존재하는 개체(entity)를 표현하고자 할 때 생성
+
 ```js
 let user = {
   name: "John",
   age: 30
 };
 ```
+
 <br>
 
 # 메서드
 - `객체 프로퍼티에 할당된 함수`
 - 객체의 프로퍼티에 함수를 할당해 객체에게 행동할 수 있는 능력 부여
 - 함수 표현식으로 프로퍼티 할당
+
 ```js
 let user = {
   name: "John",
@@ -26,6 +29,7 @@ user.sayHi(); // 안녕하세요!
 ```
 
 - 이미 정의된 함수를 프로퍼티 할당
+
 ```js
 let user = {
   // ...
@@ -41,10 +45,12 @@ user.sayHi = sayHi;
 
 user.sayHi(); // 안녕하세요!
 ```
+
 <br>
 
 ## 메서드 단축 구문
 - 아래 두 객체는 동일하게 작동하지만 객체 상속 관련 미묘한 차이 존재
+
 ```js
 user = {
   sayHi: function() {
@@ -59,11 +65,13 @@ user = {
   }
 };
 ```
+
 <br><br>
 
 # 메서드와 this
 - 메서드는 객체에 저장된 정보에 접근하여 제 역할을 한다.
 - 메서드 내부에서 `this` 키워드를 사용하면 객체에 접근 가능
+
 ```js
 let user = {
   name: "John",
@@ -80,6 +88,7 @@ user.sayHi(); // John
 
 - `this`를 사용하지 않고 외부 변수를 참조해 객체에 접근
   - 이런 방법은 에러 발생 가능: 객체 `user`를 복사해 다른 변수에 할당한다면 error
+
 ```js
 let user = {
   name: "John",
@@ -96,18 +105,22 @@ user = null; // user를 null로 덮어씁니다.
 
 admin.sayHi(); // sayHi()가 엉뚱한 객체를 참고하면서 에러가 발생했습니다.
 ```
+
 <br>
 
 ## 자유로운 this
 - 모든 함수에 `this`를 사용할 수 있다.
+
 ```js
 function sayHi() {
   alert( this.name ); // 에러 발생 안함
 }
+```
 
 - `this` 값은 런타임에 결정
 - 컨텍스트에 따라 다름.
-  - 동일한 함수라도 다른 객체에서 호출하면 `this`가 참조하는 값이 달라진다.\
+  - 동일한 함수라도 다른 객체에서 호출하면 `this`가 참조하는 값이 달라진다.
+
 ```js
 let user = { name: "John" };
 let admin = { name: "Admin" };
@@ -130,6 +143,7 @@ admin['f'](); // Admin (점과 대괄호는 동일하게 동작함)
 
 ### 객체 없이 호출하기 (this == undefined)
 - 객체 없이 함수 호출 가능
+
 ```js
 function sayHi() {
   alert(this);
@@ -137,8 +151,10 @@ function sayHi() {
 
 sayHi(); // undefined
 ```
+
 - 엄격 모드에서 `this`는 `undefined`가 할당
 - 비엄격 모드에선 전역 객체 참조 (`window`)
+
 <br>
 
 - 다른 언어 사용자는 `this`는 항상 메서드가 정의된 객체를 참조할 것이라 착각한다. (bound `this`)
@@ -152,6 +168,7 @@ sayHi(); // undefined
 ## this가 없는 화살표 함수
 - 고유한 `this`가 없다.
 - 화살표 함수에서 `this`를 참조하면, '평범한' 외부 함수에서 `this`를 가져온다.
+
 ```js
 let user = {
     firstName: "보라",
@@ -168,10 +185,12 @@ let user = {
   user.sayHi(); // [user] -   firstName: '보라', sayHi: [Function: sayHi], sayBye: [Function: sayBye]
   user.sayBye(); // [global]
 ```
+
 <br><br>
 
 
 ## 문제1
+
 ```js
 function makeUser() {
   return {
@@ -184,6 +203,7 @@ let user = makeUser();
 
 alert( user.ref.name ); // Error: Cannot read property 'name' of undefined
 ```
+
 - `this` 값 설정 시 객체 정의가 사용되지 않았다.
 - `this`는 호출 시점에 결정
 - `makeUser()` 내 `this`는 `undefined`
@@ -212,6 +232,7 @@ console.log( user );
 
 - 수정
   - `user.ref()`가 메서드가 되고 `this`는 앞 `.`의 객체가 된다.
+
 ```js
 function makeUser() {
   return {
@@ -228,6 +249,7 @@ alert( user.ref().name ); // John
 ```
 
 ## 문제2: 체이닝 기능 추가
+
 ```js
 let ladder = {
   step: 0,
@@ -242,6 +264,7 @@ let ladder = {
   }
 };
 ```
+
 ```js
 let ladder = {
   step: 0,

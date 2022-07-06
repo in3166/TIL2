@@ -19,6 +19,7 @@
 - `React.createRef()`
 - `ref` 속성을 통해 React 엘리먼트에 부착
 - 컴포넌트 인스턴스가 생성될 때 Ref 프로퍼티로서 추가하면 컴포넌트 인스턴스의 어느 곳에서도 Ref 접근 가능
+
 ```javascript
 class MyComponent extends React.Component {
   constructor(props) {
@@ -31,11 +32,14 @@ class MyComponent extends React.Component {
 }
 ```
 
+
 ## Ref에 접근
 - `render` 메서드 안에서 ref 엘리먼트에 전달되었을 때, 그 노드 참조는 ref의 `current` 어트리뷰트에 담김
+
 ```javascript
 const node = this.myRef.current;
 ```
+
 - 노드 유형에 따른 ref 값
   - HTML 엘리먼트에 쓰였을 때: 생성자에서 React.createRef()로 생성된 ref는 자신을 전달받은 DOM 엘리먼트를 current 프로퍼티의 값으로 받음
   - 커스텀 클래스 컴포넌트에 쓰였을 때:ref 객체는 마운트된 컴포넌트의 인스턴스를 current 프로퍼티의 값으로서 받음
@@ -44,6 +48,7 @@ const node = this.myRef.current;
 ## 함수 컴포넌트에서 Ref
 - `forwardRef`를 사용해야 하거나 클래스 컴포넌트로 변경할 수 있다
 - DOM 엘리먼트나 클래스 컴포넌트의 인스턴스에 접근하기 위해 ref 어트리뷰트를 사용할 수 있다.
+
 ```javascript
 function CustomTextInput(props){
   const textInput = useRef(null);
@@ -60,7 +65,9 @@ function CustomTextInput(props){
   )
 }
 ```
+
 <br><br>
+
 
 ## 콜백 ref
 - ref 설정, 해제되는 상황을 세세하게 다룰 수 있는 '콜백 ref' 제공

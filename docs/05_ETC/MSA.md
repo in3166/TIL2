@@ -1,6 +1,6 @@
 # Monolithic Architecture
 - 서비스의 아키텍처를 구성할 때 모든 서비스를 구성하는 비즈니스 로직, DB, UI 등 하나의 패키지에 담아 빌드, 배포하는 방법
-<img src="https://github.com/in3166/TIL/blob/main/etc/img/msa1.png" width="50%" />
+<img src="05_ETC/img/msa1.png" width="50%" />
 
 ## 한계
 - 부분 장애가 전체 서비스 장애로 확대될 수 있다.
@@ -14,7 +14,7 @@
 - 각자 별도의 프로세스에서 실행되며, HTTP 자원 API 같은 가벼운 매커니즘으로 통신하는 작은 서비스를 모아 하나의 어플리케이션
 - 작고, 독립적으로 배포 가능한 각각의 기능을 수행하는 서비스로 구성된 프레임워크
 - 하나의 큰 애플리케이션을 여러개의 작을 애플리케이션을 쪼개어 변경과 조합이 가능하도록 만든 아키텍쳐
-<img src="https://github.com/in3166/TIL/blob/main/etc/img/msa2.png" width="50%" />
+<img src="05_ETC/img/msa2.png" width="50%" />
 
 ## 특징
 ### API를 통해서만 마이크로서비스와 상호작용할 수 있다.

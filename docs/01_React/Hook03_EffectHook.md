@@ -9,6 +9,7 @@
 - class 생명주기 메서드인 `componentDidMount`, `componentDidUpdate`, `componentWillUnmount` 가 합쳐진 거라 생각해도 좋다.
 
 - 카운터 예시에 문서의 타이틀에 클릭 횟수 포함한 문장 표현을 추가
+
 ```javascript
 import React, { useState, useEffect } from 'react';
 
@@ -50,6 +51,7 @@ function Example() {
 
 - 친구의 온라인 상태를 구독할 수 있는 ChatAPI 모듈
 - React Class는 흔히 `componentDidMount`에 구독을 설정한 뒤 `componentWillUnmount`에서 이를 정리 (clean-up)
+
 ```javascript
 class FriendStatus extends React.Component {
   constructor(props) {
@@ -80,6 +82,7 @@ class FriendStatus extends React.Component {
   }
 }
 ```
+
 - `componentDidMount`와 `componentDidUpdate`에 동일 코드: 컴포넌트가 이제 막 마운트된 단계인지 업데이트인지 상관없이 같은 side effect 수행해야 하기 떄문
   - 즉, 렌더링 이후에는 같은 코드가 수행되어야 한다.
 
@@ -96,6 +99,7 @@ class FriendStatus extends React.Component {
   - 첫 번째 렌더링과 이후의 모든 업데이트에서 수행됨
 
 ### 상세 설명
+
 ```js
 function Example() {
   const [count, setCount] = useState(0);
@@ -105,6 +109,7 @@ function Example() {
   });
 }
 ```
+
 - `useEffect` Hook에 함수를 전달하는데 이 함수 = effect
 - 컴포넌트를 렌더링할 때 React는 우리가 이용한 effect를 기억하다가 DOM 업데이트 후 실행 (맨 처음과 이후 모든 렌더링에서)
 
@@ -123,6 +128,7 @@ function Example() {
 ### Class를 사용하는 예시
 - class에선 흔히 `componentDidMount`에서 구독을 설정하고 `componentWillUnmount`에서 이를 정리한다.
 - 친구가 온라인 상태인지 구독(지켜보다가 종료 시 구독 해제)
+
 ```javascript
 class FriendStatus extends React.Component {
   constructor(props) {
@@ -161,6 +167,7 @@ class FriendStatus extends React.Component {
 ### Hook을 이용하는 예시
 - 구독의 추가와 제거를 위한 코드는 결합도가 높아 useEffect는 함께 다룬다.
 - effect가 함수를 반환하면 React는 함수를 정리가 필요한 때에 실행
+
 ```js
 import React, { useState, useEffect } from 'react';
 
@@ -184,6 +191,7 @@ function FriendStatus(props) {
   return isOnline ? 'Online' : 'Offline';
 }
 ```
+
 - effect에서 함수를 반환하는 이유
   - effect를 위한 추가적인 정리 메커니즘
   - 모든 effect는 정리를 위한 함수를 반환할 수 있어서 구독의 추가, 제거 로직을 가까이 묶을 수 있음.
@@ -203,6 +211,7 @@ function FriendStatus(props) {
 # 팁
 ## 관심사를 구분하려면 Multiple Effect를 사용
 - 생명주기 class 메서드가 관련 는 로직들은 모아놓고, 관련 있는 로직들은 여러 개의 메서드에 나누어 놓는 경우 존재(문제)
+
 ```js
 class FriendStatusWithCounter extends React.Component {
   constructor(props) {
@@ -237,11 +246,13 @@ class FriendStatusWithCounter extends React.Component {
   }
   // ...
 ```
+
 - `document.title` 설정 로직이 `componentDidMount`와 `compoenetDidUpdate`에 나뉘어져 있다.
 - 구독 로직도 `componentDidMount`와 `componentWillUnmout`에 나뉘어져 있다.
 - 즉, `componentDidMount`가 두 작업을 위한 코드를 가진다.
 
 ### Effect Hook을 여러번 사용하여 관련 없는 로직을 나눈다.
+
 ```js
 function FriendStatusWithCounter(props) {
   const [count, setCount] = useState(0);
@@ -263,10 +274,12 @@ function FriendStatusWithCounter(props) {
   // ...
 }
 ```
+
 <br>
 
 ## effect가 업데이트 마다 실행되는 이유
 - effect 정리(clean-up)가 마운트 해제할 때 한번만이 아닌 모든 리렌더링 시에 실행되는 이유
+
 ```js
 // 친구의 온라인 여부 컴포넌트
 componentDidMount() { // 친구의 온라인 여부 상태 구독
@@ -283,9 +296,11 @@ componentDidMount() { // 친구의 온라인 여부 상태 구독
     );
   }
 ```
+
 - 컴포넌트 화면에 표시되는 동안 friend prop이 변하면 컴포넌트는 다른 친구의 온라인 상태를 계속 표시 (버그)
 - 마운트 해제 시 구독 해지 호출이 다른 친구 ID를 사용하여 메모리 누수나 충돌 발생 가능
   - class는 이런 경우를 다루기 위해 `coponenetDidUpdate` 사용
+
   ```js
   componentDidUpdate(prevProps) {
     // 이전 friend.id에서 구독을 해지합니다.
@@ -302,6 +317,7 @@ componentDidMount() { // 친구의 온라인 여부 상태 구독
   ```
 
 ### Hook을 사용하면 이런 버그 없음
+
 ```js
 function FriendStatus(props) {
   // ...
@@ -313,9 +329,11 @@ function FriendStatus(props) {
     };
   });
 ```
+
 - `useEffect`는 기본적으로 업데이트를 다룸
 - 다음의 effect를 적용하기 전 이전의 effect는 정리(clean-up)한다.
   - 구독과 해지 호출을 반복해서 만들어내는 컴포넌트 가시화
+
   ```js
   // { friend: { id: 100 } } state을 사용하여 마운트합니다.
   ChatAPI.subscribeToFriendStatus(100, handleStatusChange);     // 첫번째 effect가 작동합니다.
@@ -337,6 +355,7 @@ function FriendStatus(props) {
 ## Effect를 건너뛰어 성능 최적화하기
 - 모든 렌더링 이후 매번 effect를 정리하거나 적요하는 것은 때때로 성능 저하 발생
 - class의 경우 `componenetDidUpdate`에서 `prevProps`나 `prevState`와의 비교로 해결
+
 ```js
 componentDidUpdate(prevProps, prevState) {
   if (prevState.count !== this.state.count) {
@@ -348,6 +367,7 @@ componentDidUpdate(prevProps, prevState) {
 - `useEffect` Hook API에 내재
 - 특정 값들이 리렌더링 시 변경되지 않으면 React로 하여금 effect를 건너뛰게 할 수 있다.
 - `useEffect`의 선택적 인수인 `두 번째 인수`로 **배열**을 넘긴다.
+
 ```js
 useEffect(() => {
   document.title = `You clicked ${count} times`;
@@ -355,6 +375,7 @@ useEffect(() => {
 ```
 
 - 정리(clean-up) 사용 effect에도 동일
+
 ```js
 useEffect(() => {
   function handleStatusChange(status) {

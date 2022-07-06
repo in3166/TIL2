@@ -11,7 +11,7 @@
 <br>
 
 ## 브라우저의 Workflow
-<img src="https://github.com/in3166/TIL/blob/main/JavaScript/React/img/browserFlow.png" />
+<img src="01_React/img/browserFlow.png" />
 
   ### DOM Tree 생성
   - 브라우저가 HTML 전달 받으면 브라우저의 Render 엔진이 이를 파싱
@@ -51,7 +51,7 @@
 - DOM 문서를 추상화한 개념
 - 변화가 많은 View를 실제 DOM에서 직접 처리하지 않고 Virtual DOM과 메모리에서 미리 처리하고 저장한 후 실제 DOM과 동기화
 - View 변환 -> 가상 DOM에 먼저 적용 => 최종 결과 실제 DOM에 전달 (브라우저 내의 연산양을 줄임)
-<img src="https://github.com/in3166/TIL/blob/main/JavaScript/React/img/vd.jfif" />
+<img src="01_React/img/vd.jfif" />
 
 - 더 가볍고 빠른 Rendering
 - 몇 가지 특수 키원드 (key, ref, htmlFor 등)이 존재
@@ -72,11 +72,12 @@
     - DOM 관리를 가상 DOM이 하므로 컴포넌트가 DOM 조작 요청을 할 떄 다른 컴포넌들과 상호작용하지 않아도 된다. <br> (특정 DOM을 조작할 것이다, 이미 했다 등의 정보 공유 필요 X)
     - 즉, 각 변화들을 동기화 적업 없이 모든 작업을 하나로 묶을 수 있다.
   
-  
+
 ```
 React가 DOM 보다 빠르다는건 잘못된 사실이에요. 사실은: 유지보수 가능한 어플리케이션을 만드는것을 도와주고 그리고 대부분의 경우에 ‘충분히 빠르다’
 - Dan Abramov (Redux 창시자, React 개발 팀원)
 ```
+
 - 최적화 작업을 자동화 -> 생상성 
 <br>
 

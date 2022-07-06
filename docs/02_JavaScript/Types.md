@@ -1,4 +1,5 @@
 # Primitive Types
+
 ```js
 var age = 12;
 var name = 'kim';
@@ -6,11 +7,13 @@ var male = true;
 var un = undefined;
 var nu = null;
 ```
+
 - `age`는 Primitive Values
 
 
 # Reference Type
 - `Objects, Arrays`
+
 ```js
 var person = {
   name: 'kim',
@@ -18,6 +21,7 @@ var person = {
 }
 var hobbies = ['football', 'bowling'];
 ```
+
 <br>
 
 ## 차이점
@@ -33,19 +37,21 @@ var hobbies = ['football', 'bowling'];
   - 각각의 Heap 아이템들에 대해, 정확한 주소는 Heap에 저장된 아이템들을 가리키는 포인터에 저장된다.
   - 이 포인터는 차례로 스택에 저장된다.
 
-<img src="https://github.com/in3166/TIL/blob/main/JavaScript/img/type1.png" width="60%" />
+<img src="02_JavaScript/img/type1.png" width="60%" />
 
 <br>
 
 # Reference Types의 Strange Behavior
 - 다음의 예제에서 `person` 변수가 실제로 저장하는 것은 무엇인가?
   - 변수에 저장된 `person` 객체의 포인터이다.
+
 ```js
 var person = { name: 'Max' }
 ```
 
 - 아래의 `newPerson`은 `person` 객체 자체를 복사한 것이 아니다.
   - 포인터만 복사
+
 ```js
 var person = { name: 'Max' }
 var newPerson = person
@@ -57,12 +63,14 @@ console.log(person.name) // Anna
 - 배열
   - `slice()`
     - 새로운 배열을 반환하는 자바스크립트 배열 메서드
+
   ```js
   var hobbies = ['Sports', 'Cooking']
   var copiedHobbies = hobbies.slice()
   ```
   
   - `the spread operator`
+
   ```js
   var hobbies = ['Sports', 'Cooking']
   var copiedHobbies = [...hobbies]
@@ -70,12 +78,14 @@ console.log(person.name) // Anna
 
 - 객체
   - `Object.assign()`
+
   ```js
   var person = { name: 'Max' }
   var copiedPerson = Object.assign({}, person)
   ```
  
   - `the spread operator`
+
   ```js
   var person = { name: 'Max' }
   var copiedPerson = { ...person }

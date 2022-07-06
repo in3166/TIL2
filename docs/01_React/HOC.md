@@ -3,12 +3,13 @@
 - ***반복되는 코드 해결, 컴포넌트 재사용***
 - 백엔드에 사용자 상태 정보를 가져와서 HOC 포함된 컴포넌트 페이지에 해당 사용자가 권한이 있는지 판단
 
-<img src="https://github.com/in3166/TIL/blob/main/JavaScript/React/img/hoc.JPG" />
+<img src="01_React/img/hoc.JPG" />
 
 
 ### 예제1: 페이지 이동 시 권한 확인
 
 - HOC를 만들어 준다.
+
 ```javascript
 import { useDispatch } from 'react-redux';
 import {auth} from '../_action/user_action';
@@ -31,6 +32,7 @@ export default function (SpecifiComponent, option, adminRoute = null) {
     return AuthenticationCheck
 }
 ```
+
  ### option
     - null: 아무나 출입 가능한 페이지
     - true: 로그인한 유저만 출입이 가능한 페이지
@@ -52,6 +54,7 @@ export default function (SpecifiComponent, option, adminRoute = null) {
 - 둘 다 단순히 axios 통신으로 데이터를 받아와 화면에 출력해주는 컴포넌트
 - 중복되는 코드가 많다.
 - post.js
+
 ```javascript
 import React, { Component } from 'react';
 import axios from 'axios';
@@ -93,7 +96,9 @@ class Post extends Component {
 
 export default Post;
 ```
+
 - comment.js
+
 ```javascript
 import React, { Component } from 'react';
 import axios from 'axios';
@@ -150,6 +155,7 @@ export default Comments;
 
 - withRequest.js
 - axios 를 통하여 받은 data 를 파라미터로 받은 컴포넌트에 넣어주도록 설정
+
 ```javascript
 import React, { Component } from 'react';
 import axios from 'axios';
@@ -187,7 +193,9 @@ const withRequest = (url) => (WrappedComponen) => {
 
 export default withRequest;
 ```
-<BR><BR>
+
+<br><br>
+
     
 ## HOC 사용
 ```javascript

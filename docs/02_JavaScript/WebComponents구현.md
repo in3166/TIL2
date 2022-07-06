@@ -1,5 +1,6 @@
 # 1. Custom Elements
 - 기존 DOM Element 생성 방법들
+
 ```html
 <div class="msg-box">
   <span class="msg-box__icon">info</span>
@@ -8,6 +9,7 @@
 ```
 
 - 1번째 방법
+
 ```js
 function createMessageBox(){
   const div = document.createElement('div');
@@ -26,6 +28,7 @@ function createMessageBox(){
 ```
 
 - 2번째 방법
+
 ```js
 function createMessageBox() {
   const div = document.createElement('div');
@@ -39,7 +42,9 @@ function createMessageBox() {
   return div;
 }
 ```
+
 <br>
+
 - 문제점
   - CSS class를 전역적으로 선언해 사용
   - 해당 element를 사용할 때마다 메서드 호출 및 DOM Tree에 Append 해야한다.
@@ -49,6 +54,7 @@ function createMessageBox() {
 - 이러한 기존 DOM Elements 생성 방법에서 벗어나 모듈화할 수 잇고 재사용도 가능한 Elements 생성 목적
 - [`CustomElementsRegistry`](https://developer.mozilla.org/en-US/docs/Web/API/CustomElementRegistry) 인터페이스의 `define` 메서드로 정의 가능
 - 이를 구현한 클래스 [`window.customElements`](https://developer.mozilla.org/en-US/docs/Web/API/Window/customElements)로 접근 가능
+
 ```js
 const html = `
   <div class="msg-box">
@@ -73,6 +79,7 @@ window.customElements.define(
   MessageBox
 );
 ```
+
 ```html
 <msg-box></msg-box>
 ```
@@ -93,6 +100,7 @@ window.customElements.define(
   - { extends }: Inherits할 Node Name (선택) - 특정 동작 상속 받기
 
 - 예제
+
 ```js
 class WordCount extends HTMLParagraphElement {
   constructor() {
@@ -108,15 +116,19 @@ window.customElements.define(
   { extends: 'p' },// extends 
 );
 ```
+
   - `WordCount` 클래스는 `<p>` 태그인 'HTMLParagraphElement' 클래스 Extends하여 동작을 그대로 상속 받음
   - `super()` 필수적으로 호출: 모든 Custom Element가 `HTMLElement` 클래스를 상속받고 있기 때문
   - `is`: `is` 전역 특성은 표준 HTML 요소가 사용자 지정 요소처럼 행동하도록 지정
+
   ```html
   <word-count></word-count>
   <!-- or -->
   <p is="word-count"></p>
   ```
+
   - js로도 선언 가능
+
   ```js
   document.createElement('word-count');
   // or
@@ -125,6 +137,7 @@ window.customElements.define(
   
 ## 1.2 예제 만들기
 - 구현할 DOM Element
+
 ```html
 <popup-info img="/img/alt.png" data-text="text contents"></popup-info>
 
@@ -140,6 +153,7 @@ window.customElements.define(
 ```
 
 - 구현
+
 ```js
 // Create a class for the element
 class PopUpInfo extends HTMLElement {
@@ -220,10 +234,12 @@ class PopUpInfo extends HTMLElement {
 // Define the new element
 customElements.define('popup-info', PopUpInfo);
 ```
+
 <br>
 
 ## 1.3 Internal vs External styles
 - 위 처럼 CSS String을 작성해도 되지만 `<link>` 태그도 이용 가능
+
 ```js
 const linkElement = document.createElement('link');
 linkElement.setAttribute('rel', 'stylesheet');
@@ -231,6 +247,7 @@ linkElement.setAttribute('href', 'style.css');
 
 this.shadowRoot.append(linkElement, wrapper);
 ```
+
 <br>
 
 ## 1.4 Using the Lifecycle callbacks
@@ -243,6 +260,7 @@ this.shadowRoot.append(linkElement, wrapper);
 - `adoptedCallback` : Node가 **'Moved'** 되었을 때 호출
 - `attributeChangedCallback` : Custom Elements의 `Attributes`가 **'Added/Removed/Changed'** 되었을 때 호출
   - `static get observedAttributes()` Getter로 Observe할 Attributes를 알려줘야 함
+
 ```js
 class CustomSquare extends HTMLElement {
   constructor() {
@@ -299,9 +317,11 @@ class CustomSquare extends HTMLElement {
 
 window.customElements.define('custom-square', CustomSquare);
 ```
+
 ```html
 <custom-square l="100" c="red"></custom-square>
 ```
+
 <br><br>
 
 # 2. Using Shadow DOM
@@ -309,6 +329,7 @@ window.customElements.define('custom-square', CustomSquare);
 - 각각의 DOM을 서로 충돌없이 분리 방법
 
 ## 2.1 High-level view
+
 ```HTML
 <!DOCTYPE html>
 <html>
@@ -325,8 +346,10 @@ window.customElements.define('custom-square', CustomSquare);
   </body>
 </html>
 ```
+
 - DOM Tree
-<img src="https://github.com/in3166/TIL/blob/main/JavaScript/img/wencom1.png" />
+
+<img src="02_JavaScript/img/wencom1.png" />
 
 - **Shadow DOM**
   - 독립적으로 DOM 자체를 분리
@@ -335,7 +358,9 @@ window.customElements.define('custom-square', CustomSquare);
   - `Shadow Tree` : Shadow DOM 내부의 DOM Tree
   - `Shadow Boundary` : Shadow DOM의 시작 Node부터 Shadow DOM의 끝 Node까지의 공간
   - `Shadow Root` : Shadow Tree의 Root node
-<img src="https://github.com/in3166/TIL/blob/main/JavaScript/img/webcom2.png" />
+
+<img src="02_JavaScript/img/webcom2.png" />
+
 <br>
 
 ## 2.2 기본 사용법
@@ -343,16 +368,19 @@ window.customElements.define('custom-square', CustomSquare);
 - mode
   - `open`: Element.shadowRoot  프로퍼티를 이용해 Shadow DOM에 대한 참조를 얻을 수 있음
   - `closed`: 참조가 불가능하게끔 Shadow DOM을 구성 (`Element.shadowRoot` 값 = `null`)
+
 ```js
 const shadow = element.attachShadow({ mode: 'open' });
 const shadow = element.attachShadow({ mode: 'closed' });
 ```
+
 <br><br>
 
 # 3. Using Templates and Slots
 ## 3.1 `<template>`
 - 재사용 가능한 Components를 만드는 가장 쉽고 편리한 방법
 - 태그 내의 Nodes는 DOM에 렌더링되지 않으나, Programmatic하게 참조 가능 (`template.content` 프로퍼티를 이용해 접근)
+
 ```html
 <template id="my-paragraph">
   <p>My Paragraph</p>
@@ -364,6 +392,7 @@ const shadow = element.attachShadow({ mode: 'closed' });
   </style>
 </template>
 ```
+
 ```js
 const template = document.getElementById('my-paragraph');
 const templateContent = template.content;
@@ -373,6 +402,7 @@ document.body.appendChild(templateContent);
 
 ## 3.2 Using templates with Web Components
 - `my-paragraph`라는 Custom Element 정의
+
 ```js
 customElements.define(
   'my-paragraph',
@@ -388,8 +418,10 @@ customElements.define(
   }
 );
 ```
+
 -  `cloneNode()`: `<template>`는 하나만 존재하므로 재사용을 위해 복제 (아니면 동일한 템플릿 참조)
 -  `innerHTML` 사용한 방법
+
 ```JS
 customElements.define(
   'my-paragraph',
@@ -405,11 +437,13 @@ customElements.define(
 ```
 
 ## 3.3 Adding flexibility with Slots
+
 ```html
 <template>
   <p><slot></slot></p>
 </template>
 ```
+
 ```html
 <my-paragraph>
   TEXT
@@ -421,6 +455,7 @@ customElements.define(
 ## 3.4. Scoped styles
 -  Styles를 Component 내에만 정의하는 방법
 -  Shadow DOM 내에 `<style>` 태그가 오게끔 만들어주기
+
 ```js
 const html = `
 <div></div>

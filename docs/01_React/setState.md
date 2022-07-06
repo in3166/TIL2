@@ -74,6 +74,7 @@ export default function App() {
 - **merging**
   - 현재 oreders에 ['감자튀김', '콜라'] 이 있다.
   - 배열을 초기화하고(`setOreder([])`), '선택하지 않음'을 추가하는 부분(`setOrders([...orders, selectedItem])`) 부분
+
   ```js
   const newState = Object.assign(
     { orders : ["감자 튀김 🍟", "콜라 🥤"] },
@@ -83,6 +84,7 @@ export default function App() {
 
   setOrders(newState)
   ```
+
   - `Object.assign()`으로 여러 개의 객체를 합칠 때, **같은 key를 가지고 있으면 이전의 값이 덮어씌어진다.**
 
 ### 해결
@@ -92,6 +94,7 @@ export default function App() {
 
 - 2번 인자를 사용하면 `setState()`가 비동기로 작동하는 것은 같지만, 인자로 넘겨 받은 함수들은 Queue에 저장되어 순서되로 실행된다.
 - 그래서, 첫번째 함수가 실행된 후 리턴하는 업데이트 된 state가 두 번째 함수의 인자로 들어가는 방식으로 state가 최신으로 유지된다.
+
 ```js
   const onClickHandler = selectedItem => {
     if (selectedItem === "선택하지 않음") {
@@ -119,6 +122,7 @@ export default function App() {
 <br><br>
 
 # useState
+
 ```js
 export default function App() {
   const [count, setCount] = useState(0);
@@ -144,6 +148,7 @@ export default function App() {
   );
 }
 ```
+
 - 첫 번째 함수 클릭 결과: 1
 - 두 번째 함수 클릭 결과: 3
 <br>
@@ -158,6 +163,7 @@ export default function App() {
   - 동기적인 하나의 Lifecycle Method나 이벤트 핸들러 안의 여러 업데이트들을 한 번에 묶어 처리하나다.
   - 이 후 '마지막으로 Update 된 값으로 state을 결정'하고 단 한번만 렌더링 한다.
   - 다음 함수의 결과는 '10'
+
   ```js
   const increase = () => {
     setCount(count+1);
@@ -165,10 +171,12 @@ export default function App() {
     setCount(count+10);
   }
   ```
+
   <br>
   
 ## useState의 내부 구현
 - Initialize Hook: 컴포넌트가 마운트되면 Hook을 초기화하는 함수
+
 ```js
 function mountState(initialState) {
   var hook = mountWorkInProgressHook();
@@ -188,9 +196,11 @@ function mountState(initialState) {
   return [hook.memoizedState, dispatch];
 }
 ```
+
 <br>
 
 - `mountWorkInProgressHook()`을 실행하여 hook 변수에 할당, 초기 null, 함수의 끝에는 다음의 포맷
+
 ```js
 {
   memoizedState: 0, 
@@ -205,10 +215,12 @@ function mountState(initialState) {
   next: null,
 }
 ```
+
 - `useState`에 초기값이 들어오면 이 함수로 설정
 - `memoizedState`와 `dispatch`를 리턴하여 초기 설정 완료
 - `next`는 LinkedList의 일종, 하나의 컴포넌트 안에서 여러개의 hook 사용 시 이를 연결(hook을 조건문에 넣지 말고 최상위에 위치시켜야하는 이유)
 - 컴포넌트 마운트 시 hook이 여러 개 있으면 다음과 같이 next를 통해 연결되는 구조
+
 ```js
 {
   memoizedState: 0, // first hook
@@ -236,11 +248,13 @@ function mountState(initialState) {
   }
 }
 ```
-<br><Br>
+
+<br><br>
   
 ## Update Hook
 - 위와 같은 상태구조에서 hook 구조에 상태 변경이 일어날 때 (setState 호출 시) 구조 변경
   - 1. update 일어나기전 hook 상태
+
   ```js
   {
     memoizedState: 0, 
@@ -257,6 +271,7 @@ function mountState(initialState) {
   ```
   
   - 2. queue의 last 값 할당
+
   ```js
   {
     memoizedState: 0, 
@@ -284,6 +299,7 @@ function mountState(initialState) {
   - 사용자가 넘긴 action으로부터 Bacth Process 이후 최종 반환될 `eagerState`를 계산하는 함수 `eagerReducer`
   - 이 Reducer에 넘기는 action은 함수일 경우 이전 상태를 파라미터로 넘겨주어 함수를 실행한 값을 리턴, 값일 경우 값을 리턴
   - Reducer로 값을 할당하기 때문에 action에 함수를 넣어주면 update 시 함수를 이요해 eagerState를 계산하고 다음 update에 넘어가므로 지속적 값 업데이트 가능
+
   ```js
   function basicStateReducer(state, action) {
     return typeof action === 'function' ? action(state) : action;
@@ -292,6 +308,7 @@ function mountState(initialState) {
 
 ### 초반 Counter 예제
 - queue: (setCount(count+1));
+
 ```js
 last: {
 	  ...other options // 필요한 부분만 남겨놓고 생략하였음.
@@ -311,6 +328,7 @@ last: {
 ```
 
 - queue: (setCount(count => count + 1))
+
 ```js
 last: {
 	  ...other options // 필요한 부분만 남겨놓고 생략하였음.

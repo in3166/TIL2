@@ -19,13 +19,14 @@
   - `Lexical Environment[phrase: 'Hello'] -outer-> null`
   -  대괄호: 네모 상자는 변수가 저장되는 환경 레코드
   -  outer: 외부 렉시컬 환경에 대한 참조 (전역 렉시컬 환경은 외부 참조를 갖지 않아 `null`을 가리킴)
+
 ```js
 let phrase = 'Hello';
 alert(pharse);
 ```
 
 - 여러 줄의 코드
-<img src="https://github.com/in3166/TIL/blob/main/JavaScript/img/lex1.JPG" width="60%" />
+<img src="02_JavaScript/img/lex1.JPG" width="60%" />
 
 1. 스크립트가 시작되면 스크립트 내 선언한 변수 전체가 렉시컬 환경에 올라간다. (pre-populated)
   - 변수의 상태는 특수 내부 상태인 `uninitialized`가 된다.
@@ -44,14 +45,14 @@ alert(pharse);
   - 변수는 `let`을 만나야 사용 가능한 것과 차이
 
 - 스크립트에 함수를 추가했 을때 전역 렉시컬 환경 초기 상태 변화
-<img src="https://github.com/in3166/TIL/blob/main/JavaScript/img/lex2.JPG" width="60%" />
+<img src="02_JavaScript/img/lex2.JPG" width="60%" />
 <br><br>
 
 # 3. 내부와 외부 렉시컬 환경
 - **함수 호출해 실행**하면 새로운 렉시컬 환경이 자동 생성
   - `매개변수`와 `함수의 지역 변수`가 저장됨
 
-<img src="https://github.com/in3166/TIL/blob/main/JavaScript/img/lex3.JPG" width="70%" />
+<img src="02_JavaScript/img/lex3.JPG" width="70%" />
 
 - 함수 호출 중엔 호출 중인 함수를 위한 `내부 렉시컬 환경`과 내부 렉시컬 환경이 가리키는 `외부 렉시컬 환경`을 갖는다.
   - 위의 `내부 렉시컬 환경`은 현재 실행 중인 `say` 함수에 상응, 
@@ -67,6 +68,7 @@ alert(pharse);
 <br><br>
 
 # 4. 함수를 반환하는 함수
+
 ```js
 function makeCounter() {
   let count = 0;
@@ -78,10 +80,11 @@ function makeCounter() {
 
 let counter = makeCounter();
 ```
+
 <br>
 
 
-<img src="https://github.com/in3166/TIL/blob/main/JavaScript/img/lex4.JPG" width="70%" />
+<img src="02_JavaScript/img/lex4.JPG" width="70%" />
 
 - `makeCounter()`를 호출하면 2개의 렉시컬 환경이 만들어진다.
 - 위의 함수는 실행 도중에 `중첩 함수`가 만들어 진다
@@ -89,7 +92,7 @@ let counter = makeCounter();
   - 함수는 `[[Environment]]`라 불리는 숨김 프로퍼티를 갖는데 여기에 **함수가 만들어진 곳의 렉시컬 환경에 대한 참조**가 저장된다.
 <br>
 
-<img src="https://github.com/in3166/TIL/blob/main/JavaScript/img/lex5.JPG" width="70%" />
+<img src="02_JavaScript/img/lex5.JPG" width="70%" />
 
 - `counter.[[Environment]]`에는 `{count: 0}`이 잇는 렉시컬 환경에 대한 참조가 저장
   - 호출 장소와 상관없이 함수가 자신이 태어난 곳을 기억하는 이유
@@ -101,7 +104,7 @@ let counter = makeCounter();
 - 이 렉시컬 환경은 `counter.[[Environment]]`에 저장된 렉시컬 환경을 외부 렉시컬 환경으로 참조한다.
 <br>
 
-<img src="https://github.com/in3166/TIL/blob/main/JavaScript/img/lex6.JPG" width="70%" />
+<img src="02_JavaScript/img/lex6.JPG" width="70%" />
 
 - 중첩 함수 내부의 `count` 변수를 찾기 위해 자체 렉시컬 환경 부터 확장해 나간다. 
   - 익명 중첩 함수엔 지역 변수가 없으므로 렉시컬 환경이 비어있는 상태 (`<empty>`)
@@ -124,6 +127,7 @@ let counter = makeCounter();
 - 호출이 끝나도 여전히 도달 가능한 중첩 함수가 존재
   - 중첩함수의 `[[Environment]]` 프로퍼티에 외부 함수 렉시컬 환경에 대한 정보가 저장된다. (도달 가능한 상태가 됨)
   - 함수 호출이 끝났지만 렉시컬 환경이 메모리에 유지되는 이유
+
 ```js
 function f() {
   let value = 123;
@@ -136,7 +140,9 @@ function f() {
 let g = f(); // g.[[Environment]]에 f() 호출 시 만들어지는
 // 렉시컬 환경 정보가 저장됩니다.
 ```
+
 - `f()`를 여러 번 호출하고 결과를 어딘가에 저장하면 각 렉시컬 환경은 모두 메모리에 유지된다.
+
 ```js
 function f() {
   let value = 123;
@@ -151,6 +157,7 @@ let g = f(); // g.[[Environment]]에 f() 호출 시 만들어지는
 ```
 
 - 중첩 함수가 메모리에서 삭제되고 난 후에야, 이를 감싸는 렉시컬 환경(그리고 그 안의 변수인 value)도 메모리에서 제거됩니다.
+
 ```js
 function f() {
   let value = 123;
@@ -173,6 +180,7 @@ g = null; // 도달할 수 없는 상태가 되었으므로 메모리에서 삭�
 
 -  디버깅 시, 최적화 과정에서 제거된 변수를 사용할 수 없다는 점은 V8 엔진(Chrome, Opera에서 쓰임)의 주요 부작용입니다.
   - 크롬 개발자 도구에서 실행이 일시 중단된 후 `alert(value)`를 입력하면 에러 발생
+  
 ```js
 function f() {
   let value = Math.random();
@@ -187,6 +195,7 @@ function f() {
 let g = f();
 g();
 ```
+
 ```js
 let value = "이름이 같은 다른 변수";
 
@@ -203,9 +212,11 @@ function f() {
 let g = f();
 g();
 ```
+
 <br><br>
 
 ### Q1. what will it show: "John" or "Pete"?
+
 ```JS
 let name = "John";
 
@@ -217,12 +228,14 @@ name = "Pete";
 
 sayHi(); 
 ```
+
 - `Hi, Pete`가 출력, 함수는 외부 변수를 자신의 현재 시점에서 가장 가까운 값을 가져온다.
 - 오래된 변수는 어디에도 저장되지 않는다.
 
 <br>
 
 ### Q2. IF문 안의 함수
+
 ```JS
 let phrase = "Hello";
 
@@ -236,11 +249,13 @@ if (true) {
 
 sayHi();
 ```
+
 - 에러 발생: `if`문 안에서 정의한 함수는 밖에서 사용 불가
 
 <br>
 
 ### Q3. Is variable visible?
+
 ```js
 let x = 1;
 
@@ -252,6 +267,7 @@ function func() {
 
 func();
 ```
+
 - `ReferenceError: Cannot access 'x' before initialization`
 - `non-existing`과 `uninitialized`의 차이
   - 변수는 함수나 코드 블록에 들어가는 것이 실행 될 때 `uninitialized` 상태로 시작한다.
@@ -273,6 +289,7 @@ function func() {
 
 ### Q4. 함수를 이용해 원하는 값만 걸러내기
 - `arr.filter(f)`는 함수 `f`의 반환 값을 `true`로 만드는 요소를 배열로 반환
+
 ```js
 /* ... 여기에 두 함수 inBetween과 inArray을 만들어주세요 ...*/
 let arr = [1, 2, 3, 4, 5, 6, 7];
@@ -280,6 +297,7 @@ let arr = [1, 2, 3, 4, 5, 6, 7];
 alert( arr.filter(inBetween(3, 6)) ); // 3,4,5,6
 alert( arr.filter(inArray([1, 2, 10])) ); // 1,2
 ```
+
 ```js
 // isBetween 함수
 function isBetween(a, b){
@@ -288,6 +306,7 @@ function isBetween(a, b){
   }
 }
 ```
+
 ```js
 // inArray 함수
 function inArray(arr){
@@ -300,6 +319,7 @@ function inArray(arr){
 <br>
 
 ### Q5. 함수로 군대 만들기
+
 ```js
 function makeArmy() {
   let shooters = [];
@@ -322,6 +342,7 @@ army[0](); // 0번째 shooter가 10을 출력함
 army[5](); // 5번째 shooter 역시 10을 출력함
 // 모든 shooter가 자신의 번호 대신 10을 출력하고 있음
 ```
+
 - 위의 `shooter` 함수는 `i`를 지역 변수로 가지고 있지 않고 외부 렉시컬 환경에서 가져온다.
 - 즉, `makeArmy()`가 실행과 연관된 렉시컬 환경에 있는데 `army[5]()`가 불려진 시기는 이미 `makeArmy`가 완료된 시점이라 `i`는 10이다.
 
@@ -333,10 +354,12 @@ army[5](); // 5번째 shooter 역시 10을 출력함
     shooters.push(shooter);
   }
 ```
+
 - 위와 같이 수정하면, 매번 `for` 루프 code block이 실행된다.
 - 즉, 변수 `i`에 해당하는 새로운 렉시컬 환경이 생성된다.
 
 - 다른 방법
+
 ```js
 function makeArmy() {
   let shooters = [];
@@ -359,6 +382,7 @@ let army = makeArmy();
 army[0](); // 0
 army[5](); // 5
 ```
+
 <br><br><br>
 <출처>
 - https://ko.javascript.info/closure

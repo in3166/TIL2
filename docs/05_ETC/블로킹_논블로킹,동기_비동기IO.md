@@ -7,19 +7,21 @@
 - 리눅스에서 모든 소켓 통신의 기본 동작 방식
 - I/O 작업이 진행되는 동안 유저 프로세스는 자신의 작업을 중단한 채 대기하는 방식
 - 애플리케이션 실행 시 운영체제 대기 큐에 들어가면서 요청에 대한 system call이 완료된 후에 응답을 보낸다.
+
 ```
 응답: 네트워크 모델에선 서버의 응답, I/O 모델에서는 프로세스 제어권의 반납
 ```
 
 - 제어권이 호출된 함수에게 넘어가서 호출된 함수 내에서 작업이 모두 끝난 후 값이 리턴되고, 이와 동시에 호출한 함수에게 다시 제어권이 넘어온다.
 
-<img src="https://github.com/in3166/TIL/blob/main/etc/img/block1.png" width="60%" />
+<img src="05_ETC/block1.png" width="60%" />
 
 ```
 1. User가 커널에 Read 작업 요청
 2. 데이터 입력까지 대기
 3. 데이터가 입력되면 User에게 커널이 결과 전달
 ```
+
 <br>
 
 ## Non-Blocking I/O
@@ -30,7 +32,7 @@
 - 호출 직후 프로그램으로부터 제어가 돌아옴으로서 시스템 호출 종료를 기다리지 않고 다음 처리로 넘어간다.
 - 제어권은 계속 호출한 함수에 있고, 값의 리턴이 함수의 실행과 동시에 이루어진다.
 
-<img src="https://github.com/in3166/TIL/blob/main/etc/img/nonblock1.png" width="60%" />
+<img src="05_ETC/img/nonblock1.png" width="60%" />
 
 ```
 1. User가 커널에 Read 작업 요청
@@ -61,7 +63,7 @@
 - 주로 어플리케이션에서 자주 다뤄지는 개념이며, 다음 작업이 요청되는 시간과 관련
 
 ## 1. 동기 모델
-<img src="https://github.com/in3166/TIL/blob/main/etc/img/block3.png" width="60%" />
+<img src="05_ETC/img/block3.png" width="60%" />
 
 - I/O 작업이 진행디는 동안 유저 프로세스는 결과를 기다렸다 이벤트(결과)를 직접 처리하는 방식
 - 이때, 유저는 `Blocking` 방식처럼 다 될 때까지 기다릴 수 있고, `Non-Blocking` 방식처럼 커널에 계속 요청하는 방식으로 기다릴 수 있다. (블로킹처럼 대기 큐에 필수로 머무는 것 x)
@@ -75,7 +77,7 @@
 <br>
 
 ## 2. 비동기 모델
-<img src="https://github.com/in3166/TIL/blob/main/etc/img/block4.png" width="60%" />
+<img src="05_ETC/img/block4.png" width="60%" />
 
 - I/O 작업 진행 중 유저 프로세스는 자신의 작업을 처리하다가 이벤트 핸들러에 의해 알림이 오면 처리하는 방식
 - (시스템콜을 기다리지 않는다.)Notify를 커널이 담당하여 주체적으로 진행
@@ -93,7 +95,7 @@
 <br><br>
 
 ### 동기 + 블로킹
-<img src="https://github.com/in3166/TIL/blob/main/etc/img/block5.png" width="60%" />
+<img src="05_ETC/img/block5.png" width="60%" />
 
 - 프로그램이 블로킹을 일으키는 시스템 함수를 호출
 - 한 작업당 한 번의 사용자-커널사이의 문맥교환 발생
@@ -120,17 +122,19 @@ boss();
 // 직원: 인형 눈알 붙히기 100번 수행
 // 사장: 퇴근
 ```
+
 - 작업들이 순서대로 진행
 - 상위 프로세스 `boss`는 하위 프로세스 `employee` 함수에게 작업을 요청하고 이 작업이 완료되어야 퇴근할 수 있다.
 <br>
 
 ### 동기 + 논-블로킹
-<img src="https://github.com/in3166/TIL/blob/main/etc/img/block6.png" width="60%" />
+<img src="05_ETC/img/block6.png" width="60%" />
 - `동기`: 작업이 순차적으로 이루어진다. (`동기` !== `블로킹`)
 - 동기블로킹의 개선안이지만 비효율적이다. 왜냐하면 논블로킹방식은 정상데이터가 올 때 까지 계속 시스템콜을 하며 문맥교환을 한다.
 - IO 지연(latency) 초래한다
 
 - JavaScript의 제너레이터를 사용하면 작업의 순서를 지키면서 상위 프로세스가 다른 작업 가능하다.
+
 ```js
 function* employee () {
   for (let i = 1; i < 101; i++) {
@@ -165,11 +169,12 @@ boss();
 // 사장: 유튜브 시청...
 // 사장: 퇴근
 ```
+
 <br>
 
 
 ### 비동기 + 블로킹
-<img src="https://github.com/in3166/TIL/blob/main/etc/img/block7.png" width="60%" />
+<img src="05_ETC/img/block7.png" width="60%" />
 - I/O는 논블로킹이고 알림(notify)가 블로킹인 방식이다.
 - select() 시스템함수 호출이 사용자프로세스를 블로킹한다.
 - 비효율적이다.
@@ -193,7 +198,7 @@ boss();
 <br>
 
 ### 비동기 + 논-블로킹
-<img src="https://github.com/in3166/TIL/blob/main/etc/img/block8.png" width="60%" />
+<img src="05_ETC/img/block8.png" width="60%" />
 
 - 시스템콜이 즉시 IO 개시 여부를 반환한다. 사용자프로세스는 다른일을 할 수 있고(CPU는 다른 업무를 볼 수 있다), I/O는 백그라운드에서 처리된다.
 - I/O 응답이 도착하면 신호나 콜백으로 I/O전달을 완료한다.
@@ -226,6 +231,7 @@ boss();
 // 직원: 인형 눈알 붙히기 100번 수행
 // 직원: 눈알 결산 보고
 ```
+
 - 비동기: 상위 프로세스는 하위 프로세스의 작업 완료 여부를 신경쓰지 않는다.
   - 이후 하위 프로세스의 작업이 종료되면 상위 프로세스에 보고를 하든 다른 프로세스에 일을 맡기든 한다.
 

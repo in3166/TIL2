@@ -1,5 +1,6 @@
 # const
 - 선언된 값을 재할당 할 수 없음.
+
 ```js
 const ha = [1,2,3];
 ha = ["1", "2"]; // error
@@ -10,30 +11,36 @@ ha = ["1", "2"]; // error
 const ha = [1,2,3];
 ha.push(4);
 ```
+
 - 배열과 Object의 값 변경 가능
 - const는 불변을 뜻하지 않고 값의 재할당만 막는다.
+
 <br>
 
 ## Immutable Array
+
 ```js
 const li = [ 1, 2, 3];
 li2 = [].concat(li, 4);
 console.log(li === li2) // false
-
 ```
+
 <br>
 
 # ES6 String 메서드
+
 ```js
 let str = "hi dl";
 str.startsWith(matchsrt) //true
 ```
+
 - `startsWith`
 - `endsWith`
 - `includes`: 문자 포함여부
 <br>
 
 ## for of
+
 ```js
 var data = [1,2,undefined, NaN, null, ""];
 
@@ -57,10 +64,13 @@ for(let value iof str) {
   console.log(value);  // char 단위로 순회
 }
 ```
+
 <br>
 
 ## Spread Operator, 펼침 연산자
+
 `...`
+
 ```js
 let pre = ['apple' ,'orange', 100];
 let newd = [...pre];
@@ -73,12 +83,14 @@ console.log(newd2);  // { '0': 'apple', '1': 'orange', '2': 100 }
 
 ### 활용
 - 중간에 넣기
+
 ```js
 let pre = [100, 200, "gi", null];
 let newd = [0, 1, 2, ...pre, 5]; // 자르고 합칠 필요 없음
 ```
 
 - 파라미터로 전달
+
 ```js
 function sum(a, b, c){
   return a+b+c
@@ -88,10 +100,12 @@ let pre = [100,200,300];
 sum.apply(null, pre); // 이전 방식 - 배열 그대로 전달
 sum(...pre);
 ```
+
 <br>
 
 ## Array From 메서드
 - 진짜 배열로 만들어줌
+
 ```js
 function addMark() {
   let newD = [];
@@ -107,6 +121,7 @@ function addMark() {
 }
 addMark(1,2,3,4,5);
 ```
+
 - `arguments`: 인자로 주지 않아도 arguments 함수(객체) 안의 내부 지역변수같은 특별한 값을 이용하여 활용, 가변적인 파라미터가 필요할 때 사용
 <br>
 
@@ -115,6 +130,7 @@ addMark(1,2,3,4,5);
 ### 문제
 - `li` 리스트를 받아 문자열 'e'가 포함된 노드로 구성된 배열을 반환
 - filter, includes, from 사용
+
 ```html
 <ul>
   <li>apple</li>
@@ -123,6 +139,7 @@ addMark(1,2,3,4,5);
   <li>strawberry</li>
 </ul>
 ```
+
 ```js
 function print(){
   let lists = document.querySelectorAll("li");
@@ -139,6 +156,7 @@ function print(){
 
 print();
 ```
+
 <hr>
 
 ### toString() 
@@ -158,6 +176,7 @@ print();
 
 # Destructuring
 ## Destructuring Array
+
 ```js
 let data = ['c', 'bv', 'a', 'd'];
 //let d1 = data[0];
@@ -167,6 +186,7 @@ let [d1,,d2] = data;
 ```
 
 ## Destructuring Object
+
 ```js
 let obj = {
   name: 'ke',
@@ -184,6 +204,7 @@ console.log(a); // 3
 ```
 
 ## Destructuring JSON
+
 ```js
 var news = [
   {
@@ -209,6 +230,7 @@ let [, {title, list}] = news; // ritle: s2
 
 ## Destructuring Event 객체 전달
 - 위 코드 이용, 파라미터에 사용 
+
 ```js
 function getNewsList1([{list}]){
   console.log(newlist); //s1의 list 출력
@@ -222,6 +244,7 @@ getNewsList(news);
 ```
 
 - event 객체에 사용
+
 ```js
 documnet.querySelector("div").addEventListener("click", function({type, target}){
     console.log(target.innerTextm target.tagName);
@@ -231,6 +254,7 @@ documnet.querySelector("div").addEventListener("click", function({type, target})
 
 # Set으로 유니크한 배열 만들기
 - 중복 없이 유일한 값을 저장, 이미 존재하는지 체크할 때 유용
+
 ```js
 let mySet = new Set();
 console.log(toString.call(mySet)); // [objdect Set]
@@ -274,10 +298,12 @@ arr = null을 했다고 하더라도,
 //console.log(ws); // { [1, 2, 3], [5, 6, 7], Object {arr: Array(3), arr2:; Array(3)} } 동일, ws에 존재하는 것처럼 보임
 //console.log(ws.has(arr)); // false 유효하지 않은 객체
 ```
+
 <br><br>
 
 # Map & WeakMap
 - key, value 구조
+
 ```js
 let wm = new WeakMap();
 let myfun = function(){};
@@ -297,6 +323,7 @@ cosole.log(wm.get(myfun); // 10
 
 ## WeakMap 클래스 인스턴스 변수 보호하기
 - private한 변수 만들기
+
 ```js
 function Area(he, wid) {
   this.he =  ge;
@@ -311,8 +338,10 @@ let myarea = new Area(10, 20);
 console.log(myarea.getArea()); // 200
 console.log(myarea.he); // 10, 접근 가능
 ```
+
 - 멤버에 접근을 막고 싶을 때 사용
 - WeakMap 사용
+
 ```js
 const wm = new WeakMap();
 function Area(he, wid) {
@@ -332,12 +361,14 @@ myarea = null;
 console.log(wm); // WeakMap {Area {} => Object { he:10, wid:20 }} - 보이긴 하지만
 console.log(wm.has(myarea)); // false
 ```
+
 - 단점: 클래스 밖 전역공간을 사용
 <br>
 
 ## Destructuring & Set 활용 - Lotto 번호 만들기
 1. 유일한 값을 추출하는 과정에서 Set 사용
 2. getRandomNumber 함수에 변수를 전달하는 과정에서 Destructuring 사용
+
 ```js
 const SETTING = {
     name : "LUCKY LOTTO",
@@ -365,6 +396,7 @@ lotto.forEach(n => {console.log(n)});
 # Template 처리
 - json으로 응답을 받고, JavaScript Object로 변환하고 데이터처리 조작 후 DOM에 추가하는 일 
 - UI 작업에 빈번하고 어려운 작업 -> 데이터 + HTML 문자열 결합이 필요하기 때문
+
 ```js
 const data = [
   {
@@ -384,6 +416,7 @@ console.log(template);
 
 ## Tagged Template literals
 - Temaplate을 어떤 함수에서 처리 후 반환하여 조작 사용
+
 ```js
 function fn(tags, name, items){
   console.log(tags); // ["<div>welcom ${data[0].name}", "!!</div>
@@ -402,6 +435,7 @@ const template = fn`<div>welcom ${v.name} !!</div>
 const template = fn`<div>welcom ${data[0].name} !!</div>
     <h2>주문 가능 항목</h2><div> ${data[0].items} !!</div>`
 ```
+
 - tags: 배열, "${ }"를 기준으로 구분되어 전달
 - name: 첫번째 리터럴 문자 - ${data[0].name}
 - items: 두번째 리터럴 문자 - ${data[0].items}
@@ -409,6 +443,7 @@ const template = fn`<div>welcom ${data[0].name} !!</div>
 
 # Arrow Function
 ## this context
+
 ```js
 const myObj = {
   runTimeout() {
@@ -434,6 +469,7 @@ const myObj = {
 ```
 
 ## function default parameters, 기본 매개 변수
+
 ```js
 function sum(value, size) {
   size = size || 3;
@@ -450,6 +486,7 @@ console.log(sum(3));
 ## rest parameters
 - argumnets를 이용한 가변 인자 사용
 - 가짜 배열 -> 진짜 배열
+
 ```js
 function checkNum(){
   const argArray = Array.prototype.slice.call(arguments); // == Array.form
@@ -459,7 +496,9 @@ function checkNum(){
 }
 const result = checkNum(10, 2, 3, 4, 5, "44");
 ```
+
 - 동일
+
 ```js
 function checkNum(...argArray){ // 배열로 바꿔줄 필요 없어짐
   const result = argArray.every((v) => typeof v === "number")
@@ -471,6 +510,7 @@ const result = checkNum(10, 2, 3, 4, 5, "44");
 
 # Class
 ## 객체 생성
+
 ```js
 function Health(name) {
   this.name = name;
@@ -483,11 +523,13 @@ Health.prototype.showHealth = function() {
 const h = new Health("fi");
 h.showHealth(); // "fi 님"
 ```
+
 - 일반적인 객체를 prototype 안에 두면서 객체를 생성
 - new 키워드를 사용하면 this context에 prototype 하위의 메서드, 속성, this에 추가한 것들 등을 묶어서 객체를 생성
 - constructor 없음, 일반적인 객체 지향 코드와 다르다.
 
 - ES6 Class 위와 동일
+
 ```js
 class Health{
   constructor(name, lastTime){
@@ -503,6 +545,7 @@ class Health{
 const h = new Health("fi");
 h.showHealth();
 ```
+
 - Class지만 내부적으로는 함수로 처리 (showHealth도 prototype에 저장)
 
 ## Object assign으로 JS 객체 만들기
@@ -521,8 +564,10 @@ myHealth.healthTime = "11:22";
 myHealth.name = "co";
 console.log(myHealth); // [object Object] { healthTime: "11:22", name: "co", __protp__: {showHealth: function() {...}}}
 ```
+
 - create 메서드: 단순히 prototype 기반의 Object를 만들어줌.
 - Object의 (클래스 변수) 값들을 직접 추가해 줘야함 -> assign
+
 ```js
 const myHealth = Object.assign( // 속성 값은 객체 안에 보관, 
                   Object.create(healthObj) //prototype 객체 하위에 추가
@@ -533,8 +578,10 @@ const myHealth = Object.assign( // 속성 값은 객체 안에 보관,
 console.log(myHealth);
 ```
 
+
 ## Object assign으로 Immutable 객체 만들기
 - Object assign은 새로운 객체를 만드는 방법이기도 하다.
+
 ```js
 const previousObj = {
   name:"co",
@@ -549,6 +596,7 @@ const my = Object.assign({}, preivousObj, {"lastTime}:"12:22"}); // 카피해서
 - prototype을 객체에 추가
 - assign과 유사하지만 객체안의 값을 변형시켜서 속성 값을 뽑아서 복사하여 새로운 객체 (추가적인 기능 지원)
 - 단순히 prototype 객체만 추가
+
 ```js
 Object.setPrototypeOf(myHealth, haelthObj); // myHealth 객체의 portotype 객체로 healthObj를 지정
 const newObj = Object.setPrototypeOf({name:'ty',lastTime:"11:22"}, haelthObj);
@@ -556,6 +604,7 @@ const newObj = Object.setPrototypeOf({name:'ty',lastTime:"11:22"}, haelthObj);
 
 ## Object setPrototypeOf로 객체간 prototype chain 생성하기
 - like 상속
+
 ```js
 // parent
 var healthObj = {
@@ -582,12 +631,14 @@ const childObj = Object.setPrototypeOf({
 }, healthChildObj);
 console.log("childobj is ", childObj);
 ```
+
 <br><br>
 
 # Module (export & import)
 ## Module 기반 서비스 코드 구현
 - index.html
 - app.js
+
 ```js
 import {log, getTime, getCurrentHour} from './myLogger';
 
@@ -597,6 +648,7 @@ log(getCurrentHours());
 ```
 
 - myLogger.js
+
 ```js
 export function log(data){
   console.log(data);
@@ -613,6 +665,7 @@ export const getCurrentHour = () => {
 
 ### Class 사용
 - myLogger.js: Class 사용
+
 ```js
 // utility -> 다른 파일로 분리 
 export const _ = {
@@ -638,6 +691,7 @@ export class MyLogger{
 ```
 
 - app.js
+
 ```js
 import {_, getCurrentHour, MyLogger} from './myLogger';
 

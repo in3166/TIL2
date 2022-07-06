@@ -20,7 +20,9 @@ for (const p of products){
   names.push(p.price);
 }
 ```
+
 - map으로 만들기
+
 ```js
 // 함수형 프로그래밍은 함수가 인자와 리턴값으로 소통
 // 함수를 인자로 두어 추상화: 함수안에서 어떤 값을 수집할 지 정의(p.name)
@@ -40,6 +42,7 @@ log( map( p => p.name, products ) ); // ['반팔티', ...]
 # 이터러블 프로토콜을 따른 map의 다형성
 - 구현한 map은 이터러블 프로토콜을 따르기 때문에 `유연`하고 `다형성`이 높다.
 - `document.querySelectorAll`는 Array를 상속받은 객체가 아니므로 map 함수가 구현되어 있지 않다.
+
 ```js
 log(document.querySelectorAll('*'))
 // 결과: NodeList(7) [html, head, script ...] - Array처럼 생겼지만 아래 사용 불가
@@ -49,6 +52,7 @@ log([1, 2, 3]map(a => a + 1)) // [2, 3, 4]
 
 - `document.querySelectorAll`는 이터러블 프로토콜을 따르고 있다.
 - 그러므로 우리가 만든 map 함수에도 동작한다. (Array에 한정되지 않음.)
+
 ```js
 log(map(el => el.nodeName, document.querySelectorAll('*'))); // 우리가 만든 map 함수는 잘 동작한다.
 
@@ -63,7 +67,9 @@ function *gen() [
 log(map(a => a * a, gen())); // [4, 9, 16]
 ```
 
+
 ## 이터러블 프로토콜을 따랐을 때의 조합성
+
 ```js
 let m = new Map();
 m.set('a', 10);
@@ -83,6 +89,7 @@ let m2 = new Map(map(([k, a])=>[k, a * 2 ], m));
 
 # filter
 - 특정 조건 걸러내기
+
 ```js
 // 명령형 코드
 let under20000 = [];
@@ -94,6 +101,7 @@ log(...under20000);
 ```
 
 - 리팩토링
+
 ```js
 const filter = (f, iter) => {
   let res = [];
@@ -120,6 +128,7 @@ log(filter(n => n % 2, function *(){
 
 # reduce
 - 값을 축약해 나가는 함수
+
 ```js
 const nums = [1, 2, 3, 4, 5];
 
@@ -130,6 +139,7 @@ for ( const n of nums ) {
 ```
 
 - 기본 구조
+
 ```js
 const reduce = () => {
 
@@ -143,6 +153,7 @@ log( add(add(add(0,1), 2), 3))... );
 ```
 
 - reduce 구현
+
 ```js
 const reduce = (f, acc, iter) => {
   for ( const a of iter ) {
@@ -153,6 +164,7 @@ const reduce = (f, acc, iter) => {
 ```
 
 - 초기값이 생략됐을 때 구현
+
 ```js
 // 만약 초기값이 없다면
 log(reduce(add, [1, 2, 3, 4, 5])); // 아래 처럼 변경
@@ -178,6 +190,7 @@ log( reduce((total, product) => total + product.price, 0, products );
 # map+filter+reduce 중첩 사용과 함수형 사고
 - products의 일정 금액 이하의 가격들을 합하기
 - map이 받는 products를 축약
+
 ```js
 const add = (a, b) => a + b;
 log(

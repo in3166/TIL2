@@ -4,15 +4,17 @@
 
 
 ## 예제: 회원가입
-<img src="https://github.com/in3166/TIL/blob/main/JavaScript/React/img/reacthookform.JPG" width="55%" />
+<img src="01_React/img/reacthookform.JPG" width="55%" />
 - 튜토리얼 사이트: https://react-hook-form.com/kr/get-started/
 
 ### 설치
+
 ```
 npm install react-hook-form
 ```
 
 ### 기본 코드
+
 ```javascript
 import React, { useRef } from "react";
 import { useForm } from "react-hook-form";
@@ -64,10 +66,11 @@ export default function App() {
   );
 }
 ```
+
 <br>
 
 ### 유효성 체크
-<img src="https://github.com/in3166/TIL/blob/main/JavaScript/React/img/reacthookform2.JPG"  />
+<img src="01_React/img/reacthookform2.JPG"  />
 
 - (1): Element의 name이 'example'인 `input`(2)에 입력하면 watch로 관찰하여 출력, (3) ref에 `register`를 등록해줘야 관찰 가능
   - 버전 업: ref 대신 `{...register("email")}`로 변경
@@ -80,6 +83,7 @@ export default function App() {
     - 원래 특정 DOM 선택 시 사용 (vanilla에선 getElementId, querySelector)
     - React에선 ref 이용해 DOM 선택 (div 넣어줘서 선택) - 엘리먼트 크기 가져올때, 스크롤바 위치, 포커스 설정 등에 쓰임
       - 클래스 컴포넌트: React.createRef
+
       ```javascript
       class MyComponent extends React.Component {
         constructor(props) {
@@ -106,6 +110,7 @@ export default function App() {
 - validate: (value) => value === password.current
 
 - react hook form을 사용하지 않는다면
+
 ```javascript
 const [email, setName] = useState()
 const handleChange = (e) => {
@@ -116,6 +121,7 @@ return (
   <inpu name="email" onChange={handleChange} value={name} />
 )
 ```
+
 <br><br><br>
 
 <출처>

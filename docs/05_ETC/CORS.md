@@ -81,7 +81,7 @@ Origin: https://request-site.com
 - `Preflight`는 HTTP 메서드 중 `Options` 메서드가 사용된다.
 - `Preflight`는 본 요청 전 브라우저 스스로 이 요청을 보내는 것이 안전한지 확인하는 것 
 
-<img src="https://github.com/in3166/TIL/blob/main/etc/img/cors0.png" width="60%"/>
+<img src="05_ETC/img/cors0.png" width="60%"/>
 <br>
 
 - 예비 요청의 응답으로 `Access-Control-Allow-Origin`, 어떤 것들을 허용하고 금지하는 지에 대한 정보를 담은 응답 헤더를 받음
@@ -90,6 +90,7 @@ Origin: https://request-site.com
 
 <예제>
 - 요청: 사이트의 RSS 파일 요청
+
 ```js
 const headers = new Headers({
   'Content-Type': 'text/xml',
@@ -140,7 +141,7 @@ X-UA-Compatible: IE=Edge
 
 ### 2. Simple Request
 - 예비 요청없이 본 요청을 보낸 후 서버의 응답 헤더에 `Access-Control-Allow-Origin` 값을 보내면 브라우저가 `CORS` 정책 위반 여부 
-<img src="https://github.com/in3166/TIL/blob/main/etc/img/cors1.png" width="60%"/>
+<img src="05_ETC/img/cors1.png" width="60%"/>
 
 - 특정 조건 필요
   - 요청 메서드: `GET`, `HEAD`, `POST` 중 하나

@@ -6,6 +6,7 @@
 - 변경될 필요가 없는 데이터들을 확실하게 고정시켜 둔다면, Application은 보다 안전하고 유연하게 된다.
 <br>
 
+
 ## 이름에 대한 불변함
 ```js
 var v = 1;
@@ -17,9 +18,11 @@ const c = 1;
 // 1~
 c = 2;
 ```
+
 `var 'v' = 1;`
 - 중간에 누군가 값을 변경하면 원래 의도한 데이터가 나오지 않음 (에러 조차 나오지 않음)
 - `const`: 중간에 값이 바뀌면 에러 발생 (상수 변수)
+
 <br><br>
 
 ## 내용에 대한 불변함
@@ -71,6 +74,7 @@ c = 2;
 - 객체 타입은 그 값이 변경될 수 있음
 
 ### 객체의 가변성
+
 ```js
 var o1 = {name:'kim'};
 var o2 = o1;     // o1과 같은 값을 가리킴
@@ -79,6 +83,7 @@ o2.name = 'lee'; // o1이 가리키는 값까지 바뀜
 
 ### 객체의 복사
 - 객체를 Immutable하게 다루기
+
 ```js
 var o1 = {name:'kim'}
 var o2 = Object.assign({}, o1);  // 리턴될 객체, 복사할 객체 - 두 인자를 병합
@@ -99,6 +104,7 @@ console.log(o1, o2, o1 === o2); // false
     |-|-|
     
 - 중첩된 객체의 단순한 복사는 같은 값을 가리킴 (score 동일)
+
 ```js
 var o1 = { name: 'kim', score:[1,2,] }
 var o2 = Object.assign({}, o1);
@@ -107,6 +113,7 @@ console.log(o1 === o2, o1.score === o2.score); // false, true
 ```
 
 - 중첩된 값도 복사해야 별개의 값이 된다.
+
 ```js
 o2.score = o2.score.concat();  // assign을 쓰면 배열의 특성이 사라짐
 console.log(o1 === o2, o1.score === o2.score); // false, false
@@ -117,6 +124,7 @@ console.log(o1 === o2, o1.score === o2.score); // false, false
 
 ## 불변의 함수
 - 객체의 프로퍼티 값을 바꾸는 함수
+
 ```js
  function fn(person){
      person.name = 'lee';
@@ -128,6 +136,7 @@ fn(o1);
 
 - 객체의 불변함을 유지하는 함수
   - 객체를 리턴해줘서 원본을 바꾸지 않고 새로 만든다.
+
     ```js
     function fn(person){
         person = Object.assign({}, person); // 원본을 바꾸지 않기 위해 복사
@@ -138,7 +147,9 @@ fn(o1);
     var o2 = fn(o1);
     console.log(o1, o2);
     ```
+
   - 함수 밖에서 복사해주기
+
     ```js
     function fn(person){
         person.name = 'lee';
@@ -151,6 +162,7 @@ fn(o1);
 
 ### 가변과 불변 API 비교
 - JavaScript가 가지고 있는 API 중에 원본의 수정 여부 비교
+
 ```JS
 var score = [1,2,3];
 var a = score;
@@ -165,6 +177,7 @@ console.log(score, score2, a, b);/
 <br><br>
 
 ## 객체를 불변하게 만들기 (Object.freeze)
+
 ```js
 var o1 = {name:'kim', score:[1,2]}
 Object.freeze(o1);
@@ -177,6 +190,7 @@ console.log(o1);  // {name:'kim', score:[1,2]}
 
 ### const vs Object.freeze
 ```js
+
 const o1 = {name:'kim'}
 Object.freeze(o1); // 값을 바꾸지 못하게 함
 const o2 = {name:'lee'}
@@ -184,6 +198,7 @@ const o2 = {name:'lee'}
 o1.name = 'park';
 console.log(o1);
 ```
+
 - `const`: 변수나 객체가 가리키는(저장한) 주소 값을(레퍼런스) 수정할 수 없게 막는다.
 - `freeze`: 저장하고 있는 값의 변경을 막는다.
 

@@ -1,6 +1,7 @@
 # 서버에서 클라이언트로 여러 파일 전송하기
 
 - server
+
 ```go
 func downloadFile(w http.ResponseWriter, r *http.Request) {
 
@@ -40,6 +41,7 @@ func downloadFile(w http.ResponseWriter, r *http.Request) {
 	return
 }
 ```
+
 <br>
 <br>
 
@@ -48,6 +50,7 @@ func downloadFile(w http.ResponseWriter, r *http.Request) {
   - interval 없이 단순 loop문을 돌리면 모든 경로를 다운로드 하지 못함.
   - ajax를 단순히 loop 문 안에 두기보단 promise 사용 권장.
   - 다른 옵션: async-await?, zip 파일로 압축해서 한번에 보내기, a element를 동적으로 생성하고 click 이벤트 발생 ...
+  
 ```js
 $("#btn_download").click(function (e) {
 

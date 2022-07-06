@@ -7,6 +7,7 @@
 
 ## `:visited`
 - 방문한 링크에 대해서 속성을 꾸며주는 선택자
+
 ```css
 a:link{
   color: red;
@@ -39,6 +40,7 @@ a:visited{
   </div>
 </body>
 ```
+
 <br>
 
 ## `~`
@@ -65,6 +67,7 @@ a:visited{
   <h1>빨간 글자가 됩니다.</h1>
 </body>
 ```
+
 <br>
 
 ## `:first-child`
@@ -92,6 +95,7 @@ a:visited{
   </div>
 </body>
 ```
+
 <br>
 
 ## `:only-child`
@@ -120,6 +124,7 @@ a:visited{
   </div>
 </body>
 ```
+
 <br>
 
 ## `:last-child`
@@ -149,6 +154,7 @@ a:visited{
   <h1>빨간 글자가 됩니다.</h1>
 </body>
 ```
+
 <br>
 
 ## `:nth-child(n)`
@@ -179,11 +185,11 @@ a:visited{
   <h1>검은 글자 그대로</h1>
 </body>
 ```
+
 <br>
 
 ## `:nth-last-child()`
 - 부모를 가지고 있으면서 뒤에서 두번째 위치한 요소 선택
-
 
 ```HTML
 <style>
@@ -210,6 +216,7 @@ a:visited{
   <h1>검은 글자 그대로</h1>
 </body>
 ```
+
 <br>
 
 ## `:nth-of-type(n)`

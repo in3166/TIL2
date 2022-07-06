@@ -6,7 +6,8 @@
 - `Single Source of Truth`: 하나의 상태를 갖는다. (하나의 객체안에 모든 데이터를 넣음) -> 복잡성 낮춤
 - `Dispatcher`, `reducer` 등을 통해서만 state 접근 가능 (외부 직접 제어 불가)
 - 해당 데이터가 변경되면 그와 관련된 app들은 각자 자기 할 일을 한다.
-<img src="https://github.com/in3166/TIL/blob/main/JavaScript/React/img/redux-flow.png" />
+
+<img src="01_React/img/redux-flow.png" />
 
 ## Props
 - properties 줄임말
@@ -22,14 +23,15 @@
 
 ### Redux는 State를 관리하는 것
 
-<img src="https://github.com/in3166/TIL/blob/main/JavaScript/React/img/redux1.JPG" />
+<img src="01_React/img/redux1.JPG" />
+
 - 굳이 상위 컴포넌트로 올라가지 않고 (왔다갔다하는 과정 삭제)
 
 
 ## Redux 데이터 Flow (strict unidirectional data flow)
 
 ***`[ Action ] -> [ Reducer ] -> [ Store ] - Subscribe -> [ React Component] - Dispatch(action) -> [ Action ]`***
-<img src="https://github.com/in3166/TIL/blob/main/JavaScript/React/img/redux2.PNG" />
+<img src="01_React/img/redux2.PNG" />
 
 
 ### Store: 전체적인 어플리케이션의 state을 감쌈
@@ -39,6 +41,7 @@
   - immutable
   - 여러 메서드들 존재
   - state 변경: Dispatch로 action으로 변경
+
   ```javascript
   // index.js
   import React from 'react';
@@ -64,7 +67,8 @@
   - 이전 state와 action object를 받아 변한 next state을 return
   - 리듀서 함수 내에서 반환되는 값을 상태 저장소에 저장
   - 상태 추가가 아닌 덮어씌우기 때문에 전체 상태를 복사하여 상태 갱신 후 반환
-  ```javscript
+
+  ```js
   // 기본 상태값을 지정할 수 있습니다. (initState)
   const rootReducer = (state = initState, action) => {
     if (action.type === 'DELETE_POST') {
@@ -83,12 +87,14 @@
   - 트리거(trigger) 역할
   
   - Mary liked Article 42
-  ```javascript
+
+  ```js
   { type: 'LIKE_ARTICLE', articleId: 42 }
     { type: 'Fetch_USER_SUCCESS', response: { id: 3, name: 'Mary' } }
     {type: 'ADD_TODO', text: 'Read the Redux docs.' }
   ```
-  ```javscript
+
+  ```js
   export const deletePost = (id) => {
     return {
      type: 'DELETE_POST',
@@ -100,6 +106,7 @@
 ### subScription
   - 저장소에 보관된 전역 상태 가져오기
   - 어느 컴포넌트에서도 저장소의 상태 값을 얻을 수 있다.
+
   ```javascript
   // Post.js
   import { connect } from 'react-redux';
@@ -120,6 +127,7 @@
 
   export default connect(mapStateToProps, mapDispatchToProps)(Post);
   ```
+
   - HOC(connect)를 통해 전역상태와 액션을 위한 Dispatch를 컴포넌트에 전달합니다.
   - 이 컴포넌트에서는 props를 통해 전역상태와 Dispatch를 사용할 수 있습니다.
 
@@ -127,6 +135,7 @@
 - `npm install redux react-redux redux-promis redux-thunk --save`
 - redux-promise와 redux-thunk
   - 리덕스를 잘 쓸 수 있게 도와주는 미들웨어
+
 ```javascript
 import { Provider } from 'react-redux';
 // 적용
@@ -150,6 +159,7 @@ ReactDOM.render(
   - Redux-Promise: '' promise ''
 
   <br><br>
+
   ```javascript
   //  src/_reducers/index.js
   import { combineReducers } from 'redux';
@@ -180,6 +190,7 @@ ReactDOM.render(
 - redux-thunk: dispatch에게 `function`을 받는 방법을 알려주는 미들웨어
 
 <br><br>
+
 # ContextAPI
 - Redux와 같이 상태의 중앙 관리를 위한 <h3>상태 관리 도구</h3>
 - Redux와 달리 여러 저장소 존재 가능
@@ -189,6 +200,7 @@ ReactDOM.render(
 - Consumer는 이 context를 통해 전역 상태에 접근 가능
 - 여러 context 존재 가능, 하지만 하나의 context만 존재하면 성능상 이슈 발생 가능
 - context 안에는 Provider와 Consumer가 정의되어 있고 다른 컴포넌트에선 이것들을 사용해 상태에 접근
+
 ```javscript
 // ./contexts/root.js
 import React from 'react'
@@ -202,6 +214,7 @@ export default React.createContext({}) // 함수의 인자에는 상태의 초�
 - 다른 컴포넌트가 해당 상태에 접근하여 사용 가능
 - 제공된 상태에 접근하기 위해선 Provider의 하위 컴포넌트에 포함되어야 한다.
   - 모든 컴포넌트에 접근해야하는 상태 제공하기 위해선 루트 컴포넌트 `index.js` or `app.js`에 Provider 정의
+
 ```javascript
 import ShopContext from './path/to/shop-context'; // React.createContext() 객체
 
@@ -224,6 +237,7 @@ class App extends Component {
 ### Consumer: 전역 상태를 받아 사용
 - 제공된 상태에 접근하는 방법 중 하나
 - context는 Consumer 사이에 있는 처음의 객체를 context에 인자로 전달하기 때문에 바로 JSX를 작성하는 것이 아닌 빈 객체를 작성하고 나서 JSX를 작성해야한다.
+
 ```JAVASCRIPT
 import ShopContext from '../context/shop-context' // React.createContext() 객체
 
@@ -248,6 +262,7 @@ class ProductsPage extends Component {
 
 export default ProductsPage
 ```
+
 
 ### contextType
 - 
@@ -288,12 +303,13 @@ export default ProductsPage
 ### Hooks
 - 함수 컴포넌트로 대체 가능
 - 메서드들: useState, useReducer, useContext(prop drilling없이 컴포넌트 간 앱 상태 공유 가능) 등은 더 좋은 상태 관리 방법 제공
+
 - Hooks 개발 이유
   - 클래스 컴포넌트는 로직들을 재사용하기 어려움
   - 구현한 LifeCycle 메서드들에 관련 없는 로직 포함되곤 함.
   - 클래스는 컴퓨터와 인간 모두에게 이해하기 어려운 개념
 `=> 상태 관리가 편해졌다고 상태 관리 라이브러리가 필요없게 된 것은 아니다.` 
-- context는 
+
 
 <br><br><Br>
 

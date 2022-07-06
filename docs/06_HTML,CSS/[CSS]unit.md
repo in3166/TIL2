@@ -12,13 +12,16 @@
   - 선택된 폰트 패밀리에 상관없이 항상 고정된 폰트 사이즈
   - 1em == 16px
   - `부모`의 폰트사이즈에 상대적으로 사이즈 지정 (곱한 값)
-  <img src="https://github.com/in3166/TIL/blob/main/HTML%2CCSS/img/em.JPG" />
+
+  <img src="06_HTML,CSS/img/em.JPG" />
+
   - 위의 예제에서 `em`을 `%`로 바꿔도 동일 (8em == 800% / 0.5em == 50%)
   
 - `rem`
   - root em
   - `root`에 지정된 폰트사이즈에 따라 크기 결정
-  <img src="https://github.com/in3166/TIL/blob/main/HTML%2CCSS/img/rem.JPG" />
+  
+  <img src="06_HTML,CSS/img/rem.JPG" />
   
   
 - ex: 지정된 폰트패밀리에 따라 높이가 달라짐

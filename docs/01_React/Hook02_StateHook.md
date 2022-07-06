@@ -22,7 +22,9 @@ function Example() {
   );
 }
 ```
+
 - Class와 비교
+
 ```javascript
 class Example extends React.Component {
   constructor(props) {
@@ -40,7 +42,9 @@ class Example extends React.Component {
           Click me
 ...
 ```
+
 <br><br>
+
 ## State 변수 선언하기
 - Class에서 constructoe 안에 `this.state`를 {count:0} 으로 초기화
 - 함수 컴포넌트는 this를 가질 수 없어 ***`useState` Hook을 직접 컴포넌트에서 호출***
@@ -61,6 +65,7 @@ class Example extends React.Component {
 ## State 가져오기
 - Class Componenet는 `this.state.count` 사용
 - 함수 컴포넌트는 `count` 직접 사용
+
 ```javascript
  <p>You clicked {count} times</p>
 ```
@@ -68,12 +73,15 @@ class Example extends React.Component {
 <br><br>
 ## State 갱신하기
 - Class Component눈 `this.setState()` 사용
+
 ```javscript
   <button onClick={() => this.setState({ count: this.state.count + 1 })}>
     Click me
   </button>
 ```
+
 - 함숫 컴포넌트는 this를 호출하지 않아도 됨
+
 ```javscript
   <button onClick={() => setCount(count + 1)}>
     Click me
@@ -81,25 +89,32 @@ class Example extends React.Component {
 ```
 
 <br><br>
+
 ## * 팁 *
+
 ### 대괄호의 의미
 - 배열 구조 분해
+
 ```javscript
 const [count, setCount] = useState(0); 
 ```
+
 - 동일
+
 ```javascript
   var fruitStateVariable = useState('banana'); // 두 개의 아이템이 있는 쌍을 반환
   var fruit = fruitStateVariable[0]; // 첫 번째 아이템
   var setFruit = fruitStateVariable[1]; // 두 번째 아이템
 ```
 
+
 ### this 없이 어떻게 특정 컴포넌트와 연결하는가
 - https://ko.reactjs.org/docs/hooks-faq.html#how-does-react-associate-hook-calls-with-components
 
 ### 여러 개의 state 변수 사용
 - 개별적인 지역 변수 생성 및 갱신 가능
-```javscript
+
+```js
 function ExampleWithManyStates() {
   // 여러 개의 state를 선언할 수 있습니다!
   const [age, setAge] = useState(42);
@@ -108,12 +123,14 @@ function ExampleWithManyStates() {
 ```
 
 - 객체와 배열 사용 가능
+
 ```javascript
 function Box() {
   const [state, setState] = useState({ left: 0, top: 0, width: 100, height: 100 });
   // ...
 }
 ```
+
 - but `this.setState`와 달리 state를 갱신하는 것이 아니라 `대체`하는 것
 - https://ko.reactjs.org/docs/hooks-faq.html#should-i-use-one-or-many-state-variables
 

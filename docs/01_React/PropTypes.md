@@ -17,15 +17,18 @@ Greeting.propTypes = {
   name: PropTypes.string
 };
 ```
+
 - 함수 컴포넌트에도 동일하게 적용 가능
 - `PropTypes`는 전달받은 데이터의 유효성을 검증하기 위해 다양한 유효성 검사기(Validator)를 내보낸다.
 - prop에 유효하지 않은 값이 전달 받으면 경고문이 콘솔에 찍힌다.
 - `porpTypes`는 성능상의 이유로 개발 모드에서만 
+
 <br>
 
 ## 예제
 - prop의 종류로 `children, color, textColor, size, onClick`이 있을 때
 - 아래와 같이 정의하고 타입 규칙이 어긋나면 React는 콘솔에 경고메세지를 출력한다.
+
 ```js
 App.propTypes = {
   children: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired,
@@ -35,9 +38,11 @@ App.propTypes = {
   onClick: PropTypes.func,
 }
 ```
+
 <br><br>
 
 ## 유효성 검사기 (Vaildator)
+
 ```js
 import PropTypes from 'prop-types';
 
@@ -128,10 +133,12 @@ MyComponent.propTypes = {
   })
 };
 ```
+
 <br><br>
 
 ## 하나의 자식만 요구하기
 - `PropTypes.element`를 이용하여 컴포넌트의 자식들(Children)에 단 하나의 자식(Child)만이 전달되도록 명시 가능
+
 ```js
 import PropTypes from 'prop-types';
 
@@ -151,12 +158,14 @@ MyComponent.propTypes = {
   children: PropTypes.element.isRequired
 };
 ```
+
 <br>
 
 ## 초기 Prop 값
 - `defaultProps` 프로퍼티 할당하여 `props`의 초깃값 설정
 - `this.props.name`의 값이 부포 컴포넌트에 의해 명시되지 않았을 때 값을 값도록 한다.
 - `propTypes`의 타입 확인은 `defaultProps` 처리 후에 일어난다.
+
 ```js
 class Greeting extends React.Component {
   render() {
@@ -177,10 +186,12 @@ ReactDOM.render(
   document.getElementById('example')
 );
 ```
+
 <br><br>
 
 ## Function Components
 - PropTypes 적절히 적용할 수 있도록 몇 가지 변경사항을 만들 수 있다.
+
 ```js
 export default function HelloWorldComponent({ name }) {
   return (
@@ -188,8 +199,10 @@ export default function HelloWorldComponent({ name }) {
   )
 }
 ```
+
 - 위의 컴포넌트에 `PropTypes`를 추가하려면 컴포넌트를 외부에 노출시키기 전에 별도의 함수로 컴포넌트 선언
 - 그러면, 컴포넌트에 직접 `PropTypes` 추가 가능
+
 ```js
 import PropTypes from 'prop-types'
 

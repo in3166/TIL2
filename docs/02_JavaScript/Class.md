@@ -1,4 +1,5 @@
 # 기존 생성자 함수
+
 ```js
 function Vehicle(make, model, color) {
   this.make = make,
@@ -12,11 +13,13 @@ function Vehicle(make, model, color) {
 let car = new Vehicle("Toyota", "Corolla", "Black");
 let car2 = new Vehicle("Honda", "Civic", "White");
 ```
+
 - 클래스의 생성자와 거의 흡사한 기능 제공
 - 문제점
   - `new Vehicle` 사용 시 JS 엔진은 각 오브젝트에 대해 `Vehicle` 생성자 함수를 복사 (모든 프로퍼티, 메서드가 새로운 Instance에 복사)
   - => 중복된 코드를 계속 생성
   - 새로운 프로퍼티나 메서드를 기존 생성자 함수에 추가 불가.
+
   ```js
   car2.year = "2012"
   // (역자 주: 댓글에 이 부분을 지적하는 사람이 있었습니다. 
@@ -24,11 +27,13 @@ let car2 = new Vehicle("Honda", "Civic", "White");
   // 저자는 '존재하는 오브젝트에는 가능하지만 생성자 함수에는 추가할 수 없다'라고 하였습니다.) 
   // => 함수 자체에 직접 추가해야한다
   ```
+
 <br>
 
 ## Prototype
 - 새로운 함수가 만들어지면 JS 엔진은 기본으로 `prototype` 프로퍼티(prototype object)를 추가
 - `Prototype` 객체는 우리 함수를 다시 가리키는 생성자 프로퍼티와 또 다른 프로퍼티 `__proto__`객체를 가진다.
+
 ```
 > Vehicle.prototype
 - {consturctor: f}
@@ -38,6 +43,7 @@ let car2 = new Vehicle("Honda", "Civic", "White");
 
 - `__proto__` 프러퍼티는 'dunder proto'라고 불리고 우리의 생성자 함수의 프로퍼티를 가리킨다.
 - 생성자 함수의 새로운 인스턴스가 생성될 때마다, 다른 프로퍼티와 메서드와 함께 이 프로퍼티(`__proto__`)도 인스턴스에 복사된다.
+
 ```
 var car = new Vehicle("KIA", "CLK22", "Black")
 > car
@@ -48,10 +54,13 @@ var car = new Vehicle("KIA", "CLK22", "Black")
      - modle: "CLK22"
      - __proto__: Object
 ```
+
 - 이 `__proto__` 객체는 생성자 함수에 새로운 프로퍼티, 메서드를 추가하기 위해 사용 가능
+
 ```js
 car.__proto__.year = "2014";
 ```
+
 
 ### Prototype 사용 유의점
 - 프로토타입 프로퍼티와 메서드는 모든 생성자 함수 인스턴스 간 공유되지만 한 인스턴스가 어떤 프리미티브 프로퍼티를 변경하면 해당 인스턴스만 반영된다.
@@ -69,6 +78,7 @@ car.__proto__.year = "2014";
   
 ## Class 선언
 - class 키워드 사용
+
 ```javascript
 class Rectangle {
   constructor(height, width) {
@@ -78,11 +88,13 @@ class Rectangle {
   sayHi() { alert(this.name); }
 }
 ```
+
 - `Rectangle`이라는 이름을 가진 함수를 만든다. 함수 본문은 생성자 메서드 `constructor`에서 가져온다.
 - `sayHi()`같은 클래스 내에서 정의한 메서드를 `Rectangle.Prototype`에 저장한다.
   
   - `new Rectangle`를 호출해 객체를 만들고, 객체의 메서드를 호출하면 함수의 prototype 프로퍼티에서 메서드를 프로토타입에서 가져온다.
   <img src="https://github.com/in3166/TIL/blob/main/JavaScript/img/class-1.JPG" />
+
   ```js
   // 클래스는 함수입니다.
   alert(typeof User); // function
@@ -100,7 +112,8 @@ class Rectangle {
   ### Hoisting
   - class 선언은 `호이스팅`이 일어나지 않는다.
   - class 사용을 위해선 먼저 선언해야 한다.
-  ```javscript
+
+  ```js
   //Error
   const p = new Rectangle(); // ReferenceError
   class Rectangle {}
@@ -110,6 +123,7 @@ class Rectangle {
 - class 정의의 다른 방식
 - 이름을 가질 수도 있고 갖지 않을 수도 있다.
 - class 표현식의 이름은 클래스 body의 local scope에 한해 유효하지만 클래스의 `name`속성을 통해 찾을 수 있다.
+
 ```javascript
 // unnamed
 let Rectangle = class {
@@ -155,20 +169,25 @@ console.log(Rectangle.name); // "Rectangle2"
 
 ### ECMAScript2015 부터 객체 초기자(initializer)에 메서드 정의를 위한 짧은 구문 도입
   - 이전
+
   ```js
   var obj = {
     foo: function() {},
     bar: function() {}
   };
   ```
+
   - 이후
+
   ```js
   var obj = {
     foo() {},
     bar() {}
   };
   ```
+
   - 단축 구문 속성 계산명 지원
+
   ```js
   var bar = {
     foo0 : function (){return 0;},
@@ -182,6 +201,7 @@ console.log(Rectangle.name); // "Rectangle2"
   ```
   
 - class 프로토타입 메서드
+
 ```js
 class Rectangle {
   constructor(height, width) {
@@ -201,10 +221,12 @@ class Rectangle {
 const square = new Rectangle(10, 10);
 console.log(square.area); // 100
 ```
+
 <br>
 
 ## Getter/Setter
 - 프로퍼티의 값을 가져오거나 설정
+
 ```js
 class Vehicle {
     constructor(model) {
@@ -220,9 +242,11 @@ class Vehicle {
     }
 }
 ```
+
 <br>
 
 ## Subclassing
+
 ```js
 class Vehicle {
     constructor(make, model, color) {
@@ -246,6 +270,7 @@ let car = new Car("Honda", "Accord", "Purple");
 
 car.getName(); // "Honda Accord in child class."
 ```
+
 - `getName()` 자식 클래스에서 호출
 - 베이스 클래스에서 호출하기 위해선 `super` 사용
 
@@ -255,6 +280,7 @@ car.getName(); // "Honda Accord in child class."
 - 정적 메서드는 `static` 키워드로 생성, 클래스의 **인스턴스화 없이 호출**, **인스턴스에선 호출 불가**
 - 정적 메서드는 애플리케이션을 위한 유틸리티 함수 생성에 주로 사용
 - 정적 속성은 캐시, 고정 환경설정, 인스턴스 간 복제할 필요없는 기타 데이터에 유용
+
 ```js
 class Point {
   constructor(x, y) {
@@ -285,6 +311,7 @@ console.log(Point.distance(p1, p2)); // 7.0710678118654755  - p1의 값, p2의 �
 
 ## 프로토타입 및 정적 메서드를 사용한 this 바인딩
 - 정적 메서드나 프로토타입 메서드가 `this`값 없이 호출되면, `this` 값은 메서드 안에서 `undefined`
+
 ```js
 class Animal {
   speak() {
@@ -306,6 +333,7 @@ eat(); // undefined
 ```
 
 - non-strict mode 실행 시 `this`는 자동으로 전역 객체에 바인딩되지만 strict mode는 자동 바인딩 x
+
 ```js
 function Animal() { }
 
@@ -328,6 +356,7 @@ eat(); // global object (in non-strict mode)
 
 ## 인스턴스 속성
 -인스턴스 속성은 반드시 클래스 메서드 내에 정의
+
 ```js
 class Rectangle {
   constructor(height, width) {
@@ -336,24 +365,27 @@ class Rectangle {
   }
 }
 ```
+
 - 정적 속성과 프로토타입 데이터 속성은 반드시 클래스 선언부 바깥쪽에서 정의
+
 ```js
 Rectangle.staticWidth = 20;
 Rectangle.prototype.prototypeWidth = 25;
 ```
 
-```
+```js
 Class.method = function () { /* code */ }  // static 처럼 여겨도 된다. (클래스 메서드, 정적 메서드)
 Class.prototype.method = function () { /* code using this.values */ } (인스턴스 메서드)
 ```
 
-```
+```js
 class User {
   static staticMethod() {
     alert(this === User);
   }
 }
 ```
+
 - 정적 메서드는 메서드를 프로퍼티 형태로 직접 할당하는 것과 동일
 `Class.method = function () { /* code */ }` 
 - 정적 메서드: 클래스 이름(함수 이름)으로 호출할 수 있고 인스터스를 만들 필요없다., 
@@ -362,11 +394,12 @@ class User {
 `Class.prototype.method = function () { /* code using this.values */ }`
 - 프로토타입 메서드: 모든 인스턴스가 공유하는 메서드, 클래스이름, 인스턴스 이름으로 접근 가능, 단 하나의 메서드 복사본(메모리에)을 생성
 
-``` 
+```js
 function Class () {
       this.method = function () { /* do something with the private members */};
    }
 ```
+
 - 클래스 메서드: 함수/클래스 내부에서 정의, 클래스 이름으로 접근 불가, 인스턴스 생성해야 함, unique 복사본을 생성(모든 객체마다),  생성자 함수(여기서 클래스) 내에 선언된 로컬 멤버에 액세스할 수 있는 전체 권한을 가짐
 
 
@@ -378,6 +411,7 @@ function Class () {
 - class filed, 어떤 종류의 프로퍼티도 클래스에 추가 가능
 
 - `<프로퍼티 이름> = <값>`
+
 ```javascript
 class User{
   name = 'John';
@@ -390,6 +424,7 @@ new User().sayHi(); // hello john
 ```
 
 - `User.prototype`이 아닌 **개별 객체에만 클래스 필드가 설정**된다.
+
 ```javascript
 class User {
   name = "John";
@@ -401,6 +436,7 @@ alert(User.prototype.name); // undefined
 ```
 
 - 복잡한 표현식이나 함수 호출 결과를 사용할 수 있다.
+
 ```js
 class User {
   name = prompt("이름을 알려주세요.", "보라");
@@ -415,6 +451,7 @@ alert(user.name); // 보라
 ## 클래스 필드로 바인딩 된 메서드 만들기
 - 자바스크립트 함수는 동적인 `this`를 가지므로 객체 메서드를 전혀 다른 컨텍스트에서 호출하면 원래 객체를 참조하지 않는다.
 - '잃어버린 `this`', `this`의 컨텍스트를 알 수 없다.
+
 ```js
 class Button {
   constructor(value) {
@@ -432,20 +469,24 @@ setTimeout(button.click, 1000); // undefined
 
 ### 해결법: 함수 바인딩에서 해결 방법
 - 1. wrapper: `setTimeout(() => button.click(), 1000)`
+
   ```javascript
   setTimeout(function() {
     user.sayHi(); // Hello, John!
   }, 1000);
   ```
+
   ```javascript
   setTimeout(() => user.sayHi(), 1000); // Hello, John!
   ```
+
   - 외부 렉시컬 환경에서 `user`를 받아서 보통 때처럼 메서드 호출했기 때문에 동작
   - 1초가 지나기 전 `user`가 변경되면 변경된 객체의 메서드를 호출하는 문제
   
 - 2. 생성자 안 등에서 메서드를 객체에 바인딩
 
 ### 해결법: 클래스 필드에서 해결 방법
+
 ```js
 class Button {
   constructor(value) {
@@ -460,17 +501,15 @@ let button = new Button("hello");
 
 setTimeout(button.click, 1000); // hello
 ```
+
 - 클래스 필드 `click = () => {...}`는 각 `Button` 객체마다 독립적인 함수를 만들고 함수의 `this`를 해당 객체에 바인딩
-
-
-## Public 필드 선언
-## Private 필드 선언
 
 <br><br><br>
 
 
 # 클래스는 순수 함수 (생성자 함수)의 편의 문법이 아니다.
 - 편의 문법(syntactic sugar, 문법 설탕): 기존 문법을 쉽게 읽을 수 있게 만든 문법
+
 ```javascript
 function User(name) {
   this.name = name;
@@ -506,6 +545,7 @@ user.sayHi();
 ## Class 표현식
 - 함수처럼 다른 표현식 내부에서 정의, 전달, 반환, 할당 가능
 - 클래스 표현식
+
 ```js
 let User = class {
   sayHi() {
@@ -513,7 +553,9 @@ let User = class {
   }
 };
 ```
+
 - 기명 함수 표현식과 유사하게 클래스 표현식에도 이름 설정 가능 -> 클래스 내부에서만 사용 가능
+
 ```js
 // 기명 클래스 표현식(Named Class Expression)
 // (명세서엔 없는 용어이지만, 기명 함수 표현식과 유사하게 동작합니다.)
@@ -528,7 +570,9 @@ new User().sayHi(); // 제대로 동작합니다(MyClass의 정의를 보여줌)
 alert(MyClass); // ReferenceError: MyClass is not defined, MyClass는 클래스 밖에서 사용할 수 없습니다.
 ```
 
+
 - 클래스 동적 생성도 가능
+
 ```js
 function makeClass(phrase) {
   // 클래스를 선언하고 이를 반환함
@@ -544,6 +588,7 @@ let User = makeClass("Hello");
 
 new User().sayHi(); // Hello
 ```
+
 <br><br>
 
 # Private, Protected 프로퍼티와 메서드
@@ -563,6 +608,7 @@ new User().sayHi(); // Hello
 <br><br>
 
 ## 프로퍼티 보호하기 (커피 머신 구현)
+
 ```js
 class CoffeeMachine {
   waterAmount = 0;
@@ -610,6 +656,7 @@ coffeeMachine.waterAmount = -10; // Error: 물의 양은 음수가 될 수 없�
 ## 읽기 전용 프로퍼티
 - 프로퍼티 생성 시에만 값을 할당 가능하고 그 후 수정 불가
 - setter는 생성하지 않고 getter만 생성
+
 ```js
 class CoffeeMachine {
   // ...
@@ -632,6 +679,7 @@ coffeeMachine.power = 25; // Error (setter 없음)
 
 - `getter` / `setter` 함수
   - 위 처럼 get, set 문법으로 만들 수 도 있지만 아래 형식 선호
+
   ```js
   class CoffeeMachine {
     _waterAmount = 0;
@@ -657,6 +705,7 @@ coffeeMachine.power = 25; // Error (setter 없음)
   - 스펙에 최근 추가, 지원안되는 엔진 존재 - 폴리필을 구현
   - `#`으로 시작, 클래스 안에서만 접근 가능
   - `#waterLimit`: 물 용량 한도 프로퍼티, `#checkWater`: 물 양 확인 메서드
+
   ```js
   class CoffeeMachine {
     #waterLimit = 200;
@@ -675,6 +724,7 @@ coffeeMachine.power = 25; // Error (setter 없음)
   ```
   
 - 자손 클래스에서 직접 접근 불가
+
 ```js
 class MegaCoffeeMachine extends CoffeeMachine {
   method() {

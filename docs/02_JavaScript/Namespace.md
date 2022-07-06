@@ -4,6 +4,7 @@
 - 네임스페이스는 이러한 경우에 발생할 수 있는 `충돌을 방지`하기 위해 `이름이 존재하는 공간`을 정의하는 기능을 제공한다.
  
 ## C++의 Namespace
+
 ```c++
 #include <iostream>
  
@@ -31,6 +32,7 @@ int main()
 
 ## Java의 Package
 - 자바에서는 패키지 (package)라는 개념을 이용하여 네임스페이스 기능을 제공.
+
 ```java
 package module1;
  
@@ -40,6 +42,7 @@ public class MyClass {
     }
 }
 ```
+
 ```java
 package module2;
  
@@ -49,6 +52,7 @@ public class MyClass {
     }
 }
 ```
+
 ```java
 package exec;
  
@@ -61,12 +65,14 @@ public class Main {
     }
 } // 오류 ->  import module1.MyClass처럼 명시적으로 어떠한 패키지의 MyClass를 포함할 것인지를 선언
 ```
+
 <br><br>
 
 # 자바스크립트와 네임스페이스
 - 디자인 패턴을 이용 네임스페이스 기능 제공
 
 ## 객체 개념을 이용한 네임스페이스
+
 ```javascript
 var MyModule = {};
 var value = 1;
@@ -80,9 +86,11 @@ MyModule.callSender = function () {
     console.log('I am a sender.');
 }
 ```
+
 - 전역적으로 참조가 가능한 value라는 변수와 MyModule 네임스페이스를 갖는 value 선언, callSender()도 동일 
 
 - 위와 동일
+
 ```javascript
 var MyModule = {
     value1: 5,
@@ -95,11 +103,13 @@ var MyModule = {
 ## 네임스페이스는 객체의 이름이 충돌하는 것과 같이 네임스페이스의 이름 또한 충돌 가능. 
 -  네임스페이스를 정의하기 전에 기존에 동일한 이름을 갖는 네임스페이스가 존재하는지를 검사하고,
 -  동일한 이름을 갖는 네임스페이스가 없을 경우에만 네임스페이스를 정의한다.
+
 ```javascript
 if (typeof MyModule === 'undefined') {
     var MyModule = {};
 }
 ```
+
 ```javascript
 var MyModule = MyModule || {};
 ```
@@ -127,7 +137,9 @@ console.log( typeof(a) ); // number
 console.log( typeof(b) ); // undefined
 console.log( typeof(c) ); // undefined
 ```
+
 - 단일 var 패턴: 함수 상단에 var 선언을 하나만 쓰고 여러 개의 변수를 쉼표로 연결하여 선언
+
 <br>
 
 ## 2. 즉시 실행 함수와 즉시 객체 초기화
@@ -150,11 +162,13 @@ console.log(typeof
  }())
 ); // undefined
 ```
+
 - 함수가 즉시 실행되고 난 후에 전역에 남지 않고 바로 사라짐
 
 ### 즉시 객체 초기화 패턴
 - 괄호로 묶어 바로 초기화하는 사용 방식, 전역 변수를 만들지 않음
 - 단점: 즉시 실행 함수에 비해 JavaScript 압축 도구가 효과적으로 압축하지 못함.
+
 ```javascript
 ({
   // 속성 정의

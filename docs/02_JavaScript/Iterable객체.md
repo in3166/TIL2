@@ -6,6 +6,7 @@
 
 ## Symbol.iterator
 - 직접 이터러블 객체 생성해보기
+
 ```js
 let range = {
   from: 1,
@@ -15,6 +16,7 @@ let range = {
 // 아래와 같이 for..of가 동작할 수 있도록 하는 게 목표
 // for(let num of range) ... num=1,2,3,4,5
 ```
+
 - `range`를 이터러블로 만들기 위해(`for...of` 동작) 객체에 `Symbol.iterator`(특수 내장 심볼)라는 메서드를 추가해 아래의 일들 실행
 
   - 1) `for...of`가 시작되자마자 `for...of`는 `Symbol.iterator`를 호출.
@@ -26,6 +28,7 @@ let range = {
     - `done=false`일땐 `value`에 다음 값이 저장된다.
 
 - `range`를 반복 가능한 객체로 만들기
+
 ```js
 let range = {
   from: 1,
@@ -58,15 +61,18 @@ for (let num of range) {
   alert(num); // 1, then 2, 3, 4, 5
 }
 ```
+
 - 'iterable' 객체의 핵심 **관심사의 분리(Separation of concern, SOC)**
   - 이터레이터 객체와 반복 대상인 객체의 분리
   - `range`엔 메서드 `next()`가 없다.
   - 대신 `range[Symbol.iterator]()`를 호출해서 만든 '이터레이터' 객체와 이 객체의 메서드 `next()`에서 반복에 사용될 값을 만든다.
+
 <br>
 
 - 두 객체를 합쳐서 `range` 자체를 이터레어터로 만들면 코드 간결해진다.
   - 단점: 두 개의 `for...of` 반복문을 하나의 객체에 동시에 사용할 수 없다.
     - 이터레이터가 하나라서 두 반복문이 반복 상태를 공유
+
 ```js
 let range = {
   from: 1,
@@ -94,6 +100,7 @@ for (let num of range) {
 <br><br>
 
 ## 문자열은 이터러블이다.
+
 ```js
 for (let char of "test") {
   // 글자 하나당 한 번 실행됩니다(4회 호출).
@@ -104,6 +111,7 @@ for (let char of "test") {
 ## 이터레이터 명시적 호출
 - 직접 호출을 통한 순회하기
 - 문자열 이터레이터를 만들고 값을 '수동'으로 가져오기
+
 ```js
 let str = "Hello";
 
@@ -118,8 +126,10 @@ while (true) {
   alert(result.value); // 글자가 하나씩 출력
 }
 ```
+
 - 반복 과정 통제 가능
 - 반복 중간에 잠시 멈추고 다른 작업 가능 (반복 과정 쪼개기)
+
 <br>
 
 ## 이터러블과 유사 배열
@@ -129,6 +139,7 @@ while (true) {
 - 이터러블 객체(`for...of`사용 가능)이면서 유사배열 객체(숫자 인덱스와 `length` 프로퍼티가 있음)인 '문자열'이 대표적
 - 위 `range`객체는 이터러블 객체지만 '인덱스', `length`가 없으므로 유사 배열 객체가 아님
 - 유사 배열 객체이긴 하지만 이터러블 객체가 아닌 예
+
 ```js
 let arrayLike = { // 인덱스와 length프로퍼티가 있음 => 유사 배열
   0: "Hello",
@@ -145,6 +156,7 @@ for (let item of arrayLike) {}
 ## Array.from
 - 범용 메서드 `Array.from`은 이터러블이나 유사 배열을 받아 진짜 `Array`를 만들어 준다.
 - 배열 메서드 `pop`, `push` 등을 사용할 수 있게 해준다.
+
 ```js
 let arrayLike = {
   0: "Hello",
@@ -160,11 +172,13 @@ arr.pop();
   `Array.from(obj[, mapFn, thisArg])`
   - 새로운 배열에 `obj` 요소를 추가하기 전에 각 요소를 대상으로 `mapFn`을 적용하고 반환된 값이 추가
   - 세 번째 인수 `thisArg`는 각 요소의 `this`를 지정
+
   ```js
   let araa = Array.from(range, num => num * num);
   ```
 
 - 문자열을 배열로 만들기
+
   ```js
   let str = '𝒳😂';
   // 서로게이트 쌍(surrogate pair)에도 잘 동작
@@ -179,6 +193,7 @@ arr.pop();
    chars.push(char);
   }
   ```
+  
   - `str.split`와 달리, 문자열 자체가 가진 이터러블 속성을 이용해 동작
   - 따라서, `for...of`처럼 서로게이트 쌍에도 제대로 작동
   

@@ -3,7 +3,7 @@
 - Browser에서 요청하면 응답하는 간단한 구조
 - W3C, IETF 등에서 제정한 인터넷 표준 (RFC-2616)
 
-<img src="https://github.com/in3166/TIL/blob/main/etc/img/http-protocol-1.jpg" />
+<img src="05_ETC/img/http-protocol-1.jpg" />
 
 <br>
 

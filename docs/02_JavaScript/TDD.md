@@ -4,6 +4,7 @@
 '2' * 3 = 6
 1 + '2' + 3 * 4 = '1212'
 ```
+
 - 예측하기 어려운 코드들 
 - 자바스크립트는 문법 체크 과정이 없어 모든 브라우저에서 직접 실행해봐야 동작을 보장
 
@@ -34,6 +35,7 @@
   - 테스트 러너(Test Runner) 파일
     - 자스민, 소스, 테스트 코드를 실행
     - 스탠드 얼론으로 설치한 자스민은 HTML 파일이 테스트 러너 (자동화를 하려면 테스트러너인 카르마와 함께 사용-명령어로 테스트 돌림)
+
   ```javascript
   // SpecRunner.html
   // 자스민 라이브러리 파일
@@ -50,6 +52,7 @@
 
 ## 자스민 테스트 코드 기본 구조
 - Sample.html
+
 ```javascript
     // 테스트 코드 작성
     describe('hello world', ()=> { // 테스트 스윗: 테스트 유닛들의 모음
@@ -59,6 +62,7 @@
       })
     })
 ```
+
   - `describe('설명', 테스트 구현 함수)` 함수: 테스트 꾸러미(Test Suite) 생성, 테스트 케이스의 모음, 보통 함수 하나하나 테스트할 때 사용
   - `it('설명', 기대식 가진 테스트 구현 함수)` 함수: 테스트 케이스 만들기, 함수의 기능 테스트할 때 사용 (Test Spec)
     - 첫번째 인자: 함수 기능의 스펙: 문자열 형태
@@ -68,6 +72,7 @@
     - `tobe(기대값)` 함수: 기대하는 값을 인자로
     
 - 결과
+
 ```
 1 spec, 0 failure // 모든 테스트는 1개, 실패 0개
 hello world
@@ -77,6 +82,7 @@ hello world
 <br>
 
 # 테스트할 수 없는 코드
+
 ```html
 <button onclick="counter++; countDisplay()">증가</button>
 <span id="counter-display">0</span>
@@ -117,6 +123,7 @@ hello world
 ## 1. 임의 모듈 패턴
 - 임의 함수를 호출하여 생성하는 모듈
 - 객체가 여러개 필요할 경우 사용
+
 ```JAVASCRIPT
 // 이름공간으로 활용
 var App = App || {}
@@ -132,11 +139,13 @@ App.Person = function (God) {
   }
 }
 ```
+
   - 어떤 객체(getName, setName 메서드로 이루어진)를 반환하는 함수 
   - name 변수는 모듈 안에서만 접근 가능 (return 되는 get, set 메서드에서 사용되기 때문에 클로저 변수)
   - 모듈 생성 시 God라는 다른 객체 주입: God 모듈이 name을 만들어내는 역할
   - 사용
-  ```javascirpt
+
+  ```js
   const person = App.Person(God) // oop의 객체 느낌
   person.getName()
   ```
@@ -144,6 +153,7 @@ App.Person = function (God) {
 ## 2. 즉시 실행 함수(IIFE) 기반 모듈
 - 임의 모듈 패턴과 거의 비슷하지만 모듈 정의 직후 바로 실행
 - 객체 하나만 필요할 경우 사용
+
 ```JAVASCRIPT
 var App = App || {}
 
@@ -201,6 +211,7 @@ App.Person.getName(God) // 이미 객체가 만들어져 있어, 메서드에 �
 ```
 
 ### TDD의 첫 단계: 실패하는 테스트 코드 만들기 (적색 단계)
+
 ```javascript
 // ClickCounter.spec.js
 // ClickCounter를 테스트: 요구사항에 따른 테스트 코드
@@ -214,9 +225,11 @@ describe('App.ClickCounter', ()=> {
   })
 })
 ```
+
 - ClickCounter 모듈이 존재한다고 가정하고 테스트 코드 작성 (적색 단계)
 
 ### TDD의 두번째 단계: Test 통과하도록 모듈 코드 생성 (녹색 단계)
+
 ```javascript
 // ClickCounter.js
 var App = App || {} // 네임스페이스 생성
@@ -233,6 +246,7 @@ App.ClickCounter = () => { // App에 ClickCounter 모듈 생성
 ### TDD의 세번째 단계: Refactor 단계
 - counter 변수로 변경
 - 안심하고 리팩토링 가능 -> 이미 작성한 테스트 코드로 올바르게 작성 가능
+
 ```javascript
 // ClickCounter.js
 var App = App || {} // 네임스페이스 생성
@@ -248,11 +262,14 @@ App.ClickCounter = () => { // App에 ClickCounter 모듈 생성
 ```
 
 - TDD는 하나의 기능에 대해 사이클을 돌며 개발하는 방법
-<img src="https://github.com/in3166/TIL/blob/main/JavaScript/img/tdd1.PNG" />
-<BR>
+
+<img src="02_JavaScript/img/tdd1.PNG" />
+
+<br>
   
 # 두번째 스펙: 'ClickCounter 모듈의 increase()는 카운터 값을 1만큼 증가한다.'
 ### TDD의 첫 단계: 실패하는 테스트 코드 만들기 (적색 단계)
+
 ```javascript
 // ClickCounter.spec.js
 describe('App.ClickCounter', ()=> {
@@ -281,7 +298,8 @@ describe('App.ClickCounter', ()=> {
 
 ### TDD의 두번째 단계: Test 통과하도록 모듈 코드 생성 (녹색 단계)
 - increase() 구현
-```javscript
+
+```js
 var App = App || {}
 
 App.ClickCounter = () => {
@@ -302,6 +320,7 @@ App.ClickCounter = () => {
 - 중복 코드의 제거: dry한 코드
 - 테스트 코드의 ClickCounter 모듈 생성하는 부분에서 동일한 코드가 사용됨 (두개의 describe에서)
 - `beforeEach` 함수: it 함수 호출 직전에 실행되는 자스민 함수 (중복 코드 옮기기)
+
 ```
 describe(()=>{
   beforeEach(() => { // 1
@@ -309,6 +328,7 @@ describe(()=>{
   it(() => { // 2
 }
 ```
+
 ```javascript
 // ClickCounter.spec.js
 describe('App.ClickCounter', ()=> {
@@ -333,6 +353,7 @@ describe('App.ClickCounter', ()=> {
 ```
 
 - 초기값이 0이 아닌 경우
+
 ```javascript
 // ClickCounter.spec.js
 describe('App.ClickCounter', () => {
@@ -375,6 +396,7 @@ describe('App.ClickCounter', () => {
 
 
 ### TDD의 첫 단계: 실패하는 테스트 코드 만들기 (적색 단계)
+
 ```javascript
 //ClickCountView.spec.js
 describe('App.ClickCountView', () => {
@@ -401,6 +423,7 @@ describe('App.ClickCountView', () => {
 
 ### TDD의 두번째 단계: Test 통과하도록 모듈 코드 생성 (녹색 단계)
 - ClickCountView 모듈 생성
+
 ```javascript
 // ClickCountView.js
 var App = App || {}
@@ -418,6 +441,7 @@ App.ClickCountView = (clickCounter, updateEl) => {
 - ClickCountView에 의존성 주입이 되었는지 체크
   - 모듈을 사용하는 측에서 모듈의 넘겨주지 않으면 ClickCountView 모듈은 제대로 동작 불가 -> 보장
   - `toThrowError()`: 매쳐 함수 - expect 기대치에 예외를 던지는 함수 전달하면 toThrowError로 확인 가능
+
 ```javascript
 describe('App.ClickCountView', () => {
   let updateEl, clickCounter, view
@@ -456,6 +480,7 @@ describe('App.ClickCountView', () => {
 
 
 ### TDD의 두번째 단계: Test 통과하도록 모듈 코드 생성 (녹색 단계)
+
 ```javascript
 var App = App || {}
 
@@ -468,6 +493,7 @@ App.ClickCountView = (clickCounter, updateEl) => {
     }
 }
 ```
+
 <br>
 
 ## 테스트 더블
@@ -482,6 +508,7 @@ App.ClickCountView = (clickCounter, updateEl) => {
 
 - 자스민에선 테스트 더블을 `스파이스(spies)`라고 부른다.
   - spyOn(), createSpy() 등의 함수 존재
+
 ```javascript
 // clickCounter 모듈의 increase 함수를 감시하도록 설정
 spyOn(MyApp, 'foo') // 감시할 객체, 객체의 함수
@@ -492,6 +519,7 @@ bar()
 // 감시한 함수가 실행되었는지 체크
 expect(MyApp.foo).toHaveBeenCalled()
 ```
+
 - bar() 함수가 MyApp.foo() 함수를 실행하는지 검증하는 코드
 
 <br>
@@ -502,7 +530,8 @@ expect(MyApp.foo).toHaveBeenCalled()
 - 테스트 코드 또한 하나의 기능만 테스트하는게 좋다.
 
 ### TDD의 첫 단계: 실패하는 테스트 코드 만들기 (적색 단계)
-```javscript
+
+```js
 describe('App.ClickCountView 모듈', () => {
   ...
 
@@ -524,6 +553,7 @@ describe('App.ClickCountView 모듈', () => {
 ```
 
 ### TDD의 두번째 단계: Test 통과하도록 모듈 코드 생성 (녹색 단계)
+
 ```javascript
 var App = App || {}
 
@@ -547,12 +577,14 @@ App.ClickCountView.messages = {
   noUpdateEl: 'updateEl를 주입해야 합니다'
 }
 ```
+
 <br>
 
 # 세번째 스펙: '클릭 이벤트가 발생하면 increaseAndUpdateView()를 실행한다.'
 
 ### TDD의 첫 단계: 실패하는 테스트 코드 만들기 (적색 단계)
-```javscript
+
+```js
 describe('App.ClickCountView 모듈', () => {
   let udpateEl, clickCounter, view, triggerEl
 
@@ -584,6 +616,7 @@ describe('App.ClickCountView 모듈', () => {
 
 
 ### TDD의 두번째 단계: Test 통과하도록 모듈 코드 생성 (녹색 단계)
+
 ```javascript
 var App = App || {}
 
@@ -618,6 +651,7 @@ App.ClickCountView.messages = {
 <br><br>
 
 # 모듈 이용 화면 만들기
+
 ```html
 <html>
   <body>
@@ -642,6 +676,7 @@ App.ClickCountView.messages = {
 ```
 
 ## 기존 코드와 비교
+
 ```html
 <button onclick="counter++; countDisplay()">증가</button>
 ```
@@ -658,11 +693,13 @@ App.ClickCountView.messages = {
 ```html
 <script>
   var counter = 0;
-</script
+</script>
 ```
+
 - 전역 변수 counter: 변수 이름이 충돌할 여지 많음.
 - 개선: 데이터 관리는 `ClickCounter` 모듈에 위임
   - 전역 변수를 모듈 안에 넣음
+
   ```javascript
   App.ClickCounter = () => { 
   let value = 0; 
@@ -676,6 +713,7 @@ App.ClickCountView.messages = {
     }
   }
   ```
+
   - 이 value 함수는 다른 함수 `getValue`와 `increase`에서 호출 함으로써 **클로저**로 만듦. -> `ClickCounter` 모듈 안에서만 이 값을 접근 가능(외부 접근 불가)
   
 <br>
@@ -688,10 +726,12 @@ App.ClickCountView.messages = {
   }
 </script>
 ```
+
 - 기존 `countDisplay()` 함수의 문제점: 재사용 불가
 - 개선: 화면 관리 모듈 `ClickCountView`
   - `updateView()` 메서드: `options.updateEl.innerHTML =  clickCounter.getValue()`
   - 호출 시 `updateEl`라는 이름으로만 전달해주면 화면을 그릴 수 있음.
+
 <br><br>
 
 # 추가 요구 사항도 쉡게 받을 수 있는 코드 만들기
@@ -702,6 +742,7 @@ App.ClickCountView.messages = {
 - 데이터를 주입 받음으로써 증가와 감소를 위한 데이터를 공유
 
 ### TDD의 첫 단계: 실패하는 테스트 코드 만들기 (적색 단계)
+
 - 데이터를 주입받기 - 없을 경우 에러를 던지는 테스트 코드 작성
 ```JAVAScript
   it('초기값을 주입하지 않으면 에러를 던진다', () => {
@@ -712,6 +753,7 @@ App.ClickCountView.messages = {
 ```
 
 ### TDD의 두번째 단계: Test 통과하도록 모듈 코드 생성 (녹색 단계)
+
 ```javascript
 App.ClickCounter = (_data) => {
   if (!_data) throw Error('_data')
@@ -729,10 +771,12 @@ App.ClickCounter = (_data) => {
   }
 }
 ```
+
 <br>
 
 ...
 - data 객체와 연관된 test 코드 수정
+
 ```javascript
 // ClickCounter.spec.js
 describe('App.ClickCounter', () => {
@@ -744,6 +788,7 @@ describe('App.ClickCounter', () => {
   })
 ...
 ```
+
 ```javascript
 // ClickCountView.spec.js
   beforeEach(()=> {
@@ -756,6 +801,7 @@ describe('App.ClickCounter', () => {
 - 이름 변경: increase -> count
 
 ### TDD의 첫 단계: 실패하는 테스트 코드 만들기 (적색 단계)
+
 ```javascript
 // ClickCounter.spec.js
 ...
@@ -773,9 +819,11 @@ describe('setCountFn()', () => {
   })
 })
 ```
+
 <br>
 
 ### TDD의 두번째 단계: Test 통과하도록 모듈 코드 생성 (녹색 단계)
+
 ```javascript
 App.ClickCounter = _data => {
   if (!_data) throw Error('_data')
@@ -799,6 +847,7 @@ App.ClickCounter = _data => {
 ```
 
 ## 화면에 붙이기
+
 ```html
  <button id="btn-desc">Decrease</button>
   <span id="counter-display"></span>

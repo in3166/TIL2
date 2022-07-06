@@ -11,6 +11,7 @@
 <br>
 
 - 예제: 버튼 컴포넌트 꾸미기 위한 테마 props 넘겨주기
+
 ```javascript
 class App extends React.Component {
   render() {
@@ -36,7 +37,9 @@ class ThemedButton extends React.Component {
   }
 }
 ```
+
 - Context 사용 
+
 ```javascript
 // context를 사용하면 모든 컴포넌트를 일일이 통하지 않고도
 // 원하는 값을 컴포넌트 트리 깊숙한 곳까지 보낼 수 있습니다.
@@ -75,7 +78,9 @@ class ThemedButton extends React.Component {
   }
 }
 ```
+
 <br><br>
+
 # 고려 사항
 - Context 사용 시 컴포넌트 재사용 어려움
 - 여러 레벨에 걸쳐 props 전달하기 위해 `컴포넌트 합성`이 더 나을 수 있다.
@@ -83,6 +88,7 @@ class ThemedButton extends React.Component {
 
 - `제어의 역전 (inversion of control)`
 - 예제: `Link`와 `Avatar` 컴포넌트에 `user`와 `avaatarSize` 전달
+
 ```javascript
 <Page user={user} avatarSize={avatarSize} />
 // ... 그 아래에 ...
@@ -96,6 +102,7 @@ class ThemedButton extends React.Component {
 ```
   - props를 여러 단계에 걸쳐 보내야 함.
   - `Avatar` 컴포넌트 자체를 넘겨주면, 중간 컴포넌트들이 `user`나 `avatarSize`를 알 필요 없음
+
 ```javascript
 function Page(props) {
   const user = props.user;
@@ -116,8 +123,10 @@ function Page(props) {
 // ... 그 아래에 ...
 {props.userLink}
 ```
+
 - 넘겨 줘야 할 props는 줄고 최상위 컴포넌트의 제어력은 커진다.
 - 하지만, 복잡한 컴포넌트를 상위로 옮기면 난해해질 수 있음.
+
 <br><Br>
   
 # API
@@ -131,7 +140,8 @@ function Page(props) {
 - Context를 구독하는 컴포넌트들에게 context 변화를 알림.
 - `value` prop을 받아 이 값을 하위 컴포넌트에 전달 (값이 변경되면 리렌더링)
 
-## *Context.contextType*
+## Context.contextType
+
 ```javascript
 class MyClass extends React.Component {
   componentDidMount() {
@@ -153,6 +163,7 @@ class MyClass extends React.Component {
 }
 MyClass.contextType = MyContext;
 ```
+
 ```javascript
 class MyClass extends React.Component {
   static contextType = MyContext;
@@ -162,25 +173,30 @@ class MyClass extends React.Component {
   }
 }
 ```
+
 `React.createContext()로 생성한 Context 객체를 원하는 클래스의 contextType 프로퍼티로 지정할 수 있습니다. 이 프로퍼티를 활용해 클래스 안에서 this.context를 이용해 해당 Context의 가장 가까운 Provider를 찾아 그 값을 읽을 수 있게됩니다. 이 값은 render를 포함한 모든 컴포넌트 생명주기 매서드에서 사용할 수 있습니다.
 
 주의
 이 API를 사용하면 하나의 context만 구독할 수 있습니다. 여러 context를 구독하기 위해서는 여러 context 구독하기를 참조하세요.
 실험적 기능인 public class fields syntax를 사용하고 있다면 정적 클래스 프로퍼티로 contextType을 지정할 수 있습니다.`
+
 <br>
 
 ## Context.Consumer
+
 ```javascript
 <MyContext.Consumer>
   {value => /* context 값을 이용한 렌더링 */}
 </MyContext.Consumer>
 ```
+
 - context 변화를 구독하는 React 컴포넌트
 - 자식은 `함수`여야 하는데 이 함수는 context의 현재값을 받고 React 노드를 반환
 - 이 함수의 `value` 매개변수는 해당 context의 Provider 중 상위 트리에서 가장 가까운 Provider의 `value`
 
 ## Context.displayName
 - Context 객체는 `displayName` 문자열 속성 설정 가능
+
 ```javascript
 // 개발자 도구에서 MyDisplayName로 표시
 const MyContext = React.createContext(/* some value */);
@@ -189,11 +205,13 @@ MyContext.displayName = 'MyDisplayName';
 <MyContext.Provider> // "MyDisplayName.Provider" in DevTools
 <MyContext.Consumer> // "MyDisplayName.Consumer" in DevTools
 ```
+
 <br><br><br>
 
 # 예시: theme
 ## 값이 변하는 Context
-theme-context.js
+`theme-context.js`
+
 ```javasciprt
 export const thems = {
   light: {
@@ -209,7 +227,9 @@ export const ThemeContext = React.createContext(
   themes.dark // 기본값
 );
 ```
-themed-button.js
+
+`theme-button.js`
+
 ```javascript
 import {ThemeContext} from './theme-context';
 
@@ -226,7 +246,9 @@ class ThemeButton extends React.Component {
   }
 }
 ```
-app.js
+
+`app.js`
+
 ```javascript
 import {ThemeContext, themes} from './theme-context';
 import ThemedButton from './themed-button';
@@ -278,7 +300,8 @@ ReactDOM.render(<App />, document.root);
 
 ## 하위 컴포넌트에서 context 업데이트하기
 - 트리 하위의 컴포넌트에서 context를 업데이트 해야 할 때 context를 통해 메서드를 보낸다.
-theme-context.js
+`theme-context.js`
+
 ```javascript
 // createContext에 보내는 기본값의 모양을
 // 하위 컴포넌트가 받고 있는 매개변수 모양과 동일하게 만드는 것 잊지마세요!
@@ -287,7 +310,9 @@ export const ThemeContext = React.createContext({
   toggleTheme: () => {},
 });
 ```
-theme-toggler-button.js
+
+`theme-toggler-button.js`
+
 ```javascript
 import {ThemeContext} from './theme-context';
 
@@ -309,7 +334,9 @@ function ThemeTogglerButton() {
 
 export default ThemeTogglerButton;
 ```
+
 app.js
+
 ```javascript
 import {ThemeContext, themes} from './theme-context';
 import ThemeTogglerButton from './theme-toggler-button';
@@ -356,7 +383,8 @@ ReactDOM.render(<App />, document.root);
 
 ## 여러 context 구독하기
 - 각 context마다 Consumer를 개별 노드로 만들게 설계되어 있는데, 이는 context 변화로 다시 렌더링하는 과정을 빠르게 유지하기 위함
-```javasciprt
+
+```js
 // 기본값이 light인  ThemeContext
 const ThemeContext = React.createContext('light');
 

@@ -7,6 +7,7 @@
   - `직관적인 API`: `Hook`은 알고 있는 React 컨셉을 대체하지 않습니다. 대신에, `Hook`은 `props`, `state`, `context`, `refs`, `lifecycle` 같은 React 개념에 좀 더 직관적인 API를 제공합
 
 - 예시: `userState`
+
 ```js
 import React, { useState } from 'react';
 
@@ -39,6 +40,7 @@ function Example() {
 
 # State Hook
 - 예시: 버튼 클릭 시 카운터 증가
+
 ```js
 import React, { useState } from 'react';
 
@@ -75,6 +77,7 @@ function Example() {
 <br>
 
 ## 예시: React가 DOM을 업데이트한 뒤에 문서의 타이틀을 바꾸는 컴포넌트
+
 ```js
 import React, { useState, useEffect } from 'react';
 
@@ -97,12 +100,14 @@ function Example() {
   );
 }
 ```
+
 - `useEffect`를 사용하면, React는 DOM을 바꾼 뒤에 “effect” 함수를 실행
 - 'Effects'는 컴포넌트 안에 선언되었기 때문에 `props`와 `state`에 접근 가능
 - React는 매 렌더링 이후 `effects` 실행 (첫 번째 렌더링 포함)
 <br>
 
 - `Effect`를 해제하고 싶으면, 해제하는 함수 반환 (선택적)
+
 ```js
 import React, { useState, useEffect } from 'react';
 
@@ -126,6 +131,7 @@ function FriendStatus(props) {
   return isOnline ? 'Online' : 'Offline';
 }
 ```
+
 - 접속 상태를 구독하는 `effect`를 사용하고, 구독을 해지함으로써 해제
 - unmount될 때 React는 `ChatAPI`에서 구독 해지
 - 또한 재 렌더링이 일어나 `effect`를 재실행하기 전에도 마찬가지로 구독을 해지 (원한다면 `props.friend.id`가 바뀌지 않았을 때 재구독을 건너뛰도록 설정할 수 있습니다.))
@@ -148,6 +154,7 @@ function FriendStatus(props) {
 
 - 위의 접속 상태 구독하기 위해 `useState`와 `useEffect` Hook을 사용한 `FriendStatus`를 다른 컴포넌트에서도 재사용하게 하기
 - 이 로직을 `useFriendStatus`라는 `custom Hook`으로 뽑아냅니다.
+
 ```js
 import React, { useState, useEffect } from 'react';
 
@@ -171,7 +178,8 @@ function useFriendStatus(friendID) {
 
 - 이 Hook은 `friendID`를 인자로 받아 접속 상태 반환
 - 아래 처럼 재사용 가능
-```JS
+
+```js
 function FriendStatus(props) {
   const isOnline = useFriendStatus(props.friend.id);
 
@@ -191,6 +199,7 @@ function FriendStatus(props) {
 ## 다른 내장 Hook
 - [`userContext`](https://ko.reactjs.org/docs/hooks-reference.html#usecontext)
   - 컴포넌트를 중첩하지 않고도 React context 구독 가능
+
   ```js
   function Example() {
     const locale = useContext(LocaleContext);
@@ -201,6 +210,7 @@ function FriendStatus(props) {
 
 - [`useReducer`](https://ko.reactjs.org/docs/hooks-reference.html#usereducer)
   - 복잡한 컴포넌트들의 `state`를 `reducer`로 관리
+  
   ```js
   function Todos() {
   const [todos, dispatch] = useReducer(todosReducer);

@@ -3,6 +3,7 @@
 
 - 사용
   - window.onload 메서드를 오버라이딩(재정의) 해준다.
+  
   ```javascript
   window.onload = function (){
    let a = document.getElementById('a');
