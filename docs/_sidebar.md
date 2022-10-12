@@ -122,6 +122,8 @@
     - [재귀와스택](/02_JavaScript/재귀와스택.md)
     - [점,괄호_표기법](/02_JavaScript/점,괄호_표기법.md)
     - [커링](/02_JavaScript/커링.md)
+    - 코딩 기법과 패턴
+      - [01.개요](/02_JavaScript/코딩%20기법과%20패턴/01.개요.md)
     - [콘솔로그](/02_JavaScript/콘솔로그.md)
     - [태그추가_제거](/02_JavaScript/태그추가_제거.md)
     - [테스트자동화](/02_JavaScript/테스트자동화.md)
