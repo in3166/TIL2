@@ -220,7 +220,7 @@ console.log(data.getTable())
 ## Hash Function (해시 함수)
 - 저장하고 싶은 `Key`를 `숫자(index)`로 변환되고 그 `index`에 `value`가 저장된다.
 - 그럼, 검색을 할때 `Key`를 해시 함수에 주면 `value`가 저장된 `index`를 바로 알 수 있고 검색할 수 있게된다.
-<img src="https://github.com/in3166/TIL/blob/main/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/img/hash1.JPG" />
+<img src="https://github.com/in3166/TIL/blob/main/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/00_img/hash1.JPG" />
 
 
 <br><br><br>

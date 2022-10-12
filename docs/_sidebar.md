@@ -54,6 +54,19 @@
     - [예제1_BoilerPlate만들기](/01_React/예제1_BoilerPlate만들기.md)
   - 02_JavaScript
     - [0.0동작원리](/02_JavaScript/0.0동작원리.md)
+    - 01_코딩 기법과 패턴
+      - [01.개요](/02_JavaScript/01_코딩%20기법과%20패턴/01.개요.md)
+    - 02_함수형프로그래밍
+      - [(old)01_함수형프로그래밍](/02_JavaScript/02_함수형프로그래밍/(old)01_함수형프로그래밍.md)
+      - [(old)02_함수형전환](/02_JavaScript/02_함수형프로그래밍/(old)02_함수형전환.md)
+      - [01_JS기본기](/02_JavaScript/02_함수형프로그래밍/01_JS기본기.md)
+      - [02_순회와이터러블](/02_JavaScript/02_함수형프로그래밍/02_순회와이터러블.md)
+      - [03_제너레이터_이터레이터](/02_JavaScript/02_함수형프로그래밍/03_제너레이터_이터레이터.md)
+      - [04_map_filter_reduce](/02_JavaScript/02_함수형프로그래밍/04_map_filter_reduce.md)
+      - [05_코드를값으로다루기](/02_JavaScript/02_함수형프로그래밍/05_코드를값으로다루기.md)
+      - [06_장바구니예제](/02_JavaScript/02_함수형프로그래밍/06_장바구니예제.md)
+    - 03_TEST
+      - [00.Test(Jasmine,jest)](/02_JavaScript/03_TEST/00.Test(Jasmine,jest).md)
     - [1.1.1콜백_promise](/02_JavaScript/1.1.1콜백_promise.md)
     - [1.1.2.PromiseAPI](/02_JavaScript/1.1.2.PromiseAPI.md)
     - [1.1.3마이크로태스크](/02_JavaScript/1.1.3마이크로태스크.md)
@@ -91,8 +104,6 @@
     - [SpreadSyntax](/02_JavaScript/SpreadSyntax.md)
     - [symbol](/02_JavaScript/symbol.md)
     - [TDD](/02_JavaScript/TDD.md)
-    - TEST
-      - [00.Test(Jasmine,jest)](/02_JavaScript/TEST/00.Test(Jasmine,jest).md)
     - [this](/02_JavaScript/this.md)
     - [Types](/02_JavaScript/Types.md)
     - [WebComponents구현](/02_JavaScript/WebComponents구현.md)
@@ -122,23 +133,12 @@
     - [재귀와스택](/02_JavaScript/재귀와스택.md)
     - [점,괄호_표기법](/02_JavaScript/점,괄호_표기법.md)
     - [커링](/02_JavaScript/커링.md)
-    - 코딩 기법과 패턴
-      - [01.개요](/02_JavaScript/코딩%20기법과%20패턴/01.개요.md)
     - [콘솔로그](/02_JavaScript/콘솔로그.md)
     - [태그추가_제거](/02_JavaScript/태그추가_제거.md)
     - [테스트자동화](/02_JavaScript/테스트자동화.md)
     - [폴리필](/02_JavaScript/폴리필.md)
     - [함수_바인딩](/02_JavaScript/함수_바인딩.md)
     - [함수_표현식_선언문(newFunction)등](/02_JavaScript/함수_표현식_선언문(newFunction)등.md)
-    - 함수형프로그래밍
-      - [(old)01_함수형프로그래밍](/02_JavaScript/함수형프로그래밍/(old)01_함수형프로그래밍.md)
-      - [(old)02_함수형전환](/02_JavaScript/함수형프로그래밍/(old)02_함수형전환.md)
-      - [01_JS기본기](/02_JavaScript/함수형프로그래밍/01_JS기본기.md)
-      - [02_순회와이터러블](/02_JavaScript/함수형프로그래밍/02_순회와이터러블.md)
-      - [03_제너레이터_이터레이터](/02_JavaScript/함수형프로그래밍/03_제너레이터_이터레이터.md)
-      - [04_map_filter_reduce](/02_JavaScript/함수형프로그래밍/04_map_filter_reduce.md)
-      - [05_코드를값으로다루기](/02_JavaScript/함수형프로그래밍/05_코드를값으로다루기.md)
-      - [06_장바구니예제](/02_JavaScript/함수형프로그래밍/06_장바구니예제.md)
     - [화살표함수](/02_JavaScript/화살표함수.md)
   - 03_TypeScript
     - Inflearn
