@@ -1,4 +1,5 @@
 # RPC (Remote Procedure Call)
+
 - 원격 컴퓨터나 프로세스에 존재하는 함수 호출 프로토콜
 
 - 기존 로컬 함수(procedure) 뿐만 아니라 다른 주소 공간에 존재하는 함수를 호출할 수 있는 프로토콜
@@ -11,8 +12,9 @@
   - [자세한 메커니즘](https://www.getoutsidedoor.com/2019/07/11/what-is-grpc/)
 
 # gRPC
+
 - HTTP/2 특징을 기반으로 하는 RPC 프로토콜
-  - 특징들 
+  - 특징들
     - Header Compression
     - TLS 위에서 동작: HTTPS 웹에서만 작동 가능
     - Binary protocol: 프레임을 텍스트가 아닌 바이너리로 구성하여 파싱이 빠르고 오류 발생이 적다.
@@ -23,6 +25,7 @@
 - 양방향 스트리밍 가능, HTTP 보다 통신 속도 빠름, 네트워크 통신에 대한 추상화 제공하여 사용자가 네트워크 프로그래밍에 신경 쓰지 않아도 됨.
 
 # JSON-RPC
+
 - JSON과 RPC 표준을 함께 사용하여, 서버 쪽에 구축해야 할 기능을 함수별로 명확이 구분하여 만들 수 있다.
 - 서버 유지 관리 용이
 - 웹 문서를 요청하는 것이 아니라 데이터만 서버에 요청할 경우 훨씬 쉽고 간편하다.
@@ -33,15 +36,15 @@
     - web3에서도 웹소켓을 통해 통신을 하는데 사용할 수 있다.
     - 하나의 엔드 포인트 URL에서 모든 요청과 읍닫을 받는다.
     - Method로 통신
-    
+
   - 다양한 Action을 나타낼 수 있다.
     - REST는 CRUD Operation에 적합한 반면 JSON-RPC는 다양한 동작 표현 가능
     - ex) `car.rent.calculate_fee`: 차를 렌트하는데 요금을 계산하는 메소드
 
   - 통일된 parameter 전달방식
- 
 
 <br><br><br>
 <출처>
-- https://www.getoutsidedoor.com/2019/07/11/what-is-grpc/
-- https://acstory.tistory.com/54
+
+- <https://www.getoutsidedoor.com/2019/07/11/what-is-grpc/>
+- <https://acstory.tistory.com/54>

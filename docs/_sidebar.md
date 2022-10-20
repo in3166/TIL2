@@ -22,6 +22,8 @@
       - [17. 배포하기](/01_React/01_UdemyReact/17.%20배포하기.md)
       - [18. 인증](/01_React/01_UdemyReact/18.%20인증.md)
     - [02.Components&Props](/01_React/02.Components&Props.md)
+    - 02_Inflaen_Test
+      - [01 React Test](/01_React/02_Inflaen_Test/01%20React%20Test.md)
     - [03.State](/01_React/03.State.md)
     - [04.ComponentMapping](/01_React/04.ComponentMapping.md)
     - [05.LifeCycleAPI.](/01_React/05.LifeCycleAPI..md)
@@ -60,6 +62,7 @@
       - [03. 리터럴과 생성자](/02_JavaScript/01_코딩%20기법과%20패턴/03.%20리터럴과%20생성자.md)
       - [04.함수](/02_JavaScript/01_코딩%20기법과%20패턴/04.함수.md)
       - [05.객체 생성 패턴](/02_JavaScript/01_코딩%20기법과%20패턴/05.객체%20생성%20패턴.md)
+      - [06. 코드 재사용 패턴](/02_JavaScript/01_코딩%20기법과%20패턴/06.%20코드%20재사용%20패턴.md)
     - 02_함수형프로그래밍
       - [(old)01_함수형프로그래밍](/02_JavaScript/02_함수형프로그래밍/(old)01_함수형프로그래밍.md)
       - [(old)02_함수형전환](/02_JavaScript/02_함수형프로그래밍/(old)02_함수형전환.md)
@@ -166,7 +169,6 @@
   - 05_ETC
     - [CI_CD](/05_ETC/CI_CD.md)
     - [CORS](/05_ETC/CORS.md)
-    - [CriticalRenderingPath](/05_ETC/CriticalRenderingPath.md)
     - [ETH, DeFi, 거버넌스토큰](/05_ETC/ETH,%20DeFi,%20거버넌스토큰.md)
     - [HTTP](/05_ETC/HTTP.md)
     - [HTTP2,HTTP3](/05_ETC/HTTP2,HTTP3.md)

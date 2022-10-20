@@ -1,4 +1,5 @@
 # Service Worker
+
 - 웹 서비스에서 풍부한 오프라인 경험, 주기적 백그라운드 동기화, 푸시 알림 등을 지원해주는 도구
   - 일반적으로 원시 애플리케이션에서 요구하는 기능이 웹에서 지원하는 모든 기능의 기술적 기반
   - 브라우저 접속이 아닌 실제 앱처럼 화면상 등록도 가능해진다.
@@ -11,8 +12,9 @@
     - 서비스워커는 요청하지 않는 이상 없는 것과 다름없다. (`'terminate()` 명령 없음)
     - 웹페이지가 닫혀도 자동으로 비활성화되지 않는다.
     - DOM이나 window 요소에 접근할 수 없다.
- 
+
 ## 활용
+
 - 캐시와 상호작용
   - `fetch` 이벤트의 중간자 역할 가능
   - 서비스워커는 HTTP를 통해 정보를 요청하는 대신 가지고 있는 캐시에서 자료를 전달
@@ -24,8 +26,8 @@
 - 백그라운드 동기화
   - 채팅, 사진 업로드 등의 작업 도중 컴퓨터가 오프라인이 되어도 온라인 상태가 되었을 때 해당 작업 지속 가능
 
-
 ## 기존의 웹 처리 과정
+
 1. 사용자가 웹 서버에 요청
 2. 응답이 와서 HTML, CSS, JavaScript를 받음
 3. 응답받은 파일들을 통해 페이지를 렌더링
@@ -35,16 +37,18 @@
 - 웹 페이지를 닫으면 받을 주소가 없기 때문에 응답 자체를 할 수 없게 된다.
 
 ### 단점
+
 - 프로세스 동작 중 설치 실패 알림 기능이 부족
 - 인증 정보가 없음
 - CORS를 지원하지 않는 리소스에서 URL을 가져올 수 없음
 
-
 <br>
 
 ## Service Worker 적용 방법
+
 - react 기본 Service Worker 코드
 - React는 CRA로 생성한 프로젝트에는 기본적으로 `Workbox`를 통해 서비스워커를 지원
+
 ```javascript
 const isLocalhost = Boolean(
   window.location.hostname === 'localhost' ||
@@ -159,12 +163,12 @@ export function unregister() {
   }
 }
 ```
+
 - localhost가 아닌 환경에서는 https로 등록을 해야한다.
 <br>
 
-
-
 <br><br><br>
 <출처>
-- https://medium.com/wasd/service-worker-%EC%97%90-%EA%B4%80%ED%95%B4%EC%84%9C-9c8f9f2f3988
-- https://so-so.dev/web/service-worker/
+
+- <https://medium.com/wasd/service-worker-%EC%97%90-%EA%B4%80%ED%95%B4%EC%84%9C-9c8f9f2f3988>
+- <https://so-so.dev/web/service-worker/>

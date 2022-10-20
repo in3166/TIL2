@@ -1,4 +1,5 @@
 # HTTP (HyperText Transfer Protocol)
+
 - 브라우저가 웹 서버와 통신하기 위한 규약
 - Browser에서 요청하면 응답하는 간단한 구조
 - W3C, IETF 등에서 제정한 인터넷 표준 (RFC-2616)
@@ -8,6 +9,7 @@
 <br>
 
 ## HTTP 특징
+
 - Connectionless (비연결)
   - 클라이언트가 서버에 요청했을 때, 요청에 맞는 응답을 보낸 후 연결을 끊는 처리 방식
   - HTTP 1.1에선 연결을 유치하고 재활용하는 기능이 추가됨
@@ -18,6 +20,7 @@
     - 로그인 유지, 장바구니 등 이전의 정보를 유지해야 하는 경우를 대처하여 쿠키와 세션을 사용
 
 ## HTTP 요청 메서드
+
 - `GET`: 존재하는 자원에 대한 요청
 - `POST`: 새로운 자원을 생성
 - `PUT`: 존재하는 자원에 대한 수정
@@ -30,10 +33,10 @@
   - `TRACE`: 클라이언트가 요청한 자원에 도달하기 까지의 경로를 기록하는 루프백(loop back) 검사용.
     - 클라이언트가 요청 자원에 도달하기 까지 거쳐가는 프록시나 게이트웨이의 중간 경로부터 최종 수진 서버까지의 경로를 알아낼때 사용.
 
-
 <br><br>
 
 ## HTTP 응답코드
+
 | | 응답 코드 그룹 | 응답 코드 | 설명|
 |--|---------------|-----------|------|
 |1xx|Informational| | |
@@ -51,7 +54,9 @@
 <br><br>
 
 ## Header
+
 ### 공통 헤더
+
 - 요청과 응답에 모두 사용
 - `Date`
   - HTTP 메시지가 만들어진 시각으로 자동 생성
@@ -76,6 +81,7 @@
   - 요청, 응답 전송 속도 상승, 데이터 소모량 감소
 
 ### 요청 헤더
+
 - `Host`
   - 서버의 도메인 이름
 
@@ -83,7 +89,7 @@
   - 현재 사용자가 어떤 클라이언트(운영체제, 브라우저 등)으로 요청을 보냈는지에 대한 정보
   - ex) `User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36`
     - Window, Chorme 브라우저를 통해 접속
-    
+
 - `Accept`
   - 클라이언트가 허용할 수 있는 파일 형식(MIME Type)
   - ex) `Accept: text/html`: HTML 형식의 응답을 처리하겠다.
@@ -105,6 +111,7 @@
   - API 요청을 할 때 토큰이 없으면 거절당하므로 주로 JWT을 사용한 인증에서 사용
 
 ### 응답 헤더
+
 - `Server`
   - 웹 서버 정보
 
@@ -132,6 +139,7 @@
 
 <br><br><br>
 <출처>
-- https://searchadvisor.naver.com/guide/seo-basic-http
-- https://hahahoho5915.tistory.com/32
-- https://goddaehee.tistory.com/169
+
+- <https://searchadvisor.naver.com/guide/seo-basic-http>
+- <https://hahahoho5915.tistory.com/32>
+- <https://goddaehee.tistory.com/169>
