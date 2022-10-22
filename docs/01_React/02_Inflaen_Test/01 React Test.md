@@ -221,7 +221,7 @@ test('renders learn react link', () => {
     - eslint에서 기본으로 제공하지 않는 규칙들을 플러그인을 통해 사용
 
   ```terminal
-  npm install eslint-plugin-testing-library eslint-plugin-jest-dom
+  npm install eslint-plugin-testing-library eslint-plugin-jest-dom --save-dev
   ```
 
 - esilint 설정 파일 추가
@@ -252,6 +252,19 @@ test('renders learn react link', () => {
 
 - `npm`으로 설치: 포맷을 공유하면 같이 개발하기 용이
 - `VSCode` 익스텐션으로 설치: 혼자 편하게 사용가능
+
+<br><br>
+
+## Test Driven Development (TDD)
+
+- 실제 코드 작성 전 테스트 코드를 먼저 작성
+- 그 후, 테스트 코드를 Pass할 수 있는 실제 코드를 작성
+
+### TDD 장점
+
+- 많은 기능을 테스트하기에 코드에 안정성 부여
+- 실제 개발하면서 많은 시간이 소요되는 부분은 디버깅 부분이다. TDD를 사용하면 디버깅 시간이 줄어들고 개발 시간도 줄어든다.
+- 소스 코드를 신중히 짜게 되므로 께끗하고 간결한 코드가 나올 확률이 높다.
 
 <br><br><br>
 

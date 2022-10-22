@@ -24,6 +24,8 @@
     - [02.Components&Props](/01_React/02.Components&Props.md)
     - 02_Inflaen_Test
       - [01 React Test](/01_React/02_Inflaen_Test/01%20React%20Test.md)
+      - [02 쿼리 우선순위와 userEvent](/01_React/02_Inflaen_Test/02%20쿼리%20우선순위와%20userEvent.md)
+      - [](/01_React/02_Inflaen_Test/03.md)
     - [03.State](/01_React/03.State.md)
     - [04.ComponentMapping](/01_React/04.ComponentMapping.md)
     - [05.LifeCycleAPI.](/01_React/05.LifeCycleAPI..md)
