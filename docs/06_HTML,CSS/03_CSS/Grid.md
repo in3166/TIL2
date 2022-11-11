@@ -14,6 +14,7 @@
   </div>
 </div>
 ```
+
 ```css
 .containter {
   display: grid;
@@ -56,4 +57,5 @@
 <br><br><br>
 
 <출처>
-- https://www.youtube.com/watch?v=eprXmC_j9A4
+
+- <https://www.youtube.com/watch?v=eprXmC_j9A4>
