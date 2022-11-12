@@ -82,7 +82,7 @@
 
 <br>
 
-- `React Testing Library`을 사용해 DOM을 렌더링하고 그 DOM을 `Jest`로 테스팅한다.
+- `React Testing Library`을 사용해 DOM을 렌더링하고 그 DOM을 `Jest`로 테스팅한다. (ex. RTL: `render()`, Jest: `expect()`)
 - 또한, 테스트 코드를 짠 파일을 찾는 역할도 한다.
   - `filename.test.js`, `filename.spec.js`, `/tests`
   - 파일명에 `test`나 `spec`이 있거나 폴더명을 `tests`라고 설정 시 찾을 수 있다.
