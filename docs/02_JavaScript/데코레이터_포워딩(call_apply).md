@@ -1,8 +1,10 @@
 # call/apply와 데코레이터, 포워딩
+
 - 함수 간 호출 포워딩(forwarding) 방법
 - 함수 데코레이팅(decorating) 방법
 
 ## 코드 변경 없이 캐싱 기능 추가하기
+
 - CPU를 많이 잡아먹지만 결과는 안정적인 함수 `slow(x)`
 - 자주 호출되는 `slow(x)`의 결과를 어딘가에 저장(캐싱)해 재연산 시간 줄이기
 
@@ -38,17 +40,17 @@ alert( slow(1) ); // 저장
 alert( slow(1) ); // 동일 결과
 ```
 
-- 위의 `cachingDecorator(func)`를 호출하면 ‘래퍼(wrapper)’, `function(x)`이 반환됩니다. 
+- 위의 `cachingDecorator(func)`를 호출하면 ‘래퍼(wrapper)’, `function(x)`이 반환됩니다.
 - 래퍼 `function(x)`는 `func(x)`의 호출 결과를 캐싱 로직으로 감쌉니다(wrapping).
 
-
 ## 데코레이터(decorator)
+
 - 위 `cachingDecorator`와 같이 **인수로 받은 함수의 행동을 변경시켜주는 함수**
 - 모든 함수를 대상으로 위의 래퍼 함수를 호출 할 수 있는데, 이때 반환되는 것은 캐싱 래퍼
 - 캐싱 관련 코드를 함수 코드와 분리하여 코드가 간결해질 수 있다.
 
-
 ### 독립된 래퍼 함수를 사용할 때 이점
+
 - `cachingDecorator`를 재사용 가능, 원하는 함수 어디에든 적용 가능
 - 캐싱 로직이 분리되어 `slow` 자체의 복잡성 증가하지 않는다.
 - 필요하면 여러 개의 데코레이터를 조합해 사용 가능
@@ -56,6 +58,7 @@ alert( slow(1) ); // 동일 결과
 <br><br>
 
 ## 'func.call'를 사용해 컨텍스트 지정
+
 - 기존 코드는 객체 메서드에 사용 불가
 
 ```js
@@ -113,13 +116,15 @@ alert( worker.slow(2) ); // 에러 발생!, Error: Cannot read property 'someMet
   ```
 
 ### `this` 전달 과정
-1. 데코레이터를 적용한 후에` worker.slow`는 래퍼 `function (x) { ... }`가 됩니다.
+
+1. 데코레이터를 적용한 후에`worker.slow`는 래퍼 `function (x) { ... }`가 됩니다.
 2. `worker.slow(2)`를 실행하면 래퍼는 2를 인수로 받고, this=worker가 됩니다(점 앞의 객체).
 3. 결과가 캐시되지 않은 상황이라면 `func.call(this, x)`에서 현재 `this (=worker)`와 `인수(=2)`를 원본 메서드에 전달합니다.
 
 <br><br>
 
 ## 여러 인수 전달하기
+
 - 복수 인수를 가진 메서드도 사용할 수 있게 수정
 
 ```js
@@ -177,6 +182,7 @@ alert( "다시 호출: " + worker.slow(3, 5) ); // 동일한 결과 출력(캐�
 <br>
 
 ## func.apply
+
 - 위에서 `func.call(this, ...arguments)` 대신, `func.apply(this, arguments)를 사용 가능
 `func.apply(context, args)`
 
@@ -184,6 +190,7 @@ alert( "다시 호출: " + worker.slow(3, 5) ); // 동일한 결과 출력(캐�
 - `call`은 복수 인수를 따로따로 받는 대신, `apply`는 인수를 유사 배열 객체로 받는다.
 
 - 아래는 거의 같은 역할
+
 ```js
 func.call(context, ...args); // 전개 문법을 사용해 인수가 담긴 배열을 전달하는 것과
 func.apply(context, args);   // call을 사용하는 것은 동일합니다
@@ -196,6 +203,7 @@ func.apply(context, args);   // call을 사용하는 것은 동일합니다
   - `apply`가 조금 더 빠름
 
 ### 콜 포워딩(call forwarding)
+
 - 컨텍스트와 함께 인수 전체를 다른 함수에 전달하는 것
 
 ```js
@@ -208,6 +216,7 @@ let wrapper = function() {
 <br><br>
 
 ## 메서드 빌리기
+
 - 위의 해싱 함수 개선: 인수의 개수 상관없이 요소들 합치기 (배열 메서드: `arr.join`)
 
 ```js
@@ -220,7 +229,9 @@ function hash(args) {
 - 일반 배열에서 `join` 메서드를 빌려오고, `[].join.call`을 사용해 `arguments`를 컨텍스트로 고정한 후 `join` 호출
 
 ### HOW?
+
 `네이티브 메서드 arr.join(glue)의 내부 알고리즘은 아주 간단하기 때문입니다.`
+
 - `glue`가 첫 번째 인수가 되도록 합니다. 인수가 없으면 ","가 첫 번째 인수가 됩니다.
 - `result`는 빈 문자열이 되도록 초기화합니다.
 - `this[0]`을 `result`에 덧붙입니다.
@@ -234,9 +245,11 @@ function hash(args) {
 <br>
 
 ### 데코레이터와 함수 프로퍼티
+
 - 함수 또는 메서드를 데코레이터로 감싸 대체하는 것은 대체적으로 안전
 - 하지만 원본 함수에 `func.calledCount` 등의 프로퍼티가 있으면 데코레이터 적용 함수는 프로퍼티 사용 불가 -> 안전x (함수에 프로퍼티가 있을 경우 주의)
 
 <br><br><br>
 <출처>
-- https://ko.javascript.info/call-apply-decorators
+
+- <https://ko.javascript.info/call-apply-decorators>

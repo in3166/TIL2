@@ -1,10 +1,12 @@
 # const
+
 - 선언된 값을 재할당 할 수 없음.
 
 ```js
 const ha = [1,2,3];
 ha = ["1", "2"]; // error
 ```
+
 - 배열에서 재할당 할 때 오류 발생
 
 ```js
@@ -82,6 +84,7 @@ console.log(newd2);  // { '0': 'apple', '1': 'orange', '2': 100 }
 ```
 
 ### 활용
+
 - 중간에 넣기
 
 ```js
@@ -104,6 +107,7 @@ sum(...pre);
 <br>
 
 ## Array From 메서드
+
 - 진짜 배열로 만들어줌
 
 ```js
@@ -128,6 +132,7 @@ addMark(1,2,3,4,5);
 <hr>
 
 ### 문제
+
 - `li` 리스트를 받아 문자열 'e'가 포함된 노드로 구성된 배열을 반환
 - filter, includes, from 사용
 
@@ -159,22 +164,27 @@ print();
 
 <hr>
 
-### toString() 
-- 모든 객체에 사용되어 해당 객체의 클래스를 가져올 수 있습니다. 
+### toString()
+
+- 모든 객체에 사용되어 해당 객체의 클래스를 가져올 수 있습니다.
 - Object.prototype.toString()을 모든 객체에 사용하기 위해서는 Function.prototype.call() 나 Function.prototype.apply()를 사용해서 검사하고자 하는 객체를 thisArg로 불리는 첫번째 파라미터로 넘겨야 합니다.
 
 `Function.prototype.call()`
+
 - 주어진 `this` 값 및 각각 전달된 인수와 함께 함수를 호출
 - 이미 할당되어있는 다른 객체의 함수/메소드를 호출하는 해당 객체에 재할당할때 사용
 
 `Function.prototype.apply()`
+
 - 주어진 `this` 값과 배열 (또는 유사 배열 객체) 로 제공되는 `arguments` 로 함수를 호출
 - `call()` 은 함수에 전달될 인수 리스트를 받는데 비해, `apply()` 는 인수들의 단일 배열을 받는다.
+
 <hr>
 <br>
 <br>
 
 # Destructuring
+
 ## Destructuring Array
 
 ```js
@@ -229,7 +239,8 @@ let [, {title, list}] = news; // ritle: s2
 ```
 
 ## Destructuring Event 객체 전달
-- 위 코드 이용, 파라미터에 사용 
+
+- 위 코드 이용, 파라미터에 사용
 
 ```js
 function getNewsList1([{list}]){
@@ -250,9 +261,11 @@ documnet.querySelector("div").addEventListener("click", function({type, target})
     console.log(target.innerTextm target.tagName);
 });
 ```
+
 <br><br>
 
 # Set으로 유니크한 배열 만들기
+
 - 중복 없이 유일한 값을 저장, 이미 존재하는지 체크할 때 유용
 
 ```js
@@ -271,8 +284,8 @@ mySet.forEach((v)=>{
 mySet.delete("a");
 ```
 
-
 ## WeakSet으로 효과적 객체 타입 저장하기
+
 - 참조를 가지고 있는 `객체`만 저장 가능
 - 객체 형태를 중복없이 저장하려 할 때 유용
 - 객체가 `null`이 되거나 필요가 없어지면 가비지 컬렉션의 대상이 된다.
@@ -302,6 +315,7 @@ arr = null을 했다고 하더라도,
 <br><br>
 
 # Map & WeakMap
+
 - key, value 구조
 
 ```js
@@ -322,6 +336,7 @@ cosole.log(wm.get(myfun); // 10
 ```
 
 ## WeakMap 클래스 인스턴스 변수 보호하기
+
 - private한 변수 만들기
 
 ```js
@@ -366,6 +381,7 @@ console.log(wm.has(myarea)); // false
 <br>
 
 ## Destructuring & Set 활용 - Lotto 번호 만들기
+
 1. 유일한 값을 추출하는 과정에서 Set 사용
 2. getRandomNumber 함수에 변수를 전달하는 과정에서 Destructuring 사용
 
@@ -391,10 +407,12 @@ function getRandomNumbers(maxNum) {
 getRandomNumbers(maxNumber);
 lotto.forEach(n => {console.log(n)});
 ```
+
 <br><br>
 
 # Template 처리
-- json으로 응답을 받고, JavaScript Object로 변환하고 데이터처리 조작 후 DOM에 추가하는 일 
+
+- json으로 응답을 받고, JavaScript Object로 변환하고 데이터처리 조작 후 DOM에 추가하는 일
 - UI 작업에 빈번하고 어려운 작업 -> 데이터 + HTML 문자열 결합이 필요하기 때문
 
 ```js
@@ -415,6 +433,7 @@ console.log(template);
 ```
 
 ## Tagged Template literals
+
 - Temaplate을 어떤 함수에서 처리 후 반환하여 조작 사용
 
 ```js
@@ -442,6 +461,7 @@ const template = fn`<div>welcom ${data[0].name} !!</div>
 <br><br>
 
 # Arrow Function
+
 ## this context
 
 ```js
@@ -484,6 +504,7 @@ console.log(sum(3));
 ```
 
 ## rest parameters
+
 - argumnets를 이용한 가변 인자 사용
 - 가짜 배열 -> 진짜 배열
 
@@ -506,9 +527,11 @@ function checkNum(...argArray){ // 배열로 바꿔줄 필요 없어짐
 }
 const result = checkNum(10, 2, 3, 4, 5, "44");
 ```
+
 <br><br>
 
 # Class
+
 ## 객체 생성
 
 ```js
@@ -549,6 +572,7 @@ h.showHealth();
 - Class지만 내부적으로는 함수로 처리 (showHealth도 prototype에 저장)
 
 ## Object assign으로 JS 객체 만들기
+
 - new 키워드로 class를 만들지 않고 순수한 Object 만들기
 - `new 없이 class 형태 객체 만들기`
 
@@ -578,8 +602,8 @@ const myHealth = Object.assign( // 속성 값은 객체 안에 보관,
 console.log(myHealth);
 ```
 
-
 ## Object assign으로 Immutable 객체 만들기
+
 - Object assign은 새로운 객체를 만드는 방법이기도 하다.
 
 ```js
@@ -593,6 +617,7 @@ const my = Object.assign({}, preivousObj, {"lastTime}:"12:22"}); // 카피해서
 ```
 
 ## Object setPrototypeOf로 객체 만들기
+
 - prototype을 객체에 추가
 - assign과 유사하지만 객체안의 값을 변형시켜서 속성 값을 뽑아서 복사하여 새로운 객체 (추가적인 기능 지원)
 - 단순히 prototype 객체만 추가
@@ -603,6 +628,7 @@ const newObj = Object.setPrototypeOf({name:'ty',lastTime:"11:22"}, haelthObj);
 ```
 
 ## Object setPrototypeOf로 객체간 prototype chain 생성하기
+
 - like 상속
 
 ```js
@@ -635,7 +661,9 @@ console.log("childobj is ", childObj);
 <br><br>
 
 # Module (export & import)
+
 ## Module 기반 서비스 코드 구현
+
 - index.html
 - app.js
 
@@ -664,6 +692,7 @@ export const getCurrentHour = () => {
 ```
 
 ### Class 사용
+
 - myLogger.js: Class 사용
 
 ```js
@@ -698,11 +727,15 @@ import {_, getCurrentHour, MyLogger} from './myLogger';
 const logger = new MyLogger();
 _.log(logger.getLectures());
 ```
+
 <br><br>
 
 # Proxy로 interception 기능 구현
+
 `const proxy = new Proxy('타겟 객체', 'handler')`
+
 - 어떤 작업 중 Object를 중간에 가로채서 다른 작업을 추가로 할 수 있는 기능 제공
+
 ```js
 const myObj = { name : 'co', changedValue:0 };
 const proxy = new Proxy(myObj, {});
@@ -732,4 +765,5 @@ proxy.name; // get, 'adf'
 <br><br><br>
 
 <출처>
-- https://borakim-b.github.io/2019/12/01/20191201-flask-restplus/
+
+- <https://borakim-b.github.io/2019/12/01/20191201-flask-restplus/>

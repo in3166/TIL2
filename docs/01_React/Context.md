@@ -1,12 +1,14 @@
 # Context
+
 - props를 일일이 넘겨주지 않아도 컴포넌트 트리 전체에 데이터 제공 가능
 - 일반적 React App은 데이터를 위에서 아래로 props로 전달
 - Context 이용 시 명시적으로 props를 넘겨주지 않아도 많은 컴포넌트가 값 공유 가능
 <br>
 
 # When
-- React 컴포넌트 트리 안에서 `전역적(global)` 데이터를 공유할 수 있도록 고안된 방법 
-- 같은 데이터를 트리 안 여러 레벨의 많은 컴포넌트에 주어야 할 
+
+- React 컴포넌트 트리 안에서 `전역적(global)` 데이터를 공유할 수 있도록 고안된 방법
+- 같은 데이터를 트리 안 여러 레벨의 많은 컴포넌트에 주어야 할
 - Ex. 로그인한 유저, 테마, 선호 언어
 <br>
 
@@ -38,7 +40,7 @@ class ThemedButton extends React.Component {
 }
 ```
 
-- Context 사용 
+- Context 사용
 
 ```javascript
 // context를 사용하면 모든 컴포넌트를 일일이 통하지 않고도
@@ -82,6 +84,7 @@ class ThemedButton extends React.Component {
 <br><br>
 
 # 고려 사항
+
 - Context 사용 시 컴포넌트 재사용 어려움
 - 여러 레벨에 걸쳐 props 전달하기 위해 `컴포넌트 합성`이 더 나을 수 있다.
 <br>
@@ -100,8 +103,9 @@ class ThemedButton extends React.Component {
   <Avatar user={user} size={avatarSize} />
 </Link>
 ```
-  - props를 여러 단계에 걸쳐 보내야 함.
-  - `Avatar` 컴포넌트 자체를 넘겨주면, 중간 컴포넌트들이 `user`나 `avatarSize`를 알 필요 없음
+
+- props를 여러 단계에 걸쳐 보내야 함.
+- `Avatar` 컴포넌트 자체를 넘겨주면, 중간 컴포넌트들이 `user`나 `avatarSize`를 알 필요 없음
 
 ```javascript
 function Page(props) {
@@ -130,13 +134,18 @@ function Page(props) {
 <br><Br>
   
 # API
+
 ## React.createContext
+
 `const MyContext = React.createContext(defaultValue);`
+
 - Context 객체를 구독하고 있는 컴포넌트 렌더링 시 React는 트리 상위에서 가장 가까이 있는 짝이 맞는 `Provider`로부터 현재 값 읽음
 - `defaultValue` 매개변수는 트리 안에서 적절한 Provider를 못 찾으면 사용 (provider가 존재하고 `undefined` 전달해도 이 값으 읽진 않음)
 
 ## Context.Provider
+
 `<MyContext.Provider value={/* 어떤 값 */}>`
+
 - Context를 구독하는 컴포넌트들에게 context 변화를 알림.
 - `value` prop을 받아 이 값을 하위 컴포넌트에 전달 (값이 변경되면 리렌더링)
 
@@ -174,17 +183,22 @@ class MyClass extends React.Component {
 }
 ```
 
-`React.createContext()로 생성한 Context 객체를 원하는 클래스의 contextType 프로퍼티로 지정할 수 있습니다. 이 프로퍼티를 활용해 클래스 안에서 this.context를 이용해 해당 Context의 가장 가까운 Provider를 찾아 그 값을 읽을 수 있게됩니다. 이 값은 render를 포함한 모든 컴포넌트 생명주기 매서드에서 사용할 수 있습니다.
+```text
+React.createContext()로 생성한 Context 객체를 원하는 클래스의 contextType 프로퍼티로 지정할 수 있습니다. 
+이 프로퍼티를 활용해 클래스 안에서 this.context를 이용해 해당 Context의 가장 가까운 Provider를 찾아 그 값을 읽을 수 있게됩니다. 
+이 값은 render를 포함한 모든 컴포넌트 생명주기 매서드에서 사용할 수 있습니다.
 
 주의
-이 API를 사용하면 하나의 context만 구독할 수 있습니다. 여러 context를 구독하기 위해서는 여러 context 구독하기를 참조하세요.
-실험적 기능인 public class fields syntax를 사용하고 있다면 정적 클래스 프로퍼티로 contextType을 지정할 수 있습니다.`
+이 API를 사용하면 하나의 context만 구독할 수 있습니다. 
+여러 context를 구독하기 위해서는 여러 context 구독하기를 참조하세요.
+실험적 기능인 public class fields syntax를 사용하고 있다면 정적 클래스 프로퍼티로 contextType을 지정할 수 있습니다.
+```
 
 <br>
 
 ## Context.Consumer
 
-```javascript
+```js
 <MyContext.Consumer>
   {value => /* context 값을 이용한 렌더링 */}
 </MyContext.Consumer>
@@ -195,9 +209,10 @@ class MyClass extends React.Component {
 - 이 함수의 `value` 매개변수는 해당 context의 Provider 중 상위 트리에서 가장 가까운 Provider의 `value`
 
 ## Context.displayName
+
 - Context 객체는 `displayName` 문자열 속성 설정 가능
 
-```javascript
+```js
 // 개발자 도구에서 MyDisplayName로 표시
 const MyContext = React.createContext(/* some value */);
 MyContext.displayName = 'MyDisplayName';
@@ -209,7 +224,9 @@ MyContext.displayName = 'MyDisplayName';
 <br><br><br>
 
 # 예시: theme
+
 ## 값이 변하는 Context
+
 `theme-context.js`
 
 ```javasciprt
@@ -299,6 +316,7 @@ ReactDOM.render(<App />, document.root);
 ```
 
 ## 하위 컴포넌트에서 context 업데이트하기
+
 - 트리 하위의 컴포넌트에서 context를 업데이트 해야 할 때 context를 통해 메서드를 보낸다.
 `theme-context.js`
 
@@ -382,6 +400,7 @@ ReactDOM.render(<App />, document.root);
 ```
 
 ## 여러 context 구독하기
+
 - 각 context마다 Consumer를 개별 노드로 만들게 설계되어 있는데, 이는 context 변화로 다시 렌더링하는 과정을 빠르게 유지하기 위함
 
 ```js
@@ -433,9 +452,7 @@ function Content() {
 }
 ```
 
-
-
-  
 <br><br><br>
 <출처>
-- https://ko.reactjs.org/docs/context.html
+
+- <https://ko.reactjs.org/docs/context.html>

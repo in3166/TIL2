@@ -1,4 +1,5 @@
 # EventListenerOptions
+
 - `addEventListener`의 3번째 인자로 `useCapture` 속성을 포함한 객체를 사용할 수 있음
 
 ```js
@@ -14,11 +15,13 @@ document.addEventListener('touchstart', listener, { capture:true });
 <br>
 
 ## { passive: true }
+
 - '모바일 디바이스의 부드러운 스크롤' 문제 해결
 - **스크롤**에 관련된 성능 문제 해결할 때 지정
 <br>
 
 ### Why?
+
 - 모던 웹 브라우저 내부엔 `네트워크`, `브라우저`, `UI`, `GPU`, `플러그인`, `렌더러` 등 여러 프로세스 존재
 
 - 크롬은 탭 내의 웹 콘텐츠를 렌더러 프로세스가 처리하고 렌더러 프로세스 내부에서도 하위 스레드들이 돌아간다.
@@ -38,7 +41,8 @@ document.addEventListener('touchstart', listener, { capture:true });
   - 메인 스레드 처리를 기다리지 않고 바로 컴포지터 스레드가 처리할 수 있어 성능에 좋다.
 <br>
 
-### So,
+### So
+
 - JavaScript에 `addEventListener()`로 등록된 이벤트는 컴포지터 스레드가 받는다.
 - 이벤트가 들어오면 컴포지터 스레드는 메인 스레드에 이벤트를 넘기고 렌더링 파이프라인을 따라 처리되기를 기다린다.
 
@@ -51,4 +55,5 @@ document.addEventListener('touchstart', listener, { capture:true });
 
 <br><br><br>
 <출처>
-- https://amati.io/eventlisteneroptions-passive-true/
+
+- <https://amati.io/eventlisteneroptions-passive-true/>

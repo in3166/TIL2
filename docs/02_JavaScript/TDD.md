@@ -1,37 +1,40 @@
 # TDD (Test Driven Development: 테스트 주도 개발)
+
 ```
 '1' + 1 = '11'
 '2' * 3 = 6
 1 + '2' + 3 * 4 = '1212'
 ```
 
-- 예측하기 어려운 코드들 
+- 예측하기 어려운 코드들
 - 자바스크립트는 문법 체크 과정이 없어 모든 브라우저에서 직접 실행해봐야 동작을 보장
 
-
 ## 단위 테스트 (Unit Test) - TDD의 첫 번째 단계
+
 - 단위(unit): 특정 조건에서 어떻게 작동해야 할지 정의한 것 (대개 '함수'로 표현) - Input에 따라 계산한 결과를 Output으로 도출
 - 중비(arrange), 실행(act), 단언(assert) 패턴
 <BR>
   
 - 어떤 함수의 기능을 만들 때
   - ***적색 단계(RED) 단계***
-    - 바로 기능을 코딩하지 않고 기능을 테스트할 수 있는 테스트 코드 생성 (단위 테스트) 
-  -  ***녹색 단계(GREEN) 단계***
-     - 함수에 기능 코드를 작성 (테스트에 통과할 정도로 구현)
+    - 바로 기능을 코딩하지 않고 기능을 테스트할 수 있는 테스트 코드 생성 (단위 테스트)
+  - ***녹색 단계(GREEN) 단계***
+    - 함수에 기능 코드를 작성 (테스트에 통과할 정도로 구현)
   - ***리팩터(Refactor) 단계***
     - 녹색 단계를 거친 코드의 리팩토링 (추상화, 확장 가능, 중복 제거 등)
     - 코드를 수정할 때 기존 로직을 계속 유지해야 한다. -> 즉, 수정한 코드가 기존 로직 유지함을 보장(TDD: Test의 성공 여부)
 <br>
 
 ## Jasmine Framework
+
 ### 설치 방법
+
 - *Karma와 함께 설치(자동화)*
 - **StandAlone**
   - 모든 Jasmine 코드를 브라우저에 올려서 실행
   - 간단하게 실행 결과 확인 가능
   - 실무에선 잘 쓰이지 않음.
-  - https://github.com/jasmine/jasmine/releases -> zip
+  - <https://github.com/jasmine/jasmine/releases> -> zip
   - 테스트 러너(Test Runner) 파일
     - 자스민, 소스, 테스트 코드를 실행
     - 스탠드 얼론으로 설치한 자스민은 HTML 파일이 테스트 러너 (자동화를 하려면 테스트러너인 카르마와 함께 사용-명령어로 테스트 돌림)
@@ -51,6 +54,7 @@
   ```
 
 ## 자스민 테스트 코드 기본 구조
+
 - Sample.html
 
 ```javascript
@@ -63,14 +67,14 @@
     })
 ```
 
-  - `describe('설명', 테스트 구현 함수)` 함수: 테스트 꾸러미(Test Suite) 생성, 테스트 케이스의 모음, 보통 함수 하나하나 테스트할 때 사용
-  - `it('설명', 기대식 가진 테스트 구현 함수)` 함수: 테스트 케이스 만들기, 함수의 기능 테스트할 때 사용 (Test Spec)
-    - 첫번째 인자: 함수 기능의 스펙: 문자열 형태
-    - 두번째 인자: 테스트 코드 구현
-  - 테스트 코드 구현부 (기대식과 매쳐)
-    - `expect(결과값)` 함수: 함수 결과값을 인자로
-    - `tobe(기대값)` 함수: 기대하는 값을 인자로
-    
+- `describe('설명', 테스트 구현 함수)` 함수: 테스트 꾸러미(Test Suite) 생성, 테스트 케이스의 모음, 보통 함수 하나하나 테스트할 때 사용
+- `it('설명', 기대식 가진 테스트 구현 함수)` 함수: 테스트 케이스 만들기, 함수의 기능 테스트할 때 사용 (Test Spec)
+  - 첫번째 인자: 함수 기능의 스펙: 문자열 형태
+  - 두번째 인자: 테스트 코드 구현
+- 테스트 코드 구현부 (기대식과 매쳐)
+  - `expect(결과값)` 함수: 함수 결과값을 인자로
+  - `tobe(기대값)` 함수: 기대하는 값을 인자로
+
 - 결과
 
 ```
@@ -98,29 +102,36 @@ hello world
 ```
 
 - 문제점
+
 1. 관심사 분리
-  - 클릭 이벤트 처리기를 인라인 형태로 정의 (counter++; countDisplay())
-  - 값을 올리고 출력 - 한 줄의 코드에 여러 역할
-  - 소프트웨어 공학 원칙 - 단일 책임의 원칙(하나의 코드는 한 가지 역할)
+
+- 클릭 이벤트 처리기를 인라인 형태로 정의 (counter++; countDisplay())
+- 값을 올리고 출력 - 한 줄의 코드에 여러 역할
+- 소프트웨어 공학 원칙 - 단일 책임의 원칙(하나의 코드는 한 가지 역할)
   
 2. 재사용성
-  - counter 전역 공간을 어지럽힌다.
-  - 횟수를 표시하는 span id를 dipalyCount()에서 하드 코딩
 
+- counter 전역 공간을 어지럽힌다.
+- 횟수를 표시하는 span id를 dipalyCount()에서 하드 코딩
 
 ### 어떻게 해야 테스트할 수 있는 코드를 만들까?
+
 1. 코드를 UI에서 완전히 분리
-  - HTML에서 JS 코드를 떼어내면 비즈니스 로직만 테스트 가능
+
+- HTML에서 JS 코드를 떼어내면 비즈니스 로직만 테스트 가능
 
 2. 자바스크립트를 별도 파일로 분리
-  - 다른 곳에서도 재사용할 수 있고 테스트성도 좋아진다.
+
+- 다른 곳에서도 재사용할 수 있고 테스트성도 좋아진다.
 
 <BR>
 
 # 모듈 패턴
+
 - 함수로 데이터를 감추고, 모듈 API를 담고 있는 객체를 반환하는 형태
 
 ## 1. 임의 모듈 패턴
+
 - 임의 함수를 호출하여 생성하는 모듈
 - 객체가 여러개 필요할 경우 사용
 
@@ -140,10 +151,10 @@ App.Person = function (God) {
 }
 ```
 
-  - 어떤 객체(getName, setName 메서드로 이루어진)를 반환하는 함수 
-  - name 변수는 모듈 안에서만 접근 가능 (return 되는 get, set 메서드에서 사용되기 때문에 클로저 변수)
-  - 모듈 생성 시 God라는 다른 객체 주입: God 모듈이 name을 만들어내는 역할
-  - 사용
+- 어떤 객체(getName, setName 메서드로 이루어진)를 반환하는 함수
+- name 변수는 모듈 안에서만 접근 가능 (return 되는 get, set 메서드에서 사용되기 때문에 클로저 변수)
+- 모듈 생성 시 God라는 다른 객체 주입: God 모듈이 name을 만들어내는 역할
+- 사용
 
   ```js
   const person = App.Person(God) // oop의 객체 느낌
@@ -151,6 +162,7 @@ App.Person = function (God) {
   ```
 
 ## 2. 즉시 실행 함수(IIFE) 기반 모듈
+
 - 임의 모듈 패턴과 거의 비슷하지만 모듈 정의 직후 바로 실행
 - 객체 하나만 필요할 경우 사용
 
@@ -175,24 +187,31 @@ App.Person.getName(God) // 이미 객체가 만들어져 있어, 메서드에 �
 ```
 
 ## 모듈 생성 원칙
+
 1. 단일 책임 원칙에 따라 모듈은 한 가지 역할만 한다.
-- 그 역할만 집중함으로서 모듈을 더운 튼튼하게 만든다. 
+
+- 그 역할만 집중함으로서 모듈을 더운 튼튼하게 만든다.
 - 테스트 용이
 
 2. 모듈 자신이 사용할 객체가 있다면 의존성 주입 형태로 제공한다.
+
 - or 팩토리 주입 형태로 제공
 - 테스트 용이
 
 <br>
 
-# 테스트 코드 작성 
+# 테스트 코드 작성
+
 ## 화면에 보이지 않는 부분의 모듈 만들기
+
 ### - ClickCounter 모듈 생성
+
 - 카운터 데이터를 다루는 모듈
 - 전역 공간에 있는 counter 변수를 ClickCounter 안에서 관리
 
 # 첫번째 스펙: 'ClickCounter 모듈의 getValue()는 카운터 값을 반환한다.'
-  - 위 요구사항을 TDD 방식으로 구현
+
+- 위 요구사항을 TDD 방식으로 구현
 
 ```html
 <!--  index.spec.html -->
@@ -244,6 +263,7 @@ App.ClickCounter = () => { // App에 ClickCounter 모듈 생성
 ```
 
 ### TDD의 세번째 단계: Refactor 단계
+
 - counter 변수로 변경
 - 안심하고 리팩토링 가능 -> 이미 작성한 테스트 코드로 올바르게 작성 가능
 
@@ -268,6 +288,7 @@ App.ClickCounter = () => { // App에 ClickCounter 모듈 생성
 <br>
   
 # 두번째 스펙: 'ClickCounter 모듈의 increase()는 카운터 값을 1만큼 증가한다.'
+
 ### TDD의 첫 단계: 실패하는 테스트 코드 만들기 (적색 단계)
 
 ```javascript
@@ -297,6 +318,7 @@ describe('App.ClickCounter', ()=> {
 ```
 
 ### TDD의 두번째 단계: Test 통과하도록 모듈 코드 생성 (녹색 단계)
+
 - increase() 구현
 
 ```js
@@ -317,6 +339,7 @@ App.ClickCounter = () => {
 ```
 
 ### TDD의 세번째 단계: Refactor 단계
+
 - 중복 코드의 제거: dry한 코드
 - 테스트 코드의 ClickCounter 모듈 생성하는 부분에서 동일한 코드가 사용됨 (두개의 describe에서)
 - `beforeEach` 함수: it 함수 호출 직전에 실행되는 자스민 함수 (중복 코드 옮기기)
@@ -378,22 +401,23 @@ describe('App.ClickCounter', () => {
 })
 ```
 
-
 <br><br>
 
 ## 화면에 보이는 부분의 모듈 만들기
+
 ### ClickCountView 모듈
+
 - counter 데이터는 DOM에 반영되어야 하는데 이 역할을 하는 모둘을 생성
 - 데이터를 출력하고 이벤트 핸들러를 바인딩하는 역할 담당
 
 # 첫번째 스펙: 'ClickCountView 모듈의 updateView()는 카운트 값을 출력한다.'
+
 - 데이터 조회할 ClickCounter를 어떻게 얻을까?
   - 모듈 생성 원칙 2번쨰: 모듈 자신이 사용할 객체가 있다면 의존성 주입 형태로 제공한다. (인자로 모듈 주입)
 - 데이터를 출력할 DOM 엘리먼트를 어떻게 테스트할까?
   - 데이터를 출력할 DOM 엘리먼트도 만들어 전달 받기
 
 - TDD: 모듈 주입 사용 경향: 하나의 모듈은 하나의 기능 단위이기 때문에 단일 책임의 원칙도 유지 가능
-
 
 ### TDD의 첫 단계: 실패하는 테스트 코드 만들기 (적색 단계)
 
@@ -422,6 +446,7 @@ describe('App.ClickCountView', () => {
 ```
 
 ### TDD의 두번째 단계: Test 통과하도록 모듈 코드 생성 (녹색 단계)
+
 - ClickCountView 모듈 생성
 
 ```javascript
@@ -438,6 +463,7 @@ App.ClickCountView = (clickCounter, updateEl) => {
 ```
 
 ### TDD의 첫 단계: 실패하는 테스트 코드 만들기 (적색 단계)
+
 - ClickCountView에 의존성 주입이 되었는지 체크
   - 모듈을 사용하는 측에서 모듈의 넘겨주지 않으면 ClickCountView 모듈은 제대로 동작 불가 -> 보장
   - `toThrowError()`: 매쳐 함수 - expect 기대치에 예외를 던지는 함수 전달하면 toThrowError로 확인 가능
@@ -478,7 +504,6 @@ describe('App.ClickCountView', () => {
 })
 ```
 
-
 ### TDD의 두번째 단계: Test 통과하도록 모듈 코드 생성 (녹색 단계)
 
 ```javascript
@@ -497,6 +522,7 @@ App.ClickCountView = (clickCounter, updateEl) => {
 <br>
 
 ## 테스트 더블
+
 - 단위 테스트 패턴으로, 테스트하기 곤란한 컴포넌트를 대체하여 테스트하는 것
 - 특정한 동작을 흉내만 낼뿐이지만 테스트 하기에는 적합.
 - 5가지 하위 개념의 통칭
@@ -525,6 +551,7 @@ expect(MyApp.foo).toHaveBeenCalled()
 <br>
 
 # 두번째 스펙: 'ClickCountView 모듈의 increaseAndUpdateView()는 카운트 값을 증가하고 그 값을 출력한다.'
+
 - 이미 만든 ClickCounter의 increase 함수를 실행한다.
 - 이미 만든 ClickCountView의 updateView 함수를 실행한다.
 - 테스트 코드 또한 하나의 기능만 테스트하는게 좋다.
@@ -612,8 +639,6 @@ describe('App.ClickCountView 모듈', () => {
 })
 })
 ```
-
-
 
 ### TDD의 두번째 단계: Test 통과하도록 모듈 코드 생성 (녹색 단계)
 
@@ -735,15 +760,18 @@ App.ClickCountView.messages = {
 <br><br>
 
 # 추가 요구 사항도 쉡게 받을 수 있는 코드 만들기
+
 - counter 감소 버튼, 2씩 증가-감소, ...
 
 ## ClickCounter 모듈 세번째 스펙: `ClickCounter 모듈은 '데이터'를 주입 받는다.`
+
 - 현재는 value가 클로저로 생성되어 공유 불가
 - 데이터를 주입 받음으로써 증가와 감소를 위한 데이터를 공유
 
 ### TDD의 첫 단계: 실패하는 테스트 코드 만들기 (적색 단계)
 
 - 데이터를 주입받기 - 없을 경우 에러를 던지는 테스트 코드 작성
+
 ```JAVAScript
   it('초기값을 주입하지 않으면 에러를 던진다', () => {
     // todo 
@@ -775,6 +803,7 @@ App.ClickCounter = (_data) => {
 <br>
 
 ...
+
 - data 객체와 연관된 test 코드 수정
 
 ```javascript
@@ -797,6 +826,7 @@ describe('App.ClickCounter', () => {
 ```
 
 # ClickCounter 모듈 네번째 스펙: `ClickCounter 모듈의 increase 함수는 대체될 수 있다.`
+
 - 증가 뿐만 아니라 감소도 가능해야 한다.
 - 이름 변경: increase -> count
 
@@ -879,4 +909,5 @@ App.ClickCounter = _data => {
 
 <br><br><br>
 <출처>
-- https://www.inflearn.com/course/tdd-%EA%B2%AC%EA%B3%A0%ED%95%9C-%EC%86%8C%ED%94%84%ED%8A%B8%EC%9B%A8%EC%96%B4-%EB%A7%8C%EB%93%A4%EA%B8%B0/lecture/12422?tab=curriculum&speed=1.25
+
+- <https://www.inflearn.com/course/tdd-%EA%B2%AC%EA%B3%A0%ED%95%9C-%EC%86%8C%ED%94%84%ED%8A%B8%EC%9B%A8%EC%96%B4-%EB%A7%8C%EB%93%A4%EA%B8%B0/lecture/12422?tab=curriculum&speed=1.25>

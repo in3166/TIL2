@@ -1,7 +1,8 @@
 # 함수 선언문 (function declaration)
+
 - 함수 선언문으로 정의된 함수는 JavaScript 인터프리터가 스크립트가 로딩되는 시점에 바로 초기화하고 VO(variable object)에 저장
 
-- 함수 선언 위치와 상관없이 소스 내 어느 곳에서든 호출이 가능해짐. 
+- 함수 선언 위치와 상관없이 소스 내 어느 곳에서든 호출이 가능해짐.
 
   - 사용하기 쉽지만 대규모 애플리케이션 개발 시 응답 속도 저하 주의
   - -> 스크립트 파일을 모듈화하고 필요한 시점에 비동기 방식으로 로딩하여 http 요청을 줄이고 속도 향상 가능
@@ -12,8 +13,8 @@ function 함수명() {
 }
 ```
 
-
 # 함수 표현식
+
 - 로딩 시점에 VO에 함수를 저장하지 않고 runtime 시에 해석되고 실행
 
 ```js
@@ -24,8 +25,8 @@ var 함수명 = function () {
 
 <br>
 
-
 ## 차이점
+
 - 함수 선언문은 `호이스팅`에 영향을 받지만 함수 표현식은 호이스팅에 영향을 받지 않는다.
 
 ```JS
@@ -62,7 +63,9 @@ sumNumbers = function () {
 <br><br>
 
 ## 함수 표현식 장점
+
 ### 1. 클로저로 사용
+
 - 클로저는 함수를 실행하기 전 해당 함수에 변수를 넘기고 싶을 떄 사용
 
 ```js
@@ -97,6 +100,7 @@ arr.forEach(function () {
 <br><br>
 
 # new Function 문법
+
 - 함수 표현식과 함수 선언문 이외 함수를 만들 수 있는 방법
 - 기존 방식과 차이점: 런타임에서 받은 문자열을 사용해 함수를 만들 수 있다. (원래는 개바잘가 직접 스크립트를 작성해야만 한다.)
 - 서버에서 전달받은 문자열을 이용해 함수를 생성해 실행할 수 있다.
@@ -106,6 +110,7 @@ let func = new Function ([arg1, arg2, ...argN], functionBody);
 ```
 
 - 예제
+
 ```js
 let sum = new Function('a', 'b', 'return a + b');
 alert( sum(1, 2) ); // 3
@@ -117,6 +122,7 @@ sayHi(); // Hello
 <br>
 
 ## new Fucntion - 클로저
+
 - 함수는 특별한 프로퍼티 `[[Environment]]`에 저장된 정보를 이용해 자기 자신이 태아난 곳을 기억한다.
 - `[[Environment]]`는 함수가 만들어진 렉시컬 환경을 참조
 - `new Function`을 이용해 함수를 만들면 함수의 `[[Environment]]` 프로퍼티가 현재 렉시컬 환경이 아닌 **'전역 렉시컬 환경'**을 참조
@@ -132,9 +138,8 @@ function getFunc() {
 getFunc()(); // ReferenceError: value is not defined
 ```
 
-
-
 <br><br><br>
 <출처>
-- https://joshua1988.github.io/web-development/javascript/function-expressions-vs-declarations/
-- https://ko.javascript.info/new-function
+
+- <https://joshua1988.github.io/web-development/javascript/function-expressions-vs-declarations/>
+- <https://ko.javascript.info/new-function>

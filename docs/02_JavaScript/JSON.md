@@ -1,13 +1,15 @@
 ## HTTP
- - 클라이언트와 서버 간 data의 request와 response
- - Hypertext: 링크뿐만이 아닌 전반적 리소스 포함 (문서, 이미지)
 
- - 방법
-   - AJAX (Asynchronous JavaScript And XML)
-     - XHR (XMLHttpRequest): 브라우저 Object의 하나
-     - fetch() API: 더 간단한 데이터 주고 받기 가능 (IE 지원 X)
-     
+- 클라이언트와 서버 간 data의 request와 response
+- Hypertext: 링크뿐만이 아닌 전반적 리소스 포함 (문서, 이미지)
+
+- 방법
+  - AJAX (Asynchronous JavaScript And XML)
+    - XHR (XMLHttpRequest): 브라우저 Object의 하나
+    - fetch() API: 더 간단한 데이터 주고 받기 가능 (IE 지원 X)
+
 ## XML
+
 - HTML과 같은 마크업 언어 중 하나로 태그로 데이터를 나타냄
 - 서버와 데이터 주고받을 때의 파일 포맷으로 쓰일 수 있음.
 
@@ -21,25 +23,27 @@
 - 사용 시 파일 크기가 커지고 가동성이 좋지 않아 사용 X
   
 # JSON (JavaScript Object Notation)
+
 - Object{ Key : Value }
 - 가장 간단한 파일 포멧
 - 텍스트 기반 가볍고 읽기 쉬움
 - `데이터 교환`을 목적으로 만들어진 언어에 종속되지 않는 포맷
-   
+
 # JSON 메서드
+
 ## 1. JSON.stringify
+
 - `let json = JSON.stringify(value[, replacer, space])`
 - ***object - [serialize] -> string(JSON)***
   - value: 인코딩 하려는 값
   - replacer: 인코딩 하길 원하는 프로퍼티가 담긴 배열 또는 매핑 함수 `function(key, value)`
-  - space: 서식 변경 목적으로 사용할 공백 문자 수 
-
+  - space: 서식 변경 목적으로 사용할 공백 문자 수
 
 - 문자열로 변경
   - 변경된 문자열은 JSON으로 인코딩된(JSON-encoded), 직렬화 처리된(serialized), 문자열로 변환된(stringified), 결집된(marshalled) 객체
   - JSON은 문자열로 변경되어야 네트워크로 전송하거나 저장소에 저장할 수 있다.
 
-- `replacer`: 콜백 함수나 배열을 인자로 줘서 원하는 프로퍼티만 적용 
+- `replacer`: 콜백 함수나 배열을 인자로 줘서 원하는 프로퍼티만 적용
   - `JSON.stringfy(obj, ['name']);` // 객체의 name만 전달하고 싶을 때
   - `let json = JSON.stringfy(['a1', 'a2']);` // => ["a1", "a2"]
 
@@ -108,7 +112,6 @@ alert( JSON.stringify(meetup) );
 */
 ```
 
- 
 <br><br>
 
 - 순환 참조가 있으면 불가능
@@ -129,7 +132,7 @@ room.occupiedBy = meetup; // room은 meetup을 참조합니다.
 JSON.stringify(meetup); // Error: Converting circular structure to JSON
 ```
 
-  - `replacer`로 전환 프로세스를 정교하게 조정하여 순환 참조에도 적용 가능
+- `replacer`로 전환 프로세스를 정교하게 조정하여 순환 참조에도 적용 가능
 
   ```js
        let room = {
@@ -147,8 +150,8 @@ JSON.stringify(meetup); // Error: Converting circular structure to JSON
      alert( JSON.stringify(meetup, ['title', 'participants']) );
      // {"title":"Conference","participants":[{},{}]}
   ```
-   
-  - `name`을 넣어주지 않아 `participants`가 비워졌다.
+
+- `name`을 넣어주지 않아 `participants`가 비워졌다.
 
     ```js
     alert( JSON.stringify(meetup, ['title', 'participants', 'place', 'name', 'number']) );
@@ -160,9 +163,9 @@ JSON.stringify(meetup); // Error: Converting circular structure to JSON
     }
     */
     ```
-    
-    - occupiedBy를 제외한 모든 프로퍼티가 직렬화. 그런데 배열이 좀 길다.
-      - 함수를 전달해 해결
+
+  - occupiedBy를 제외한 모든 프로퍼티가 직렬화. 그런데 배열이 좀 길다.
+    - 함수를 전달해 해결
 
       ```js
       alert( JSON.stringify(meetup, function replacer(key, value) {
@@ -204,7 +207,7 @@ alert(JSON.stringify(user, null, 2));
 <br>
 
 - 커스텀 `toJSON`
-  - 객체에 `toJSON`이라는 메서드가 구현되어 있으면 객체를 JSON으로 바꿀 수 있을 겁니다. 
+  - 객체에 `toJSON`이라는 메서드가 구현되어 있으면 객체를 JSON으로 바꿀 수 있을 겁니다.
 
 ```js
 let room = {
@@ -231,8 +234,9 @@ alert( JSON.stringify(meetup) );
 ```
 
 <br><br>
-     
+
 ## 2. JSON.parse
+
 - JSON으로 인코딩된 객체를 다시 객체로 디코딩
 - `let value = JSON.parse(str, [reviver]);`
 - ***object <- [deserialize] - string(JSON)***
@@ -247,7 +251,7 @@ alert( numbers[1] ); // 1
 ```
 
 - 만약 원래 obj에 함수가 있었다면 다시 변환 시 사라짐 / object 또한 단순한 스트링이 돼서 해당 메소드 사용 불가
-   
+
 ### 흔한 실수 JSON 포맷
 
 ```JS
@@ -263,6 +267,7 @@ let json = `{
 - 또한 JSON은 주석을 제공하지 않는다.
 
 ### reviver 사용
+
 - 예시: 서버로부터 받은 문자열로 변환된 `mmetup` 객체 전송받음
 
 ```js
@@ -270,7 +275,7 @@ let str = '{"title":"Conference","date":"2017-11-30T12:00:00.000Z"}';
 ```
 
 - `JSON.parse` 호출 시 에러
-  - `meetup.date`의 값은 `Date` 객체가 아니고 문자열이기 떄문에 발생 
+  - `meetup.date`의 값은 `Date` 객체가 아니고 문자열이기 떄문에 발생
   - 문자열을 `Date`객체로 전환해야 한다. -> reviver 사용
 
 ```js
@@ -293,5 +298,6 @@ alert( meetup.date.getDate() ); // 제대로 동작
 
 <br><br><br>
 <출처>
+
 - `드림코딩 엘리`
-- https://ko.javascript.info/json
+- <https://ko.javascript.info/json>

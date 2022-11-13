@@ -1,4 +1,5 @@
 # null 병합 연산자 '??'
+
 - `nullish coalescing operator`
 - `leftExpr ?? rightExpr`: `value`가 아니라 `expression` (`getA() ?? fetchB()`처럼 함수도 사용 가능)
 - 여러 피연산자 중 값이 '확정'되어 있는 변수 찾기 가능
@@ -39,6 +40,7 @@ function printMessage(text) {
 ```
 
 ## Logical Parameter '||'와 차이
+
 - `||`는 첫 번째 `truthy` 값을 반환 - `falsy`인 경우 모두 오른쪽이 실행 (`null`, `undefined`, `false`, `0`, `-0`, `NaN`, `''`, `""`)
 - `??`는 첫 번째 정의(defined)된 값을 반환 - `null`, `undefined`인 경우에만 오른족이 실행
 
@@ -66,6 +68,7 @@ console.log(printMessage(undefined)); // nothing
 <br>
 
 ## 연산자의 우선순위
+
 - 우선순위 `5`
 - `=`, `?` 보다는 먼저, 대부분 연산자보단 나중
 
@@ -79,7 +82,7 @@ let area = (height ?? 100) * (width ?? 50);
 alert(area); // 5000
 ```
 
-### 안정성 관련 이슈 때문에 '??'는 '&&'나 '||'와 함께 사용하지 못합니다.
+### 안정성 관련 이슈 때문에 '??'는 '&&'나 '||'와 함께 사용하지 못합니다
 
 ```js
 let x = 1 && 2 ?? 3; // SyntaxError: Unexpected token '??'
@@ -87,8 +90,8 @@ let x = 1 && 2 ?? 3; // SyntaxError: Unexpected token '??'
 
 - 제약을 피하려면 괄호 사용
 
-
 <br><br><br>
 <출처>
-- https://ko.javascript.info/nullish-coalescing-operator
-- https://www.youtube.com/watch?v=BUAhpB3FmS4
+
+- <https://ko.javascript.info/nullish-coalescing-operator>
+- <https://www.youtube.com/watch?v=BUAhpB3FmS4>

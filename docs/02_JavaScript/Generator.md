@@ -1,9 +1,11 @@
 # Generator
+
 - 일반 함수는 하나의 값(or 0) 반환
 - `제너레이터`는 여러 개의 값을 필요에 따라 하나씩 반환(yield) 가능
 - `제너레이터`와 이터러블 객체를 사용하면 데이터 스트림 생성 가능
 
 ## Generator 함수
+
 - 제너레이터를 만들기 위해 '제너레이터 함수'라는 특별한 문법 구조 `function*`이 필요
 
 ```js
@@ -49,6 +51,7 @@ alert(JSON.stringify(one)); // {value: 1, done: false}
 <br><br>
 
 ## Generator와 Iterable
+
 - `Generator`는 `Iteravle` 이다.
 - `for...of` 반복문 사용 가능
 
@@ -83,9 +86,11 @@ function* generateSequence() {
 let sequence = [0, ...generateSequence()[;
 alert(sequence); // 0, 1, 2, 3
 ```
+
 <br>
 
 ### 이터러블 대신 제너레이터 사용하기
+
 - iterable 객체 챕터의 `range` 예제 수정
 
 ```js
@@ -138,6 +143,7 @@ alert( [...range] ); // 1, 2, 3, 4, 5
 <br><br>
 
 ## 제너레이터 컴포지션 (Generator Composition)
+
 - 제너레이터 안에 제너레이터를 '임베딩(embedding, composing)' 할 수 있게 해주는 기능
 
 - 연속된 숫자를 생성하는 제너레이터 함수
@@ -148,7 +154,7 @@ function* generateSequence(start, end) {
 }
 ```
 
-
 <br><br><br>
 <출처>
-- https://ko.javascript.info/generators
+
+- <https://ko.javascript.info/generators>

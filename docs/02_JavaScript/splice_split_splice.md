@@ -1,4 +1,5 @@
 # Splice
+
 - 기존 배열을 변하고, 잘려진 배열 반환
 - 배열에 원하는 엘리먼트 갯수를 추가하거나 제거
 - 배열 메서드
@@ -33,6 +34,7 @@ let newArr = bread.splice(3, 0, 'newLoaf1', 'newLoaf2');
 <br>
 
 # Slice
+
 - 기존 배열 변하지 않고, 원하는 부분을 복사해서 새로운 배열 반환
 - 배열 메서드
 
@@ -47,7 +49,8 @@ newArr=bread.slice(2,5);
 ```
 
 # Split
-- delimeter을 기준으로 잘라서 배열을 만든 후 배열 반환 
+
+- delimeter을 기준으로 잘라서 배열을 만든 후 배열 반환
 - `String` 메서드, 문자열을 배열로 만들 때 유용
 
 ```js
@@ -62,4 +65,5 @@ console.log(newString2) // ['t', 'h', 'e', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' 
 
 <br><br><br>
 <출처>
-- https://velog.io/@chloeee/Slice-vs-Splice-vs-Split%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90
+
+- <https://velog.io/@chloeee/Slice-vs-Splice-vs-Split%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90>

@@ -1,4 +1,5 @@
 # useInput 만들기
+
 - 기본적으로 input을 업데이트
 
 ```js
@@ -29,6 +30,7 @@ const App = () => {
 ```
 
 ## useInput 확장
+
 - useInput의 인자에 유효성 검증 기능 포함
 
 ```js
@@ -89,4 +91,5 @@ const content = [
 
 <br><br><br>
 <출처>
-- https://nomadcoders.co/react-hooks-introduction/lectures/1592
+
+- <https://nomadcoders.co/react-hooks-introduction/lectures/1592>

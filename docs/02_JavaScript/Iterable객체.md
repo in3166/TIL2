@@ -1,10 +1,12 @@
 # iterable 객체
+
 - 반복 가능한(iterable) 객체는 배열을 일반화한 객체
 - 'iterable' 개념을 사용하면 어떤 객체에든 `for...of` 반복문 적용 가능
 - 이터러블에는 배열, 문자열 외 다수의 내장 객체들이 있다.
 - 배열이 아닌 객체가 어떤 컬렉션(목록, 집합)을 나타낼 경우, `for...of` 문법을 적용할 수 있다면 컬렉션 순회에 유용
 
 ## Symbol.iterator
+
 - 직접 이터러블 객체 생성해보기
 
 ```js
@@ -23,7 +25,7 @@ let range = {
     - `Symbol.iterator`는 반드시 이터레이터(메서드 `next`가 있는 객체) 반환
   - 2) `for...of`는 반환된 객체 이터레이터만을 대상으로 동작
   - 3) `for...of`에 다음 값이 필요하면, 이터레이터의 `next()` 메서드 호출
-  - 4) `next()`의 반환 값은 `{done: Boolean, value: any}`와 같은 형태여야 한다. 
+  - 4) `next()`의 반환 값은 `{done: Boolean, value: any}`와 같은 형태여야 한다.
     - `done=true`는 반복이 종료됨을 의미한다.
     - `done=false`일땐 `value`에 다음 값이 저장된다.
 
@@ -99,7 +101,7 @@ for (let num of range) {
 
 <br><br>
 
-## 문자열은 이터러블이다.
+## 문자열은 이터러블이다
 
 ```js
 for (let char of "test") {
@@ -109,6 +111,7 @@ for (let char of "test") {
 ```
 
 ## 이터레이터 명시적 호출
+
 - 직접 호출을 통한 순회하기
 - 문자열 이터레이터를 만들고 값을 '수동'으로 가져오기
 
@@ -133,6 +136,7 @@ while (true) {
 <br>
 
 ## 이터러블과 유사 배열
+
 - 이터러블(iterable)은 메서드 `Symbol.iterator`가 구현된 객체
 - 유사 배열(array-like)은 인덱스와 `length` 프로퍼티가 있어서 배열처럼 보이는 객체
 
@@ -154,6 +158,7 @@ for (let item of arrayLike) {}
 <br>
 
 ## Array.from
+
 - 범용 메서드 `Array.from`은 이터러블이나 유사 배열을 받아 진짜 `Array`를 만들어 준다.
 - 배열 메서드 `pop`, `push` 등을 사용할 수 있게 해준다.
 
@@ -199,4 +204,5 @@ arr.pop();
   
 <br><br><br>
 <출처>
-- https://ko.javascript.info/iterable
+
+- <https://ko.javascript.info/iterable>

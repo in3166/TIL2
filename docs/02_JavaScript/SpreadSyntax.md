@@ -1,4 +1,5 @@
 # Spread Syntax (전개 구문)
+
 - 반복 가능한 문자(배열, 문자열)를 0개 이상의 인수(함수 호출) 또는 요소로 확장하여
 - 0개 이상의 키-값의 쌍으로 객체로 확장 가능
 
@@ -13,6 +14,7 @@ myFunction(...args);
 <br>
 
 ## `apply()` 대체
+
 - 배열의 엘리먼트를 인수로 사용하고자 할 때
 
 ```javascript
@@ -23,8 +25,8 @@ myFunction.apply(null, args);
 
 <br><br>
 
-
 ## 배열 리터럴
+
 - 0개 이상의 식(expression) 목록
 - 전개 구문 사용하면 `push()`, `splice()`, `concat()` 등 조합할 필요 없음.
 
@@ -52,6 +54,7 @@ b.shift().shift(); // 1
 ```
 
 ## 배열 연결
+
 - `concat()` 대체
 
 ```javscript
@@ -75,7 +78,6 @@ var mergedObj = { ...obj1, ...obj2 };
 // Object { foo: "baz", x: 42, y: 13 }
 ```
 
-
 <br><Br><br>
-- https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/Spread_syntax
 
+- <https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/Spread_syntax>

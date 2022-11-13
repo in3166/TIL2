@@ -1,16 +1,20 @@
 # Hook의 규칙
+
 ## 최상위(at the Top Level)에서만 Hook을 호출
+
 - 반복문, 조건문, 중첩된 함수 내에서 Hook 호출하지 말자.
 - 컴포넌트가 렌더링 될 때마다 항상 동일한 순서로 Hook이 호출되는 것 보장
 - `usseState`, `useEffect`가 여러 번 호출되는 중에도 Hook의 상태를 올바르게 유지 가능
 
 ## 오직 React 함수 내에서 Hook을 호출
+
 - Hook을 일반적인 JavaScript 함수에서 호출하지 말자.
 - 컴포넌트의 모든 상태 관련 로직을 소스코드에서 명확히 보이도록 할 수 있다.
 
 <br>
 
 # ESLint 플러그인
+
 - 위 두 규칙을 강제하는 `eslint-plugin-react-hooks`라는 ESLint 플러그인을 프로젝트에 추가
 - `Create React App`에 기본적으로 포함되어 있다.
 `npm install eslint-plugin-react-hooks --save-dev`
@@ -96,7 +100,7 @@ useEffect(updateTitle)     // 🔴 3 (4였던). 제목을 업데이트하기 위
   });
 ```
 
-
 <br><br><br>
 <출처>
-- https://ko.reactjs.org/docs/hooks-rules.html
+
+- <https://ko.reactjs.org/docs/hooks-rules.html>

@@ -1,4 +1,5 @@
 # Using the Effect Hook
+
 - 함수 컴포넌트에서 side effect 수행 가능
   - `Side Effect`
   - *데이터 가져오기, 구독 설정하기, 수동으로 리액트 컴포넌트의 DOM 수정하기 등* ??
@@ -39,11 +40,13 @@ function Example() {
 <br><br>
 
 ## 정리(Clean-up)를 이용하지 않는 Effects
+
 - React가 DOM을 업데이트한 뒤 추가로 코드를 실행해야 하는 경우 존재
   - 네트워크 리퀘스트, DOM 수동 조작, 로깅 등 - 정리가 필요없는 경우들
   - 실행 이후 신경 쓸 것이 없다.
   
 ### Class를 사용하는 예시
+
 - `render` 메서드 자체는 side effect를 발생시키지 않음.
 - effect 수행은 React가 DOM을 업데이트하고 난 이후 (side effect를 `componentDidMount`와 `componenetDidUpdate`에 두는 이유)
 
@@ -87,6 +90,7 @@ class FriendStatus extends React.Component {
   - 즉, 렌더링 이후에는 같은 코드가 수행되어야 한다.
 
 ### Hook을 이용하는 예시
+
 - 코드는 제일 위에 예시와 동일
 - ***useEffect가 하는 일***
   - 리액트에게 컴포넌트 렌더링 이후 어떤 일을 수행할 지 말한다.
@@ -113,19 +117,19 @@ function Example() {
 - `useEffect` Hook에 함수를 전달하는데 이 함수 = effect
 - 컴포넌트를 렌더링할 때 React는 우리가 이용한 effect를 기억하다가 DOM 업데이트 후 실행 (맨 처음과 이후 모든 렌더링에서)
 
-- `useEffect`에 전달된 함수는 모든 렌더링에서 다르다. 
+- `useEffect`에 전달된 함수는 모든 렌더링에서 다르다.
 - 값이 제대로 업데이트 되는지 걱정없이 effect 내부에서 그 값을 읽을 수 있게 하는 부분
--  리렌더링마다 이전과 다른 effect로 교체하여 전달 -> 렌더링의 결과의 한 부분이 되게 만드는 점 (각각의 effect는 특정 렌더링에 속한다.)
-
-
+- 리렌더링마다 이전과 다른 effect로 교체하여 전달 -> 렌더링의 결과의 한 부분이 되게 만드는 점 (각각의 effect는 특정 렌더링에 속한다.)
 
 <br><br>
 
 ## 정리(Clean-up)을 이용하는 Effects
+
 - 외부 데이터에 구독을 설정해야 하는 경우
 - 메모리 누수가 발생하지 않도록 정리(clean-up)해야한다.
 
 ### Class를 사용하는 예시
+
 - class에선 흔히 `componentDidMount`에서 구독을 설정하고 `componentWillUnmount`에서 이를 정리한다.
 - 친구가 온라인 상태인지 구독(지켜보다가 종료 시 구독 해제)
 
@@ -165,6 +169,7 @@ class FriendStatus extends React.Component {
 ```
 
 ### Hook을 이용하는 예시
+
 - 구독의 추가와 제거를 위한 코드는 결합도가 높아 useEffect는 함께 다룬다.
 - effect가 함수를 반환하면 React는 함수를 정리가 필요한 때에 실행
 
@@ -201,15 +206,17 @@ function FriendStatus(props) {
   - React는 컴포넌트가 `마운트 해제`될 때 정리(clean-up)를 실행 (여기서 정리는 반환된 함수?)
   - 다음 차례의 effect를 실행하기 전에 이전의 렌더링에서 파생된 effect를 정리하는 이유가 이 때문이다.
   
-
 ### 요약
+
 - `useEffect`는 컴포넌트의 렌더링 이후 다양한 side effect를 표현 가능
 - effect에 정리가 필요한 경우 **함수를 반환**
 
 <br><br>
 
 # 팁
+
 ## 관심사를 구분하려면 Multiple Effect를 사용
+
 - 생명주기 class 메서드가 관련 는 로직들은 모아놓고, 관련 있는 로직들은 여러 개의 메서드에 나누어 놓는 경우 존재(문제)
 
 ```js
@@ -251,7 +258,7 @@ class FriendStatusWithCounter extends React.Component {
 - 구독 로직도 `componentDidMount`와 `componentWillUnmout`에 나뉘어져 있다.
 - 즉, `componentDidMount`가 두 작업을 위한 코드를 가진다.
 
-### Effect Hook을 여러번 사용하여 관련 없는 로직을 나눈다.
+### Effect Hook을 여러번 사용하여 관련 없는 로직을 나눈다
 
 ```js
 function FriendStatusWithCounter(props) {
@@ -278,6 +285,7 @@ function FriendStatusWithCounter(props) {
 <br>
 
 ## effect가 업데이트 마다 실행되는 이유
+
 - effect 정리(clean-up)가 마운트 해제할 때 한번만이 아닌 모든 리렌더링 시에 실행되는 이유
 
 ```js
@@ -353,6 +361,7 @@ function FriendStatus(props) {
 <br><br>
 
 ## Effect를 건너뛰어 성능 최적화하기
+
 - 모든 렌더링 이후 매번 effect를 정리하거나 적요하는 것은 때때로 성능 저하 발생
 - class의 경우 `componenetDidUpdate`에서 `prevProps`나 `prevState`와의 비교로 해결
 
@@ -390,6 +399,7 @@ useEffect(() => {
 ```
 
 ### 주의
+
 - 배열이 컴포넌트 범위 내에서 바뀌는 값들과 effect에 의해 사용되는 값들을 모두 포함한다.
   - 그렇지 않으면 현재 값이 아닌 이전의 렌더링 때의 값을 참고
   
@@ -398,8 +408,10 @@ useEffect(() => {
   - React로 하여금 effect가 prop이나 state의 어떤 값에도 의존하지 않으면 재실행 필요가 없음을 알림
   - *의존성 배열의 작동 방법을 그대로 따라서 사용하는 것*
 
-- 
+-
+
 <br><br><br>
 
 <출처>
-- https://ko.reactjs.org/docs/hooks-effect.html
+
+- <https://ko.reactjs.org/docs/hooks-effect.html>

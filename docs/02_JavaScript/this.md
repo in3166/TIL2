@@ -1,4 +1,5 @@
 # 함수의 `this` 키워드
+
 - 일반적으로 객체지향에서 객체 자신을 가리킴
 - 함수의 호출 방법에 의해 결정 (실행 컨텍스트를 가리킴)
   - 내가 함수를 호출한 시점에 나는 어떤 객체에 위치해있었는가
@@ -7,6 +8,7 @@
 - 스스로의 this 바인딩을 제공하지 않는 화살표함수
 
 ## 전역 문맥
+
 - `window` 객체: 브라우저 상 자바스크립트의 전역 객체
 - 전역 실행 문맥(Global Execution Context)에서 this는 엄격 모드 여부에 관계없이 전역 객체를 참조
 
@@ -23,7 +25,9 @@ console.log(b)         // "MDN"
 ```
 
 ## 함수 문맥
+
 1. 단순 호출
+
 - 비엄격 모드, this의 값이 호출에 의해 설정되지 않으므로 기본값으로 브라우저에서 window 전역 객체
 
 ```javascript
@@ -38,7 +42,6 @@ f1() === window; // true
 f1() === global; // true
 ```
 
-
 - 엄격 모드에서 `this` 값은 실행 문맥에 진입하며 설정되는 값을 유지, `undefined`
 - `f2`를 객체의 메서드나 속성(`obj.f2()`)가 아닌 직접 호출해서 this는 `undefined`
 
@@ -51,15 +54,18 @@ function f2(){
 f2() === undefined; // true
 ```
 
-
 <br><br>
 
 # this가 window 객체를 가리키지 않으려면..?
+
 - `this`의 값을 다른 문맥으로 넘기려면
+
 ## 바인딩 이용
+
 - `call`, `apply`, `bind` 같은 메서드를 사용
 
 ### 'bind' 사용
+
 - `f.bind(Object)` 호출하면 'f'와 같은 본문(코드)과 같은 범위를 가졌지만 this는 원본 함수를 가진 새로운 함수를 생성
 - 새 함수의 `this`는 호출 방식과 상관없이 영구적으로 `bind()`의 첫 번째 매개변수로 고정
 
@@ -79,6 +85,7 @@ console.log(o.a, o.f(), o.g(), o.h()); // 37, 37, azerty, azerty
 ```
 
 ### 'call' 사용
+
 - 앞의 인자는 `this`로 사용될 인자(Arg)이고, 뒤의 인자는 원래 함수의 인자
 
 ```js
@@ -96,12 +103,12 @@ thisTest.call(customThis, 'test');  // test {message: "it is custom this!!"}
 ```
 
 ### 'apply' 사용
+
 - `[인자1, 인자2]` 형식으로 사용
 
 ```js
 thisTest.apply(customThis, ['test']);
 ```
-
 
 ```js
 // call 또는 apply의 첫 번째 인자로 객체가 전달될 수 있으며 this가 그 객체에 묶임
@@ -154,11 +161,12 @@ add.apply(o, [10, 20]); // 34
 <br><br>
 
 ## 2. new 키워드 사용
-- 생성자로 
+
+- 생성자로
 
 ```js
 function thisTest2(something){
-	this.something = something; 
+ this.something = something; 
 }
 
 thisTest2('abcd'); // undefined
@@ -168,10 +176,10 @@ const newObj = new thisTest2('ABCD');
 newObj; // thisTest2 {something: 'ABCD'}
 ```
 
-
 <br><br>
 
 ## 화살표 함수
+
 - `this`는 자신을 감싼 `정적 범위(Lexical Context)`
 - `this` 값을 재정의하지 않고 밖의 값을 갖고옴
 - 전역 코드에서는 전역 객체를 가리킴
@@ -230,7 +238,6 @@ console.log(fn2()() == window); // true
 
 - obj.bar 함수에 this 설정 유지
 
-
 ```js
 // forEach의 콜백은 그냥 일반 함수로 this === window
 let obj = {
@@ -249,6 +256,7 @@ obj.func2();
 <br><br>
 
 ## 객체의 메서드로서 `this` 호출
+
 - this 값: 그 객체
 
 ```javascript
@@ -299,6 +307,7 @@ obj.f1();
 <br>
 
 ## 객체의 프로토타입 체인에서 `this`
+
 - 객체의 포로토타입 체인 어딘가에 정의한 메서드도 마찬가지로 어떤 객체의 프로토타입 체인 위에 메서드가 존재하면, this의 값은 그 객체가 메서드를 가진 것 마냥 설정
 
 ```javascript
@@ -315,6 +324,7 @@ console.log(p.f()); // 5
 <br>
 
 ## 접근자와 설정자의 `this`
+
 - 접근자나 설정자로 사용하느 함수의 this는 접근하거나 설정하는 속성을 가진 객체로 묶임
 
 ```javascript
@@ -340,6 +350,7 @@ console.log(o.average, o.sum); // 2, 6
 <br>
 
 ## 생성자로서
+
 - 함수를 new 키워드와 함께 생성자로 사용하면 this 새로 생긴 객체에 묶임
 
 ```javascript
@@ -363,6 +374,7 @@ console.log(o.a); // 38
 <br>
 
 ## DOM 이벤트 처리기로서
+
 - `addEventListener`의 콜백으로 등록한 함수의 `this`는 해당 이벤트 요소(e.CurrentTarget Element)이다.
 - `addEventListener`의 콜백 함수는 `button.onclick = function`와 비슷
 
@@ -395,6 +407,7 @@ document.getElementById("labe").addEventListener("click", () => {
 <br>
 
 ## 인라인 이벤트 핸들러에서
+
 - 코드를 인라인 이벤트 처리기로 사용하면 this는 처리기를 배치한 DOM 요소로 설정
 
 ```html
@@ -424,6 +437,7 @@ user.hi(); // John
 (user.name == "John" ? user.hi : user.bye)(); // TypeError: Cannot read property 'name' of undefined
 
 ```
+
 - `obj.method()` 연산 2가지
   - 1. 점 `.`은 객체 프로퍼티 `obj.method`에 접근
   - 2. 괄호 `()`는 접근한 프로퍼티(메서드)를 실행
@@ -441,7 +455,7 @@ hi(); // this가 undefined이기 때문에 에러가 발생.
     - `base`: 객체
     - `name`: 프로퍼티 이름
     - `strict`: 엄격 모드에선 true
-    
+
   - `user.hi`로 프로퍼티에 접근하면 참조 타입 반환: `(user, "hi", true)`
   - 참조형 값에 괄호 `()`를 붙여 호출하면 객체, 객체의 메서드와 연관된 정보를 받는덷 이 정보를 기반 `this(=user)`가 결정
   - 참조 타입은 점 `.` 연산에서 알아낸 정보를 괄호`()`에 절단해주는 '중개인' 역할
@@ -462,9 +476,11 @@ let user = {
 - 에러 발생 이유
   - `let user = {}` 뒤에 **'세미콜론'**이 없다.
   - 자바스크립트는 괄호(`(user.go)`) 앞에 세미콜론을 자동으로 넣어주지 않는다.
+
   ```js
   let user = { go:... }(user.go)()
   ```
+
   - 위와 같아지므로 인수가 `(user.go)`인 객체 형태의 함수를 호출한 것처럼 된다.
   - 또한 객체 `user`가 정의되지 않은 채로 같은 줄에 `let user`를 사용하고 있어 에러가 발생한다.
 
@@ -494,7 +510,6 @@ f();        // 저장된 것 호출하기 - f()는 (메서드가 아닌) 함수�
 ```
 
 **`메서드 호출을 제외하고, 참조 타입 값에 행해지는 모든 연산은 참조 타입 값을 일반 값으로 변환시킨다!`**
-
 
 <br><br>
 
@@ -547,9 +562,9 @@ b();
   // inner this:  Object [global]
 ```
 
-
 <br><br><br>
 <출처>
-- https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/this
-- https://velog.io/@jakeseo_me/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%ED%8C%81-This-%EC%A0%95%EB%A6%AC-x4k5upn6i6
-- https://ko.javascript.info/reference-type
+
+- <https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/this>
+- <https://velog.io/@jakeseo_me/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%ED%8C%81-This-%EC%A0%95%EB%A6%AC-x4k5upn6i6>
+- <https://ko.javascript.info/reference-type>

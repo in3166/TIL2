@@ -1,4 +1,5 @@
 # 1. Custom Elements
+
 - 기존 DOM Element 생성 방법들
 
 ```html
@@ -51,6 +52,7 @@ function createMessageBox() {
   - element Lifecycle 구성이 가능하지만 복잡하다.
 
 ## Web Components
+
 - 이러한 기존 DOM Elements 생성 방법에서 벗어나 모듈화할 수 잇고 재사용도 가능한 Elements 생성 목적
 - [`CustomElementsRegistry`](https://developer.mozilla.org/en-US/docs/Web/API/CustomElementRegistry) 인터페이스의 `define` 메서드로 정의 가능
 - 이를 구현한 클래스 [`window.customElements`](https://developer.mozilla.org/en-US/docs/Web/API/Window/customElements)로 접근 가능
@@ -85,6 +87,7 @@ window.customElements.define(
 ```
 
 ### 장점
+
 - Scoped CSS Style 사용 가능
 - 명시적 DOM Element 저으이 가능
 - Shadow DOM을 이용해 외부에서 정의한 Elements를 조작할 수 없도록 제어 가능
@@ -93,7 +96,8 @@ window.customElements.define(
 <br><br>
 
 ## 1.1 High-level View
-- Web Components 정의위해 ` CustomElementRegister.define()`  메서드를 이용
+
+- Web Components 정의위해 `CustomElementRegister.define()`  메서드를 이용
 - 아래 세 개의 Arguments를 받음
   - DOMString: Custom Elements의 이름 (kebob-case)
   - class extends HTMLElement: Element의 행동을 정의한 Class
@@ -117,9 +121,9 @@ window.customElements.define(
 );
 ```
 
-  - `WordCount` 클래스는 `<p>` 태그인 'HTMLParagraphElement' 클래스 Extends하여 동작을 그대로 상속 받음
-  - `super()` 필수적으로 호출: 모든 Custom Element가 `HTMLElement` 클래스를 상속받고 있기 때문
-  - `is`: `is` 전역 특성은 표준 HTML 요소가 사용자 지정 요소처럼 행동하도록 지정
+- `WordCount` 클래스는 `<p>` 태그인 'HTMLParagraphElement' 클래스 Extends하여 동작을 그대로 상속 받음
+- `super()` 필수적으로 호출: 모든 Custom Element가 `HTMLElement` 클래스를 상속받고 있기 때문
+- `is`: `is` 전역 특성은 표준 HTML 요소가 사용자 지정 요소처럼 행동하도록 지정
 
   ```html
   <word-count></word-count>
@@ -127,7 +131,7 @@ window.customElements.define(
   <p is="word-count"></p>
   ```
 
-  - js로도 선언 가능
+- js로도 선언 가능
 
   ```js
   document.createElement('word-count');
@@ -136,6 +140,7 @@ window.customElements.define(
   ```
   
 ## 1.2 예제 만들기
+
 - 구현할 DOM Element
 
 ```html
@@ -238,6 +243,7 @@ customElements.define('popup-info', PopUpInfo);
 <br>
 
 ## 1.3 Internal vs External styles
+
 - 위 처럼 CSS String을 작성해도 되지만 `<link>` 태그도 이용 가능
 
 ```js
@@ -251,7 +257,8 @@ this.shadowRoot.append(linkElement, wrapper);
 <br>
 
 ## 1.4 Using the Lifecycle callbacks
-- `connectedCallback`: 
+
+- `connectedCallback`:
   - 모든 DOM이 **'Parsing되기 전'**에도 호출될 수 있음
   - Node **'moved'** 시 호출
   - **'Disconnected'** 시 호출될 수 있으며, 이는 `isConnected` 프로퍼티를 이용해 판별이 가능
@@ -325,6 +332,7 @@ window.customElements.define('custom-square', CustomSquare);
 <br><br>
 
 # 2. Using Shadow DOM
+
 - 캡슐화, 구현된 Componenets 내부를 어떻게 잘 유지할 지, 충돌을 회피할 지, CSS Scope 관리 등을 위해
 - 각각의 DOM을 서로 충돌없이 분리 방법
 
@@ -364,6 +372,7 @@ window.customElements.define('custom-square', CustomSquare);
 <br>
 
 ## 2.2 기본 사용법
+
 - `Element.attachShadow()` 메서드를 통해 Shadow DOM을 구성
 - mode
   - `open`: Element.shadowRoot  프로퍼티를 이용해 Shadow DOM에 대한 참조를 얻을 수 있음
@@ -377,7 +386,9 @@ const shadow = element.attachShadow({ mode: 'closed' });
 <br><br>
 
 # 3. Using Templates and Slots
+
 ## 3.1 `<template>`
+
 - 재사용 가능한 Components를 만드는 가장 쉽고 편리한 방법
 - 태그 내의 Nodes는 DOM에 렌더링되지 않으나, Programmatic하게 참조 가능 (`template.content` 프로퍼티를 이용해 접근)
 
@@ -401,6 +412,7 @@ document.body.appendChild(templateContent);
 ```
 
 ## 3.2 Using templates with Web Components
+
 - `my-paragraph`라는 Custom Element 정의
 
 ```js
@@ -419,8 +431,8 @@ customElements.define(
 );
 ```
 
--  `cloneNode()`: `<template>`는 하나만 존재하므로 재사용을 위해 복제 (아니면 동일한 템플릿 참조)
--  `innerHTML` 사용한 방법
+- `cloneNode()`: `<template>`는 하나만 존재하므로 재사용을 위해 복제 (아니면 동일한 템플릿 참조)
+- `innerHTML` 사용한 방법
 
 ```JS
 customElements.define(
@@ -453,8 +465,9 @@ customElements.define(
 <br>
 
 ## 3.4. Scoped styles
--  Styles를 Component 내에만 정의하는 방법
--  Shadow DOM 내에 `<style>` 태그가 오게끔 만들어주기
+
+- Styles를 Component 내에만 정의하는 방법
+- Shadow DOM 내에 `<style>` 태그가 오게끔 만들어주기
 
 ```js
 const html = `
@@ -481,4 +494,5 @@ class extends HTMLElement {
 
 <br><br><br>
 <출처>
-- https://okky.kr/article/977318
+
+- <https://okky.kr/article/977318>

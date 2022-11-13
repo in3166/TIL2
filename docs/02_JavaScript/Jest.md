@@ -1,12 +1,15 @@
 # Jest
+
 - 페이스북에서 만든 **테스팅 라이브러리**
-- Jest 이전 `JS 코드 테스트`를 위해선 여러 테스팅 라이브러리 조합 
+- Jest 이전 `JS 코드 테스트`를 위해선 여러 테스팅 라이브러리 조합
   - (Test Runner: [Mocha, Jasmin], TestMatcher: [Chai, Expect], TestMock: [Sinon, Testdouble] 등)
 - Jest는 3가지 기능을 모두 제공해 편리
 <br>
 
 ## 기본 사용법
+
 ### 프로젝트 생성
+
 - Project 디렉토리 생성 후 Npm 초기화로 `package.json` 생성
 
 ```
@@ -19,7 +22,7 @@ package.json
 ### Jest 라이브러리 설치
 
 ```
-$ npm i -D jest
+npm i -D jest
 ```
 
 ### 스크립트 수정
@@ -32,6 +35,7 @@ $ npm i -D jest
 ```
 
 ### 테스트 코드 작성
+
 - `test.js`
 
 ```javascript
@@ -41,7 +45,7 @@ test("1 is 1", () => {
 ```
 
 - `test(테스트 설명, () => {`
-- ` expect("검증 대상").`
+- `expect("검증 대상").`
 - `toXxxx("기대 결과")` ->  Test Mathcher
   - 자주 사용되는 Matcher
     - toEqual()
@@ -76,4 +80,5 @@ Ran all test suites.
 
 <br><br><br>
 <출처>
-- https://www.daleseo.com/jest-basic/
+
+- <https://www.daleseo.com/jest-basic/>

@@ -1,10 +1,12 @@
 # Symbol
+
 - ES6에서 Symbol 타입 추가
 - `유일한 식별자(unique identifier)`를 만들 때 사용
 - 이름의 충돌 위험이 없는 **유일한 객체의 프로퍼티 키(property key)**를 만들기 위해 사용
 - 고유한 심볼 테이블들이 심볼들을 가지고 있다.
- 
+
 `let id = Symbol();`: id는 새로운 심볼
+
 - 심볼 이름
 
 ```javascript
@@ -41,6 +43,7 @@ alert(id.description); // id
 <br>
 
 # '숨김' 프로퍼티
+
 - 외부 코드에서 **접근이 불가능**하고 값도 덮어쓸 수 없는 프로퍼티
 - 예시1
   - 서드파티 코드에서 가져 온 `user` 객체
@@ -74,6 +77,7 @@ alert(id.description); // id
 <br>
 
 ## 심볼형 프로퍼티 숨기기
+
 - 키가 심볼인 프로퍼티는 `for...in` **반복문에서 배제**됨.
 
 ```javascript
@@ -103,6 +107,7 @@ alert( clone[id] ); // 123
 ```
 
 ## 전역 심볼
+
 - 이름(설명)이 같은 심볼이 같은 개체를 가리키는 경우
 - 애플리케이션 곳곳에서 심볼 "id"를 이용해 특정 프로퍼티 접근하는 경우
 - `전역 심볼 레지스트리(global symbol registry)`안에 심볼을 만들고 접근하면 같은 이름은 항상 동일한 심볼 반환
@@ -116,6 +121,7 @@ alert(id === idAgain);  // true
 ```
 
 ## Symbol.keyFor
+
 - 전역 심볼을 찾는 `Symbol.for(key)`에 반대되는 메서드
 - 전역 레지스트리 안 심볼의 이름을 얻기
 
@@ -131,6 +137,7 @@ alert( Symbol.keyFor(sym2) ); // id
 - 전역 심볼을 제외한 모든 심볼은 `description` 프로퍼티가 존재하여 이를 사용
 
 ## 시스텝 심볼
+
 - 자바스크립트 내부에서 사용되는 심볼
 - 객체를 미세 조정 가능
 - `Symbole.hasInstance`
@@ -144,6 +151,7 @@ alert( Symbol.keyFor(sym2) ); // id
 <br><br><br>
 
 ## 목적
+
 - for in loop / Object.keys와 같은 기존 메소드를 변경 과정 없이 새로 객체에 프로퍼티를 추가
 
 ```javascript
@@ -153,7 +161,7 @@ var myObject = {
 }
 ```
 
-  - myObject에 새로운 프로퍼티 추가해도 Object.keys(myObject)의 값이 추가된 값을 제외한 [firstName, lastName]을 보여줌
+- myObject에 새로운 프로퍼티 추가해도 Object.keys(myObject)의 값이 추가된 값을 제외한 [firstName, lastName]을 보여줌
 
 ```javascript
 var myObject = {};
@@ -178,6 +186,7 @@ console.log(myObject[prop4]) // 4
 <br><br>
 
 ## 특징
+
 - 객체 속성(Object Property)을 만들 수 있는 원시 데이터 형식(Primitive data type)-Boolean/null/undefined/Number/String
 - 문자열을 인자로 허용: 설명으로 디버깅 용도 (let mySymbol = Symbol('des');)
 - 같은 문자열로 정의해도 독립적인 값이 됨
@@ -198,6 +207,7 @@ console.log(ob); // {Symbol(key): "value1", Symbol(key): "value2"}
 ```
 
 ## 사용
+
 - 객체의 프로퍼티 키는 빈 문자열을 포함하는 모든 문자열 가능
 
 ```javascript
@@ -224,14 +234,16 @@ console.log(obj[mySymbol]); // 123
 ```
 
 ### 'well-known' Symbol을 통해 core method 접근 가능
+
 - length와 prototype을 제외한 Symbol 함수 객체의 프로퍼티 (iterator, replace, search ...)
 - 자바스크립트 엔진에 상수로 존재하며 참조하여 일정한 처리를 함
 
-
 ## 생성
+
 1. Symbol()
 
 2. Symbol.for()
+
 - 인자로 전달받은 문자열을 키로 Symbol 값들이 저장된 전역 Symbol 레지스트리에서 해당 키와 일치하는 Symbol 값 검색
 - 성공 시 Symbol 값 반환, 실패 시 새로 생성하여 해당 키로 전역 Symbol 레지스트리에 저장 후 Symbol 값 반환
 
@@ -248,6 +260,7 @@ console.log(s1 === s2); // true
 - Symbol.for()로 생성된 Symbol은 반드시 키를 갖지만 Symbol()로 생성된 Symbol 값은 키가 없다
 
 3. Symbol.iterator
+
 - 어떤 객체가 Symbol.iterator를 프로퍼티 key로 사용한 메소드를 가지고 있으면 엔진은 이 객체가 이터레이션 프로토콜을 따르는 것으로 간주하고 이터레이터 동작 수행
 - Symbol.iteratior를 프로퍼티 key로 사용하여 메소드를 구현한 빈트인 객체들
   - Array, String, Map, Set, DOM data structores, arguments
@@ -274,7 +287,8 @@ console.log(s1 === s2); // true
 <br><br><br>
 
 <출처>
-- https://ko.javascript.info/symbol
-- https://poiemaweb.com/es6-symbol
-- https://pks2974.medium.com/javascript%EC%99%80-%EC%8B%AC%EB%B3%BC-symbol-bbdf3251aa28
-- https://medium.com/@hyunwoojo/javascript-symbol-%EC%97%90-%EB%8C%80%ED%95%B4%EC%84%9C-6aa5903fb6f1
+
+- <https://ko.javascript.info/symbol>
+- <https://poiemaweb.com/es6-symbol>
+- <https://pks2974.medium.com/javascript%EC%99%80-%EC%8B%AC%EB%B3%BC-symbol-bbdf3251aa28>
+- <https://medium.com/@hyunwoojo/javascript-symbol-%EC%97%90-%EB%8C%80%ED%95%B4%EC%84%9C-6aa5903fb6f1>

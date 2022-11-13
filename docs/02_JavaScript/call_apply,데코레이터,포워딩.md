@@ -1,8 +1,10 @@
 # call/apply와 데코레이터, 포워딩
+
 - JS 함수 유연: 함수는 여기저기 전달 가능, 객체로 사용 가능
 - 함수 간 호출을 어떻게 포워딩(forwarding) 하는지, 함수를 어떻게 데코레이팅(decorating) 하는지
 
 ## 코드 변경 없이 캐싱 기능 추가하기
+
 - CPU를 많이 잡아 먹는 `slow(x)` 함수 (순수 함수) - 결과가 안정적: x가 같으면 결과도 같음
 - 자주 호출 시 결과를 저장(캐싱)해 재연산에 걸리는 시간 줄이기
 - 아래 예시는 캐싱 관련 코드 추가 대신, 래퍼 함수를 만들어 캐싱 기능을 추가
@@ -38,10 +40,10 @@ alert( slow(2) ); // slow(2)가 저장되었습니다.
 alert( "다시 호출: " + slow(2) ); // 윗줄과 동일한 결과
 ```
 
- - `cachingDecorator`
-   - 인수로 받은 함수의 행동을 변경시켜주는 함수 **데코레이터(decorator)**
-   - 모든 함수를 대상으로 `cachingDecorator` 호출 가능 (캐싱이 가능한 함수 원하는 만큼 구현 가능)
-   - 반환: 캐싱 래퍼 ( `function(x)` ) - `func(X)`의 호출 결과를 캐싱 로직으로 감쌈 (wrpping)
+- `cachingDecorator`
+  - 인수로 받은 함수의 행동을 변경시켜주는 함수 **데코레이터(decorator)**
+  - 모든 함수를 대상으로 `cachingDecorator` 호출 가능 (캐싱이 가능한 함수 원하는 만큼 구현 가능)
+  - 반환: 캐싱 래퍼 ( `function(x)` ) - `func(X)`의 호출 결과를 캐싱 로직으로 감쌈 (wrpping)
 
 - `slow(x)`는 래퍼로 감싼 이후에도 바깥 코드에서 볼 땐, 동일한 작업 수행 (행동 양식에 캐싱 기능 추가했을 뿐)
 - `slow(x)` 본문을 수정하는 대신 독립된 래퍼 함수를 사용할 때 이점
@@ -50,6 +52,7 @@ alert( "다시 호출: " + slow(2) ); // 윗줄과 동일한 결과
 <br>
 
 ## 'func.call'를 사용해 컨텍스트 지정하기
+
 - 위의 캐싱 래퍼는 객체 메서드에 사용하기 적합하지 않다.
 - 객체 메서드 `worker.slow()`는 데코레이터 적용 후 제대로 작동하지 않는다.
 
@@ -94,8 +97,8 @@ func(2);
 
 - 래퍼가 기존 메서드 호출 결과를 전달하려 했지만 `this`의 컨텍스트가 사라졌기 때문에 에러 발생
 
-
 ### `func.call(cotext, args)`
+
 - `this`를 명시적으로 고정해 함수를 호출할 수 있게 해주는 특별한 내장 함수 메서드
 
 ```js
@@ -158,6 +161,7 @@ function cachingDecorator(func) {
 <br>
 
 ## 여러 인수 전달하기
+
 - 지금은 인수가 하나뿐인 함수에만 `cachingDecorator` 적용 가능
 - 복수 인수를 가진 메서드, `worker.slow`를 캐싱해보기
 
@@ -209,7 +213,9 @@ console.log( worker.slow(3, 5) ); // 동일한 결과 (캐시 결과)
 <br>
 
 ## func.apply
+
 `func.apply(context, arge)`
+
 - `apply`는 `func`의 `this`를 `context`로 고정, 유사 배열 객체인 `args`를 인수로 사용 가능하게 해준다.
 - `apply`는 복수 인수를 따로 받지 않고 유사 배열 객체로 받는다.
 
@@ -234,6 +240,7 @@ let wrapper = function() {
 ```
 
 ### func.bind
+
 ```js
 var obj = {
   string: 'zero',
@@ -247,13 +254,16 @@ var obj2 = {
 var yell2 = obj.yell.bind(obj2);
 yell2(); // 'what?'
 ```
+
 <br>
 
 ## 메서드 빌리기
+
 - 위의 해싱 함수 개선
 - 현재 인수 두 개만 가능 -> args 요소 개수에 상관없게 바꾸기
 
 - 배열 메서드 `arr.join` 사용
+
 ```js
 function hash(args) {
   return args.join();
@@ -266,16 +276,18 @@ function hash() {
 }
 hash(1, 2);
 ```
+
 - 일반 배열에서 `join` 메서드를 빌려오고 `[].join.call`을 사용헤 `arguments`를 컨텍스트로 고정한 후 `join` 메서드를 호출
 <br>
 
 ## 데코레이터와 함수 프로퍼티
+
 - 원본 함수에 `func.calledCount` 드으이 프로퍼티가 있으면 데코레이터를 적용한 함수에선 프로퍼티를 사용할 수 없어 안전하지 않다.
 - 위 예시에서 `slow`가 프로퍼티가 있다면 `cachingDecorator(slow)` 호출 결과인 래퍼엔 프로퍼티가 없다.
 - 몇몇 데코레이터는 자신만의 프로퍼티를 가져 함수가 얼마나 호출되었는지 count 하거나 시간 소요되었는지 저장 가능
 - 함수 프로퍼티에 접근하게 해주는 데코레이터를 `Proxy`를 사용해서 만들 수도 있다.
 
-
 <br><br><br>
 <출처>
-- https://ko.javascript.info/call-apply-decorators
+
+- <https://ko.javascript.info/call-apply-decorators>

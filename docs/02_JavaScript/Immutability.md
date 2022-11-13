@@ -1,4 +1,5 @@
 # Immutability
+
 - 정보 변경의 불변성
 - `데이터 원본 훼손의 방지`
 - `CRUD`: Create, Read, Update, Delete
@@ -6,8 +7,8 @@
 - 변경될 필요가 없는 데이터들을 확실하게 고정시켜 둔다면, Application은 보다 안전하고 유연하게 된다.
 <br>
 
-
 ## 이름에 대한 불변함
+
 ```js
 var v = 1;
 // 1억 줄의 코드~
@@ -20,13 +21,16 @@ c = 2;
 ```
 
 `var 'v' = 1;`
+
 - 중간에 누군가 값을 변경하면 원래 의도한 데이터가 나오지 않음 (에러 조차 나오지 않음)
 - `const`: 중간에 값이 바뀌면 에러 발생 (상수 변수)
 
 <br><br>
 
 ## 내용에 대한 불변함
+
 ### 변수 할당 방식
+
 - 원시데이터 타입(Primitive): Number, String, Boolean, Null, Undefined, Symbol
 - 객체(Object): Object, Array, Function
 
@@ -35,13 +39,13 @@ c = 2;
   - name: `p1`은 새로 저장된 1을 가리킴
   - value
     - 메모리상에 저장
-    
+
     |M1|M2|
     |:---:|:---:|
     |1|-|
     |-|-|
     |-|-|
-    
+
   - code: `var p2 = 1` (원시데이터)
   - name: `p2`은 원래 있던 1을 가리킴 (메모리 절약, p1 === p2: true)
   - value
@@ -52,14 +56,14 @@ c = 2;
     |-|-|
     <hr>
   - code: `var o1 = { name: 'kim' }` (원시데이터)
-  - name: `o1`은 새로 저장된 값을 가리킴 
+  - name: `o1`은 새로 저장된 값을 가리킴
   - value
     |M1|M2|
     |:---:|:---:|
     |{ name: 'kim' }|-|
     |-|-|
     |-|-|
-    
+
   - code: `var o2 = { name: 'kim' }` (원시데이터)
   - name: `o2`은 새로 저장된 값을 가리킴 (o1 === o2: flase)
   - value
@@ -68,7 +72,6 @@ c = 2;
     |{ name: 'kim' }|-|
     |-|-|
     |-|-|
-
 
 - 원시 데이터 타입은 값(내용)을 변경할 수 없음 -> 1은 언제나 1, 불변함
 - 객체 타입은 그 값이 변경될 수 있음
@@ -82,6 +85,7 @@ o2.name = 'lee'; // o1이 가리키는 값까지 바뀜
 ```
 
 ### 객체의 복사
+
 - 객체를 Immutable하게 다루기
 
 ```js
@@ -92,7 +96,9 @@ console.log(o1, o2, o1 === o2); // false
 ```
 
 ### 중첩된 객체의 복사
+
 `Nested object`
+
 - 객체의 프로퍼티의 값 중 하나가 객체일 때
   - code: `var o2 = { name: 'kim', score:[1,2,] }` (원시데이터)
   - name: 중첩된 객체의 값인 `score`와 그 값인 객체는 각자 메모리에 분리되어 저장되고 `score`은 값의 위치(레퍼런스)를 저장.
@@ -102,7 +108,7 @@ console.log(o1, o2, o1 === o2); // false
     |{ name: 'kim', score: -> }|[1,2]|
     |-|-|
     |-|-|
-    
+
 - 중첩된 객체의 단순한 복사는 같은 값을 가리킴 (score 동일)
 
 ```js
@@ -119,10 +125,10 @@ o2.score = o2.score.concat();  // assign을 쓰면 배열의 특성이 사라짐
 console.log(o1 === o2, o1.score === o2.score); // false, false
 ```
 
-    
 <br><br>
 
 ## 불변의 함수
+
 - 객체의 프로퍼티 값을 바꾸는 함수
 
 ```js
@@ -161,6 +167,7 @@ fn(o1);
     ```
 
 ### 가변과 불변 API 비교
+
 - JavaScript가 가지고 있는 API 중에 원본의 수정 여부 비교
 
 ```JS
@@ -172,7 +179,6 @@ var b = score;
 var score2 = score.concat(4); // 리턴 값을 score 복사한 값에 push한 값
 console.log(score, score2, a, b);/
 ```
-
 
 <br><br>
 
@@ -189,6 +195,7 @@ console.log(o1);  // {name:'kim', score:[1,2]}
 ```
 
 ### const vs Object.freeze
+
 ```js
 
 const o1 = {name:'kim'}
@@ -202,7 +209,7 @@ console.log(o1);
 - `const`: 변수나 객체가 가리키는(저장한) 주소 값을(레퍼런스) 수정할 수 없게 막는다.
 - `freeze`: 저장하고 있는 값의 변경을 막는다.
 
-
 <br><br><br>
 <출처>
-- https://opentutorials.org/module/4075/24881 (생활코딩)
+
+- <https://opentutorials.org/module/4075/24881> (생활코딩)

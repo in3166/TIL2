@@ -49,6 +49,7 @@
     - [MobX,Redux](/01_React/MobX,Redux.md)
     - [PropTypes](/01_React/PropTypes.md)
     - [proxy](/01_React/proxy.md)
+    - [React18](/01_React/React18.md)
     - [ReactHookForm](/01_React/ReactHookForm.md)
     - [ReactRounter](/01_React/ReactRounter.md)
     - [Redux&ContextAPI](/01_React/Redux&ContextAPI.md)
@@ -56,7 +57,6 @@
     - [setState](/01_React/setState.md)
     - [super(props)](/01_React/super(props).md)
     - [다국어 처리(i18next)](/01_React/다국어%20처리(i18next).md)
-    - [예제1_BoilerPlate만들기](/01_React/예제1_BoilerPlate만들기.md)
   - 02_JavaScript
     - 001_코딩 기법과 패턴
       - [01.개요](/02_JavaScript/001_코딩%20기법과%20패턴/01.개요.md)
@@ -138,7 +138,6 @@
     - [비교연산자(==,===)](/02_JavaScript/비교연산자(==,===).md)
     - [서버사이드렌더링, CI, CD](/02_JavaScript/서버사이드렌더링,%20CI,%20CD.md)
     - [성능최적화](/02_JavaScript/성능최적화.md)
-    - [시멘틱태그](/02_JavaScript/시멘틱태그.md)
     - [옵셔널체이닝](/02_JavaScript/옵셔널체이닝.md)
     - [위크맵_위크셋](/02_JavaScript/위크맵_위크셋.md)
     - [이벤트루프](/02_JavaScript/이벤트루프.md)
@@ -189,6 +188,7 @@
     - [SDK](/05_ETC/SDK.md)
     - [ServiceWorker](/05_ETC/ServiceWorker.md)
     - [StatusCode](/05_ETC/StatusCode.md)
+    - [Web3.0](/05_ETC/Web3.0.md)
     - [네이티브앱,하이브리드앱,크로스플랫폼앱](/05_ETC/네이티브앱,하이브리드앱,크로스플랫폼앱.md)
     - [라이브러리_API_Framework](/05_ETC/라이브러리_API_Framework.md)
     - [면접질문](/05_ETC/면접질문.md)
@@ -225,6 +225,7 @@
     - [데이터속성](/06_HTML,CSS/데이터속성.md)
     - [메타태그](/06_HTML,CSS/메타태그.md)
     - [시멘틱 태그와 메타 태그](/06_HTML,CSS/시멘틱%20태그와%20메타%20태그.md)
+    - [시멘틱태그](/06_HTML,CSS/시멘틱태그.md)
     - [주요이벤트](/06_HTML,CSS/주요이벤트.md)
   - DB
     - MongoDB

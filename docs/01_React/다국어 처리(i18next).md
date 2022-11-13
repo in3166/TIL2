@@ -1,13 +1,15 @@
 # 다국어 처리 (Translation)
+
 - `i18next` 라이브러리를 사용
 
   - `npm install react-i18next i18next --save`
-  - `npm install i18next-http-backend i18next-browser-languagedetector --save` 
+  - `npm install i18next-http-backend i18next-browser-languagedetector --save`
   
     - (브라우저의 언어(백엔드)를 감지해 초기 언어 설정을 위해)
 <br>
 
 - 디렉토리
+
 ```
 - src
   - components
@@ -22,9 +24,11 @@
   - i18n.js
   - index.js
 ```
+
 <br>
 
 - `i18n.js`
+
 ```js
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
@@ -59,11 +63,13 @@ i18n
 
 export default i18n;
 ```
+
 <br>
 
 - `index.js`
   - React 고유 기능 `Suspense`로 `App`을 감싸준다.
   - 렌더링하기 위한 준비가 완료될 때까지 기다림. (필요 데이터 등의 로드 등)
+
 ```js
 import React, { Suspense } from "react";
 // ...
@@ -76,9 +82,11 @@ ReactDOM.render(
   document.getElementById("root")
 );
 ```
+
 <br>
 
 - `/locales/en/translation.json`
+
 ```json
 {
   "Home": {
@@ -86,10 +94,12 @@ ReactDOM.render(
   },
 }
 ```
+
 <br>
 
 - `home.js`
   - hook을 사용하는 방법
+
 ```js
 import { useTranslation } from "react-i18next";
 //...
@@ -113,7 +123,8 @@ const HomePage = (props) => {
 }
 ```
 
-  - HOC를 사용한 방법
+- HOC를 사용한 방법
+
   ```JS
   import React from 'react';
   import { withTranslation } from 'react-i18next';
@@ -125,9 +136,9 @@ const HomePage = (props) => {
   export default withTranslation()(MyComponent);
   ```
 
-
 <br><br><br>
 <출처>
-- https://www.youtube.com/watch?v=cHqxgLhOl5Y
-- https://www.i18next.com/
-- https://react.i18next.com/latest/using-with-hooks
+
+- <https://www.youtube.com/watch?v=cHqxgLhOl5Y>
+- <https://www.i18next.com/>
+- <https://react.i18next.com/latest/using-with-hooks>

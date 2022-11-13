@@ -1,4 +1,5 @@
 # Using the State Hook
+
 - Hook은 함수 컴포넌트 안에서 React State를 사용할 수 있게 해준다.
 
 ```javascript
@@ -46,23 +47,26 @@ class Example extends React.Component {
 <br><br>
 
 ## State 변수 선언하기
+
 - Class에서 constructoe 안에 `this.state`를 {count:0} 으로 초기화
 - 함수 컴포넌트는 this를 가질 수 없어 ***`useState` Hook을 직접 컴포넌트에서 호출***
 - 컴포넌트 렌더링 시 처음 한번만 생성되고 이후에는 현재 state를 준다.
   - useState는 무엇?
     - 'state 변수' 선언 가능, this.state 기능과 동일
     - 일반적으로 일반 변수는 함수 종료 시 사라지지만, state 변수는 React에 의해 사라지지 않음.
-    
+
   - useState 인자
     - state의 초기값
     - 객체일 필요 없고, 숫자 타입과 문자 타입을 가질 수 있다.
     - 두 개의 다른 변수 저장을 위해선 useState()를 두 번 호출
-    
+
   - useState 반환
     - `state 변수`와 `해당 변수를 갱신할 함수` 두 가지 쌍을 반환
 
 <br><br>
+
 ## State 가져오기
+
 - Class Componenet는 `this.state.count` 사용
 - 함수 컴포넌트는 `count` 직접 사용
 
@@ -71,7 +75,9 @@ class Example extends React.Component {
 ```
 
 <br><br>
+
 ## State 갱신하기
+
 - Class Component눈 `this.setState()` 사용
 
 ```javscript
@@ -90,9 +96,10 @@ class Example extends React.Component {
 
 <br><br>
 
-## * 팁 *
+## *팁*
 
 ### 대괄호의 의미
+
 - 배열 구조 분해
 
 ```javscript
@@ -107,11 +114,12 @@ const [count, setCount] = useState(0);
   var setFruit = fruitStateVariable[1]; // 두 번째 아이템
 ```
 
-
 ### this 없이 어떻게 특정 컴포넌트와 연결하는가
-- https://ko.reactjs.org/docs/hooks-faq.html#how-does-react-associate-hook-calls-with-components
+
+- <https://ko.reactjs.org/docs/hooks-faq.html#how-does-react-associate-hook-calls-with-components>
 
 ### 여러 개의 state 변수 사용
+
 - 개별적인 지역 변수 생성 및 갱신 가능
 
 ```js
@@ -132,9 +140,9 @@ function Box() {
 ```
 
 - but `this.setState`와 달리 state를 갱신하는 것이 아니라 `대체`하는 것
-- https://ko.reactjs.org/docs/hooks-faq.html#should-i-use-one-or-many-state-variables
-
+- <https://ko.reactjs.org/docs/hooks-faq.html#should-i-use-one-or-many-state-variables>
 
 <br><br><br>
 <출처>
-- https://ko.reactjs.org/docs/hooks-state.html
+
+- <https://ko.reactjs.org/docs/hooks-state.html>

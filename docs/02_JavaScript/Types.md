@@ -10,8 +10,8 @@ var nu = null;
 
 - `age`는 Primitive Values
 
-
 # Reference Type
+
 - `Objects, Arrays`
 
 ```js
@@ -25,7 +25,9 @@ var hobbies = ['football', 'bowling'];
 <br>
 
 ## 차이점
+
 ### Memory Management
+
 - Primitive values는 `Stack`에 Reference values는 `Heap`에 저장된다.
 - `Stack`
   - 기본적으로 쉽게 접근할 수 있는 메모리로 a-well-stack으로 아이템들을 관리한다.
@@ -42,6 +44,7 @@ var hobbies = ['football', 'bowling'];
 <br>
 
 # Reference Types의 Strange Behavior
+
 - 다음의 예제에서 `person` 변수가 실제로 저장하는 것은 무엇인가?
   - 변수에 저장된 `person` 객체의 포인터이다.
 
@@ -60,6 +63,7 @@ console.log(person.name) // Anna
 ```
 
 ### 실제 값을 어떻게 복사하는가? (얕은 복사)
+
 - 배열
   - `slice()`
     - 새로운 배열을 반환하는 자바스크립트 배열 메서드
@@ -83,7 +87,7 @@ console.log(person.name) // Anna
   var person = { name: 'Max' }
   var copiedPerson = Object.assign({}, person)
   ```
- 
+
   - `the spread operator`
 
   ```js
@@ -92,9 +96,10 @@ console.log(person.name) // Anna
   ```
   
 ### Deep Clone
-- https://redux.js.org/usage/structuring-reducers/immutable-update-patterns#immutable-update-patterns
 
+- <https://redux.js.org/usage/structuring-reducers/immutable-update-patterns#immutable-update-patterns>
 
 <br><br><br>
 <출처>
-- https://academind.com/tutorials/reference-vs-primitive-values
+
+- <https://academind.com/tutorials/reference-vs-primitive-values>

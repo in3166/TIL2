@@ -5,46 +5,45 @@
 ```go
 func downloadFile(w http.ResponseWriter, r *http.Request) {
 
-	err := r.ParseForm()
-	if err != nil {
-		fmt.Println(w, err)
-		return
-	}
+ err := r.ParseForm()
+ if err != nil {
+  fmt.Println(w, err)
+  return
+ }
 
-	fileUrl := r.PostFormValue("fileUrl")
-	dec := r.PostFormValue("dec")
-	fmt.Println("dec: ", dec, "file: ", fileUrl)
-	var Myregex = `(.\/Users\/)([a-zA-Z0-9-]+\/)`
-	var re = regexp.MustCompile(Myregex)
-	fileName := re.ReplaceAllString(fileUrl, "")
+ fileUrl := r.PostFormValue("fileUrl")
+ dec := r.PostFormValue("dec")
+ fmt.Println("dec: ", dec, "file: ", fileUrl)
+ var Myregex = `(.\/Users\/)([a-zA-Z0-9-]+\/)`
+ var re = regexp.MustCompile(Myregex)
+ fileName := re.ReplaceAllString(fileUrl, "")
 
-	fmt.Println(fileUrl)
-	fmt.Println(fileName)
+ fmt.Println(fileUrl)
+ fmt.Println(fileName)
 
-	f, err := os.Open(fileUrl)
-	if err != nil {
-		fmt.Println("1:", err)
-	}
-	defer f.Close()
-	downloadBytes, err := ioutil.ReadFile(fileUrl)
-	mime := http.DetectContentType(downloadBytes)
-	fileSize := len(string(downloadBytes))
+ f, err := os.Open(fileUrl)
+ if err != nil {
+  fmt.Println("1:", err)
+ }
+ defer f.Close()
+ downloadBytes, err := ioutil.ReadFile(fileUrl)
+ mime := http.DetectContentType(downloadBytes)
+ fileSize := len(string(downloadBytes))
 
-	w.Header().Set("Content-Type", mime)
-	w.Header().Set("Content-Disposition", "attachment; filename="+string(fileName)+"")
-	w.Header().Set("Expires", "0")
-	w.Header().Set("Content-Transfer-Encoding", "binary")
-	w.Header().Set("Content-Length", strconv.Itoa(fileSize))
-	w.Header().Set("Content-Control", "private, no-transform, no-store, must-revalidate")
+ w.Header().Set("Content-Type", mime)
+ w.Header().Set("Content-Disposition", "attachment; filename="+string(fileName)+"")
+ w.Header().Set("Expires", "0")
+ w.Header().Set("Content-Transfer-Encoding", "binary")
+ w.Header().Set("Content-Length", strconv.Itoa(fileSize))
+ w.Header().Set("Content-Control", "private, no-transform, no-store, must-revalidate")
 
-	http.ServeContent(w, r, string(fileName), time.Now(), bytes.NewReader(downloadBytes))
-	return
+ http.ServeContent(w, r, string(fileName), time.Now(), bytes.NewReader(downloadBytes))
+ return
 }
 ```
 
 <br>
 <br>
-
 
 - client
   - interval 없이 단순 loop문을 돌리면 모든 경로를 다운로드 하지 못함.

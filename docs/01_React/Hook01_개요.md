@@ -1,4 +1,5 @@
 # Hook
+
 - 기존 Class 바탕의 코드를 작성할 필요 없이 상태 값과 여러 React의 기능을 사용 가능 (클래스 없이 React 사용 가능)
 - 함수 컴포넌트에서 `React state`와 `생명주기 기능(lifecycle features)`을 '연동(hookinto)' 해주는 함수
 
@@ -39,6 +40,7 @@ function Example() {
 <br><br>
 
 # State Hook
+
 - 예시: 버튼 클릭 시 카운터 증가
 
 ```js
@@ -69,6 +71,7 @@ function Example() {
 <br><br>
 
 # Effect Hook
+
 - `Side Effect`: React 컴포넌트 안에서 데이터를 가져오거나 구독하고, DOM을 직접 조작하는 작업 <br> (다른  컴포넌트에 영향 끼칠 수 있고, 렌더링 과정에선 구현할 수 없는 작업이기 때문에)
 
 - `useEffect`는 함수 컴포넌트 내에서 이런 `side effects`를 수행하게 해준다.
@@ -136,10 +139,10 @@ function FriendStatus(props) {
 - unmount될 때 React는 `ChatAPI`에서 구독 해지
 - 또한 재 렌더링이 일어나 `effect`를 재실행하기 전에도 마찬가지로 구독을 해지 (원한다면 `props.friend.id`가 바뀌지 않았을 때 재구독을 건너뛰도록 설정할 수 있습니다.))
 
-
 <br><br>
 
 # Hook 사용 규칙
+
 - `최상위(at the top level)` 에서만 Hook 호출
   - 반복문, 조건문, 중첩된 함수 내에서 실행 x
 
@@ -150,6 +153,7 @@ function FriendStatus(props) {
 <br><br><br>
 
 # 나만의 Hook 만들기 (Custom Hook)
+
 - 상태 관련 로직을 재사용하고 싶을 때, 컴포넌트 트리에 새 컴포넌트를 추가하지 않고 가능하게 해준다.
 
 - 위의 접속 상태 구독하기 위해 `useState`와 `useEffect` Hook을 사용한 `FriendStatus`를 다른 컴포넌트에서도 재사용하게 하기
@@ -192,11 +196,12 @@ function FriendStatus(props) {
 
 - 각 컴포넌트의 state는 완전히 독립적
 - `Custom Hook`은 기능이라기보다는 `컨벤션(convention)`에 가깝다.
-  -  이름이 ”use“로 시작하고, 안에서 다른 Hook을 호출한다면 그 함수를 `custom Hook`이라고 부를 수 있다.
+  - 이름이 ”use“로 시작하고, 안에서 다른 Hook을 호출한다면 그 함수를 `custom Hook`이라고 부를 수 있다.
 
 <br><br>
 
 ## 다른 내장 Hook
+
 - [`userContext`](https://ko.reactjs.org/docs/hooks-reference.html#usecontext)
   - 컴포넌트를 중첩하지 않고도 React context 구독 가능
 
@@ -217,7 +222,7 @@ function FriendStatus(props) {
   // ...
   ```
 
-
 <br><br><br>
 <출처>
-- https://ko.reactjs.org/docs/hooks-state.html
+
+- <https://ko.reactjs.org/docs/hooks-state.html>

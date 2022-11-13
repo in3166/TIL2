@@ -1,4 +1,5 @@
 # element.addEventListener
+
 - 이벤트 등록 시 내부적 동작
 
 ```js
@@ -101,21 +102,20 @@ window.addEventListener('click', log);
 
 <br><br>
 
-	
 # event.preventDefault()
+
 - 이벤트를 취소할 수 있는 경우, 이벤트의 전파를 막지않고 그 이벤트를 취소 (고유 동작 막음)
 
 - a 태그 클릭 시 href 링크로 이동하지 않게 할 경우
 
 ```js
 $("a").click(function(e){
-	e.preventDefault();
-	alert("e.preventDefault()");
+ e.preventDefault();
+ alert("e.preventDefault()");
 });
 ```
 
-  - a 태그의 href 속성이 중단되고 `e.preventDefault();` 를 띄운다.
-  
+- a 태그의 href 속성이 중단되고 `e.preventDefault();` 를 띄운다.
   
 - form 안에 submit 역할을 버튼을 눌러도 새로 실행하지 않게 하고 싶을 경우
 
@@ -134,10 +134,10 @@ form.addEventListener("submit", e => {
 })
 ```
 
- - '정답' / '땡' 문구 0.1초 보였다 사라짐
- - submit 됨과 동시에 창이 다시 실행 -> 초기 화면으로 돌아감
- 
- - 예제: 소문자만 입력하기
+- '정답' / '땡' 문구 0.1초 보였다 사라짐
+- submit 됨과 동시에 창이 다시 실행 -> 초기 화면으로 돌아감
+
+- 예제: 소문자만 입력하기
 
 ```html
  <html>
@@ -172,15 +172,16 @@ var charCode = evt.charCode;
 </body>
 </html>
 ```
- 
+
  <br><br>
- 
- # stopPropagation()
- - 이벤트 캡쳐링과 버블링에 단계에 있어 현재 이벤트 **이후의 전파를 막는다.**
- 
-   - **캡쳐링**: 부모 Element에서 발생된 event가 `자식 Element` 순으로 전달되는 현상
-   - **버블링**: 자식 Element에서 발생된 event가 `부모 Element` 순으로 전달되는 현상
-   
+
+# stopPropagation()
+
+- 이벤트 캡쳐링과 버블링에 단계에 있어 현재 이벤트 **이후의 전파를 막는다.**
+
+  - **캡쳐링**: 부모 Element에서 발생된 event가 `자식 Element` 순으로 전달되는 현상
+  - **버블링**: 자식 Element에서 발생된 event가 `부모 Element` 순으로 전달되는 현상
+
 ```html
  <div class="first-cover">
   <ul class="second-cover">
@@ -190,19 +191,20 @@ var charCode = evt.charCode;
   </ul>
 </div>
  ```
+
  ```javascript
  $(".last-el").click(function(e){
-	e.stopPropagation();
-	alert("last-el");
+ e.stopPropagation();
+ alert("last-el");
 });
 $(".third-cover").click(function(){
-	alert("third-cover");
+ alert("third-cover");
 });
 $(".second-cover").click(function(){
-	alert("second-cover");
+ alert("second-cover");
 });
 $(".first-cover").click(function(){
-	alert("first-cover");
+ alert("first-cover");
 });
 ```
 
@@ -220,7 +222,7 @@ $(".first-cover").click(function(){
   function log(x) { 
     console.log(x); 
   }
-	
+ 
   const parent = document.getElementById("parent");
   parent.addEventListener('click', function() {
     log("parent in addEventListener");
@@ -233,8 +235,9 @@ $(".first-cover").click(function(){
 - 해결: 인라인 핸들러 삭제 or 부모 엘리먼트에서 캡쳐링 중단 혹은 자식 엘리먼트에서 버블링을 중단해야 한다.
 
 ### 예제
-- https://medium.com/%EC%98%A4%EB%8A%98%EC%9D%98-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/stoppropagation-vs-stopimmediatepropagation-%EC%A0%9C%EB%8C%80%EB%A1%9C-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0-75edaaed7841
-- https://codesandbox.io/s/stoppropagation-9wpfr?from-embed
+
+- <https://medium.com/%EC%98%A4%EB%8A%98%EC%9D%98-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/stoppropagation-vs-stopimmediatepropagation-%EC%A0%9C%EB%8C%80%EB%A1%9C-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0-75edaaed7841>
+- <https://codesandbox.io/s/stoppropagation-9wpfr?from-embed>
 
 ```html
  <div id="app" onclick="log('app')">
@@ -311,7 +314,7 @@ $(".first-cover").click(function(){
 - `parent`는 인라인으로 등록된 핸들러 존재하므로 인라인 콜백이 먼저 실행되고 그 다음 `addEventListener`로 등록한 콜백이 실행
 - 그 후 `capture: false`로 등록된 콜백이 먼저 실행되고 `capture:true`로 등록된 콜백이 실행
   
-  - 캡쳐링과 버블링은 실제 이벤트가 발생한 DOM 엘리먼트로 이벤트 실행 순서(turn)가 넘어가기 전/후 단계에서 해당 이벤트를 사전/사후에 감지할 수 있는 시스템이기 때문에 
+  - 캡쳐링과 버블링은 실제 이벤트가 발생한 DOM 엘리먼트로 이벤트 실행 순서(turn)가 넘어가기 전/후 단계에서 해당 이벤트를 사전/사후에 감지할 수 있는 시스템이기 때문에
   - 이벤트가 발생한 실제 DOM 엘리먼트에서는 캡쳐링이나 버블링에 대한 설정 값은 의미가 없다.
 
 - `parent` 엘리먼트의 마지막 실행 콜백은 `stopPropagation`을 내부적으로 실행해 그 시점 이후버터 이벤트 전파는 일어나지 않는다.
@@ -337,25 +340,27 @@ window.addEventListener('click', () => log(3));
    });`
   ```
 
-- https://codesandbox.io/s/stopimmediatepropagation-qwenh?from-embed=&file=/src/index.js:439-452
+- <https://codesandbox.io/s/stopimmediatepropagation-qwenh?from-embed=&file=/src/index.js:439-452>
 - 주의
   - DOM 엘리먼트에 이벤트 버블링을 먼저 등록 후 캡쳐링 이벤트를 등록하면, 등록된 순서대로 실행
 
 <br><br>
 
 ### 정리
+
 - `stopPropagation`
   - 이벤트의 캡쳐링과 버블링의 전파만 막고 싶을 때 사용
   
-- `stopImmediatePropagation `
+- `stopImmediatePropagation`
   - 캡쳐링과 버블링 뿐만 아니라 현재 실행중인 이벤트 핸들러 이후의 모든 핸들러를 실행시키지 않는다. (inline handler)
 
 <br><br><br>
 
 <출처>
-- https://programming119.tistory.com/100
-- https://developer.mozilla.org/ko/docs/Web/API/Event/preventDefault
-- https://developer.mozilla.org/ko/docs/Web/API/Event/stopPropagation
-- http://megaton111.cafe24.com/2015/04/30/preventdefault-%EC%99%80-stoppropagation-%EC%B0%A8%EC%9D%B4/
-- https://pa-pico.tistory.com/20
-- https://medium.com/%EC%98%A4%EB%8A%98%EC%9D%98-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/stoppropagation-vs-stopimmediatepropagation-%EC%A0%9C%EB%8C%80%EB%A1%9C-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0-75edaaed7841
+
+- <https://programming119.tistory.com/100>
+- <https://developer.mozilla.org/ko/docs/Web/API/Event/preventDefault>
+- <https://developer.mozilla.org/ko/docs/Web/API/Event/stopPropagation>
+- <http://megaton111.cafe24.com/2015/04/30/preventdefault-%EC%99%80-stoppropagation-%EC%B0%A8%EC%9D%B4/>
+- <https://pa-pico.tistory.com/20>
+- <https://medium.com/%EC%98%A4%EB%8A%98%EC%9D%98-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/stoppropagation-vs-stopimmediatepropagation-%EC%A0%9C%EB%8C%80%EB%A1%9C-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0-75edaaed7841>

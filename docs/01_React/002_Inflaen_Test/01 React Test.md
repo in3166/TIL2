@@ -176,17 +176,23 @@ test('renders learn react link', () => {
   - 요소가 없거나 둘 이상 일치하면 오류 발생
   - 둘 이상이 예상 되면 `getAllBy` 사용
 
+<br/>
+
 - `queryBy...`
   - 쿼리에 일치하는 노드를 반환
   - 요소가 없으면 `null` 반환
   - 둘 이상 일치 시 오류 반환
   - 둘 이상 예상 시 `queryAllBy` 사용
 
+<br/>
+
 - `findBy...`
   - 쿼리에 일치하는 요소 발견되면 `solved`되는 `Promise` 반환
   - 요소가 없거나 기본 제한 시간(1000ms) 후에 둘 이상 요소 발견 시 `reject`된다.
   - 둘 이상 예상 시 `findAllBy` 사용
   - `getBy` + `waitFor`
+
+<br/>
 
 - `waitFor`: 일정 기간 기다려야 할 때 사용하여 기대가 통과할 때까지 기다릴 수 있다.
 
@@ -199,6 +205,90 @@ test('renders learn react link', () => {
 |`getAllBy...`| Throw Error | Return Array | Return Array | X |
 |`queryAllBy...`| Return `[]` | Return Array | Return Array | X |
 |`findAllBy...`| Throw Error | Return Array | Return Array | O |
+
+<br/>
+
+- `getByText`
+  - 정확히 일치하는 문자열을 찾는다.
+  - 포함하는 문자열을 찾기위해선 정규식 사용
+  - `screen.getByText(/loading/i)`
+
+<br/>
+
+- `getByRole`
+  - `html` 요소가 가진 `role`로 가져온다.
+  - `<h1>` ~ `<h6>`: heading
+  - `<button>`: button
+  - `<a>`: link
+  - `<checkbox>`: checkbox
+  - `<radio>`: radio
+  - `<select>`: combobox
+  - `<input type="text">`, `<textarea>`: textbox
+  - `<input type="number">`: spinbutton
+  - `screen.getByRole('heading', { level: 1 })`: `<h1>`을 찾음
+
+  ```html
+  <label htmlFor="username">이름</label>
+  <input type="text" id="username" />
+  <label htmlFor="profile">자기소개</label>
+  <textarea id="profile"></textarea>
+  ```
+
+  - `name`: `label`의 text를 써준다.
+
+  ```js
+  const inputElement = screen.getByRole("textbox");
+  expect(inputElement).toBeInTheDocument();
+  // 에러 발생 textbox가 여러개 존재 => allby를 쓰던가 특정해준다.
+  const inputElement = screen.getByRole("textbox", {name: "자기소개"});
+  // name을 사용하여 label을 검색하는 것은 label을 찾는게 아니라 연결된 textbox를 찾는다.
+  // 아래도 마찬가지다.
+  const inpuElement = screen.getByLabelText("자기소개");
+
+  // 만약 name이 같은 경우는? => 위의 label 이름을 자기소개로 바꾼다.
+  // selector를 사용해 특정해준다.
+  const inpuElement = screen.getByLabelText("자기소개", {
+    selector: "textarea"
+  });
+  ```
+
+- `getByDisplayValue`: `input`의 value로 접근 가능
+
+  ```html
+  <input type="text" id="username" value="te" readOnly />
+  ```
+
+  ```js
+  const inpuElement = screen.getByDisplayValue("te");
+  ```
+
+<br/>
+
+- `getByAltText`
+  - `<img>`의 `alt` text로 가져온다.
+
+- `getByPlaceholderText`
+- `getByTitle`
+
+- `getByTestId`: 최후의 수단
+  - `text`가 동적으로 변경되는 경우 사용 가능
+  - 하지만, 기존 코드에 `data-testid`처럼 무언가 추가되어야 한다. (프로젝트와 관련없는)
+
+```html
+<div data-testid="my-div" />
+```
+
+```js
+const inpuElement = screen.getByTestId("my-div");
+```
+
+<br/>
+
+### Custom Matchers
+
+- [github.com/testing-library/jest-dom](https://github.com/testing-library/jest-dom)
+- [Jest](https://jestjs.io/docs/expect)
+- [testing-library.com](https://testing-library.com/docs/queries/about/#priority)
 
 <br><br>
 
@@ -271,3 +361,5 @@ test('renders learn react link', () => {
 <출처>
 
 - [따라하며 배우는 리액트 테스트](https://www.inflearn.com/course/%EB%94%B0%EB%9D%BC%ED%95%98%EB%8A%94-%EB%A6%AC%EC%95%A1%ED%8A%B8-%ED%85%8C%EC%8A%A4%ED%8A%B8)
+
+- [코딩앙마](https://www.youtube.com/watch?v=pGOjg4hMf3A)

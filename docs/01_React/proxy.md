@@ -1,21 +1,24 @@
 # Proxy
+
 - 특정 객체를 감싸 프로퍼티 읽기, 쓰기와 같은 객체에 가해지는 작업을 중간에서 가로채는 객체
 - 가로채진 작업은 `Proxy` 자체에서 처리하기도 하고 원래 객체가 처리하도록 그대로 전달되기도 한다.
 
 ## 쓰임
+
 - 클라이언트와 서버 사이에 프록시 서버 위치
 - 유저의 IP를 프록시 서버에서 바꿔 실제 IP를 모를 수 있게 할 수 있다.
 - 방화벽 기능, 웹 필터 기능, 캐쉬 데이터/공유 데이터 제공 기능
 
 ## 사용 이유
+
 - 원거리 인터넷 사용 제어
 - 캐쉬 이용 더 빠른 인터넷 이용 제공
 - 더 나은 보안 제공
 - 이용 제한 사이트 접근 가능
 <br>
 
-
 ## 문법
+
 - `target`: 감싸게 될 객체로 함수를 포함한 모든 객체 가능
 - `handler`: 동작을 가로채는 메서드인 '트랩(trap)'이 담긴 객체, 여기서 proxy 설정
 
@@ -42,25 +45,26 @@ for(let key in proxy) alert(key); // test, 반복도 잘 동작합니다. -- (3)
 - 트랩이 없으므로 `proxy`에 가해지는 모든 작업은 `target`에 전달
 
 ### 트랩으로 가로챌 수 있는 작업
+
 - 객체에 어떤 작업을 할 땐, 자바스크립트 명세서에 정의된 '내부 메서드'가 관여
 - 프로퍼티 읽을 땐 `[[GET]]` 메서드가 쓸 땐 `[[SET]]` 메서드가 관여
 - 프락시의 트랩은 이런 내부 메서드의 호출을 가로챈다. (모든 메서드에 대응하는 트랩 존재)
 
 내부 메서드 | 핸들러 메서드 | 작동 시점
 ------------|--------------|---------
-[[Get]]     |     	get    |	프로퍼티를 읽을 때
-[[Set]]	 |  set	              |프로퍼티에 쓸 때
-[[HasProperty]]	| has |	in 연산자가 동작할 때
-[[Delete]]  |	deleteProperty  |	delete 연산자가 동작할 때
-[[Call]]  |	apply |	함수를 호출할 때
-[[Construct]] |	construct |	new 연산자가 동작할 때
-[[GetPrototypeOf]]  |	getPrototypeOf  |	Object.getPrototypeOf
-[[SetPrototypeOf]]  |	setPrototypeOf  |	Object.setPrototypeOf
-[[IsExtensible]]  |	isExtensible  |	Object.isExtensible
-[[PreventExtensions]] |	preventExtensions |	Object.preventExtensions
-[[DefineOwnProperty]] |	defineProperty  |	Object.defineProperty, Object.defineProperties
-[[GetOwnProperty]]  |	getOwnPropertyDescriptor  |	Object.getOwnPropertyDescriptor, for..in, Object.keys/values/entries
-[[OwnPropertyKeys]] |	ownKeys |	Object.getOwnPropertyNames, Object.getOwnPropertySymbols, for..in, Object/keys/values/entries
+[[Get]]     |      get    | 프로퍼티를 읽을 때
+[[Set]]  |  set               |프로퍼티에 쓸 때
+[[HasProperty]] | has | in 연산자가 동작할 때
+[[Delete]]  | deleteProperty  | delete 연산자가 동작할 때
+[[Call]]  | apply | 함수를 호출할 때
+[[Construct]] | construct | new 연산자가 동작할 때
+[[GetPrototypeOf]]  | getPrototypeOf  | Object.getPrototypeOf
+[[SetPrototypeOf]]  | setPrototypeOf  | Object.setPrototypeOf
+[[IsExtensible]]  | isExtensible  | Object.isExtensible
+[[PreventExtensions]] | preventExtensions | Object.preventExtensions
+[[DefineOwnProperty]] | defineProperty  | Object.defineProperty, Object.defineProperties
+[[GetOwnProperty]]  | getOwnPropertyDescriptor  | Object.getOwnPropertyDescriptor, for..in, Object.keys/values/entries
+[[OwnPropertyKeys]] | ownKeys | Object.getOwnPropertyNames, Object.getOwnPropertySymbols, for..in, Object/keys/values/entries
 
 - 규칙
   - 값을 쓰는 게 성공적 처리되면 `[[SET]]`은 반드시 `true` 반환, not - `false`
@@ -69,6 +73,7 @@ for(let key in proxy) alert(key); // test, 반복도 잘 동작합니다. -- (3)
 <br>
 
 ### 'get' 트랩으로 프로퍼티 기본값 설정하기
+
 - `handler`에 `get(target, property, receiver)` 메서드가 존재해야 프로퍼티 읽기 가로채기 가능
 - `target`: 동작을 전달할 객체
 - `property`: 프로퍼티 이름
@@ -93,7 +98,9 @@ alert( number[12] ); // 0
 ```
 
 ### ‘set’ 트랩으로 프로퍼티 값 검증하기
+
 `set( target, property, value, receiver )`
+
 - `target`: 동작을 전달할 객체로 new Proxy의 첫 번째 인자입니다.
 - `property`: 프로퍼티 이름
 - `value`: 프로퍼티 값
@@ -126,17 +133,16 @@ alert("윗줄에서 에러가 발생했기 때문에 이 줄은 절대 실행되
 - 배열 관련 기능은 여전히 사용 가능
 
 ### 'ownKeys’와 'getOwnPropertyDescriptor’로 반복 작업하기
-https://ko.javascript.info/proxy
+<https://ko.javascript.info/proxy>
 
 ### 'deleteProperty’와 여러 트랩을 사용해 프로퍼티 보호하기
 
-
 ### ‘has’ 트랩으로 '범위` 내 여부 확인하기
-
 
 ### 'apply' 트랩으로 함수 감싸기
 
 <br><br><br>
 <출처>
-- https://ko.javascript.info/proxy
-- https://www.inflearn.com/course/%EB%94%B0%EB%9D%BC%ED%95%98%EB%A9%B0-%EB%B0%B0%EC%9A%B0%EB%8A%94-%EB%85%B8%EB%93%9C-%EB%A6%AC%EC%95%A1%ED%8A%B8-%EA%B8%B0%EB%B3%B8/lecture/37074?tab=curriculum
+
+- <https://ko.javascript.info/proxy>
+- <https://www.inflearn.com/course/%EB%94%B0%EB%9D%BC%ED%95%98%EB%A9%B0-%EB%B0%B0%EC%9A%B0%EB%8A%94-%EB%85%B8%EB%93%9C-%EB%A6%AC%EC%95%A1%ED%8A%B8-%EA%B8%B0%EB%B3%B8/lecture/37074?tab=curriculum>
