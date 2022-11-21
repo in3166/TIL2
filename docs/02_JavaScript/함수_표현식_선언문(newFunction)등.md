@@ -138,8 +138,15 @@ function getFunc() {
 getFunc()(); // ReferenceError: value is not defined
 ```
 
+<br><br>
+
+## function을 쓰지말자!?
+
+-  
+
 <br><br><br>
 <출처>
 
 - <https://joshua1988.github.io/web-development/javascript/function-expressions-vs-declarations/>
 - <https://ko.javascript.info/new-function>
+- <https://www.youtube.com/watch?v=LPEwb5plEoU>
