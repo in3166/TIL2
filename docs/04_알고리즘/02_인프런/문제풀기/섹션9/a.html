@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <label id="labe">a</label>
+    <script>
+      // 아래 클릭 콜백은 button.onclick = function과 비슷하다.
+      // event listener는 this를 event target 설정해 실행한다.
+      /*
+        for (var i = 0, l = stack.length; i < l; i++) {
+            stack[i].call(this, event); // stack array = callback function
+        }
+      */
+      document.getElementById("labe").addEventListener("click", function (e) {
+        console.log(this); // e.currentTarget
+        let arr = [1, 2, 3];
+        arr.forEach(function (a) {
+          console.log(this); // window
+        });
+        arr.forEach(() => {
+          console.log(this); // <label>...
+        });
+      });
+
+      // 화살표 함수는 함수가 생성된 context와 동일한 값을 갖는다.
+      document.getElementById("labe").addEventListener("click", () => {
+        console.log(this);
+      }); // window
+      let obj = {
+        names: [1],
+        func: function () {
+          console.log("func this: ", this); // object
+          obj.names.forEach(function () {
+            // 일반함수
+            console.log(this); // window
+          });
+        },
+      };
+      obj.func();
+    </script>
+  </body>
+</html>

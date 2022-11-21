@@ -1,6 +1,8 @@
   - 01_React
     - 001_UdemyReact
       - [00.Jsavascript Refresh](/01_React/001_UdemyReact/00.Jsavascript%20Refresh.md)
+      - 002_TEST
+        - [01.Test](/01_React/001_UdemyReact/002_TEST/01.Test.md)
       - [01.React](/01_React/001_UdemyReact/01.React.md)
       - [02.State&event](/01_React/001_UdemyReact/02.State&event.md)
       - [03.렌더링 리스트와 조건부Content](/01_React/001_UdemyReact/03.렌더링%20리스트와%20조건부Content.md)
@@ -37,6 +39,7 @@
     - [11.합성vs상속](/01_React/11.합성vs상속.md)
     - [12.Tips](/01_React/12.Tips.md)
     - [bind(this)](/01_React/bind(this).md)
+    - [Classname, import](/01_React/Classname,%20import.md)
     - [Context](/01_React/Context.md)
     - [DOM&VirtualDOM](/01_React/DOM&VirtualDOM.md)
     - [HOC](/01_React/HOC.md)
@@ -98,6 +101,8 @@
     - [ES6_JS(정리)](/02_JavaScript/ES6_JS(정리).md)
     - [event.preventDefault()&stopPropagation()](/02_JavaScript/event.preventDefault()&stopPropagation().md)
     - [Generator](/02_JavaScript/Generator.md)
+    - img
+      - [SOLID](/02_JavaScript/img/SOLID.md)
     - [Immutability](/02_JavaScript/Immutability.md)
     - [Iterable객체](/02_JavaScript/Iterable객체.md)
     - [Jest](/02_JavaScript/Jest.md)
@@ -165,6 +170,12 @@
       - [10. 타입 호환](/03_TypeScript/Inflearn/10.%20타입%20호환.md)
       - [11. 타입 모듈화](/03_TypeScript/Inflearn/11.%20타입%20모듈화.md)
   - 04_알고리즘
+    - 03_프로그래머스
+      - Level1
+        - 로또의 최고 순위와 최저 순위
+          - [ex](/04_알고리즘/03_프로그래머스/Level1/로또의%20최고%20순위와%20최저%20순위/ex.md)
+        - 신고 결과 받기
+          - [etc](/04_알고리즘/03_프로그래머스/Level1/신고%20결과%20받기/etc.md)
     - [BigO](/04_알고리즘/BigO.md)
     - [HashTable](/04_알고리즘/HashTable.md)
     - [순열과조합](/04_알고리즘/순열과조합.md)
@@ -239,6 +250,7 @@
       - [기본쿼리](/DB/MongoDB/기본쿼리.md)
       - [비동기처리](/DB/MongoDB/비동기처리.md)
   - git
+    - [01.Github](/git/01.Github.md)
     - [ec2만들때](/git/ec2만들때.md)
   - Hadoop
     - [1.Hadoop이란](/Hadoop/1.Hadoop이란.md)
