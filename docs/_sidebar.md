@@ -32,7 +32,8 @@
     - 004_NextJS
       - 001_Udemy_React
         - [01.NextJS](/01_React/004_NextJS/001_Udemy_React/01.NextJS.md)
-        - [02.프로젝트생성](/01_React/004_NextJS/001_Udemy_React/02.프로젝트생성.md)
+        - [02.라우팅, 데이터패칭](/01_React/004_NextJS/001_Udemy_React/02.라우팅,%20데이터패칭.md)
+        - [03.API, head, 배포](/01_React/004_NextJS/001_Udemy_React/03.API,%20head,%20배포.md)
     - [01.JSX](/01_React/01.JSX.md)
     - [02.Components&Props](/01_React/02.Components&Props.md)
     - [03.State](/01_React/03.State.md)
@@ -187,9 +188,13 @@
     - [BigO](/04_알고리즘/BigO.md)
     - [DFSvsBFS](/04_알고리즘/DFSvsBFS.md)
     - [HashTable](/04_알고리즘/HashTable.md)
+    - [딕셔너리와 해시](/04_알고리즘/딕셔너리와%20해시.md)
     - [순열과조합](/04_알고리즘/순열과조합.md)
     - [에라토스테네스의 체](/04_알고리즘/에라토스테네스의%20체.md)
+    - [연결 리스트](/04_알고리즘/연결%20리스트.md)
     - [이진검색알고리즘](/04_알고리즘/이진검색알고리즘.md)
+    - [이진트리](/04_알고리즘/이진트리.md)
+    - [정렬](/04_알고리즘/정렬.md)
   - 05_ETC
     - [CI_CD](/05_ETC/CI_CD.md)
     - [CORS](/05_ETC/CORS.md)
@@ -258,6 +263,8 @@
       - [NoSQL](/DB/MongoDB/NoSQL.md)
       - [기본쿼리](/DB/MongoDB/기본쿼리.md)
       - [비동기처리](/DB/MongoDB/비동기처리.md)
+  - ESAT
+    - [논리적오류](/ESAT/논리적오류.md)
   - git
     - [01.Github](/git/01.Github.md)
     - [ec2만들때](/git/ec2만들때.md)
