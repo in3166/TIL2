@@ -1,5 +1,7 @@
 # 실전 Redux
+
 ## 1. 정적 웹페이지 생성
+
 ```html
 <body>
   <header>
@@ -23,7 +25,9 @@
 <br><br>
 
 ## 2. 부품화(모듈화)
+
 - 가독성, 재사용성
+
 ```html
 <body>
   <div id="subject"></div>
@@ -76,10 +80,13 @@
   </script>
 </body>
 ```
+
 <br><br>
 
 ## 3. store 생성과 state 사용
+
 - Redux 사용
+
 ```html
 <body>
   <script>
@@ -132,6 +139,7 @@
 <br><br>
 
 ## 4. action을 dispatch를 통해 전달
+
 ```html
 <body>
   <script>
@@ -188,7 +196,9 @@
 <br><br>
 
 ## 5. subscribe를 통해 자동 갱신 처리
+
 - `selected_id` 값에 따라 본문 내용 갱신
+
 ```html
 <body>
   <script>
@@ -238,7 +248,9 @@
 <br><br>
 
 ## 6. 글 생성 기능
-- reducer에 `mode` 
+
+- reducer에 `mode`
+
 ```html
 <body>
   <div id="subject"></div>
@@ -377,6 +389,7 @@
 <br><br>
 
 ## 7. 글 삭제 기능
+
 ```html
 <body>
   <div id="subject"></div>
@@ -538,7 +551,7 @@
 </body>
 ```
 
-
 <br><br><br>
 <출처>
-- https://www.inflearn.com/course/redux-%EC%83%9D%ED%99%9C%EC%BD%94%EB%94%A9/lecture/34754?tab=curriculum
+
+- <https://www.inflearn.com/course/redux-%EC%83%9D%ED%99%9C%EC%BD%94%EB%94%A9/lecture/34754?tab=curriculum>

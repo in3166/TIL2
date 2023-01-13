@@ -34,6 +34,8 @@
         - [01.NextJS](/01_React/004_NextJS/001_Udemy_React/01.NextJS.md)
         - [02.라우팅, 데이터패칭](/01_React/004_NextJS/001_Udemy_React/02.라우팅,%20데이터패칭.md)
         - [03.API, head, 배포](/01_React/004_NextJS/001_Udemy_React/03.API,%20head,%20배포.md)
+    - 005_디자인패턴
+      - [01.디자인패턴](/01_React/005_디자인패턴/01.디자인패턴.md)
     - [01.JSX](/01_React/01.JSX.md)
     - [02.Components&Props](/01_React/02.Components&Props.md)
     - [03.State](/01_React/03.State.md)
@@ -89,6 +91,10 @@
       - [06_장바구니예제](/02_JavaScript/002_함수형프로그래밍/06_장바구니예제.md)
     - 003_TEST
       - [00.Test(Jasmine,jest)](/02_JavaScript/003_TEST/00.Test(Jasmine,jest).md)
+    - 04_You_Dont_Knoe_JS
+      - [01.this](/02_JavaScript/04_You_Dont_Knoe_JS/01.this.md)
+    - 05_개발환경의이해
+      - [1.0.0 NPM](/02_JavaScript/05_개발환경의이해/1.0.0%20NPM.md)
     - [1.0.0동작원리](/02_JavaScript/1.0.0동작원리.md)
     - [1.1.1콜백_promise](/02_JavaScript/1.1.1콜백_promise.md)
     - [1.1.2.PromiseAPI](/02_JavaScript/1.1.2.PromiseAPI.md)
@@ -224,6 +230,7 @@
     - [서버](/05_ETC/서버.md)
     - [선언형_명령형_프로그래밍](/05_ETC/선언형_명령형_프로그래밍.md)
     - [세션,쿠키,JWT](/05_ETC/세션,쿠키,JWT.md)
+    - [소수계산](/05_ETC/소수계산.md)
     - [웹캐시](/05_ETC/웹캐시.md)
     - [정규표현식](/05_ETC/정규표현식.md)
     - [정형,비정형,반정형_데이터](/05_ETC/정형,비정형,반정형_데이터.md)
