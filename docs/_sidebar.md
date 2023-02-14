@@ -36,6 +36,8 @@
         - [03.API, head, 배포](/01_React/004_NextJS/001_Udemy_React/03.API,%20head,%20배포.md)
     - 005_디자인패턴
       - [01.디자인패턴](/01_React/005_디자인패턴/01.디자인패턴.md)
+      - [02.Atomic패턴](/01_React/005_디자인패턴/02.Atomic패턴.md)
+      - [03.합성컴포넌트](/01_React/005_디자인패턴/03.합성컴포넌트.md)
     - [01.JSX](/01_React/01.JSX.md)
     - [02.Components&Props](/01_React/02.Components&Props.md)
     - [03.State](/01_React/03.State.md)
