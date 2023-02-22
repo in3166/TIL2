@@ -186,6 +186,7 @@
       - [09. 타입 추론, 단언, 가드](/03_TypeScript/Inflearn/09.%20타입%20추론,%20단언,%20가드.md)
       - [10. 타입 호환](/03_TypeScript/Inflearn/10.%20타입%20호환.md)
       - [11. 타입 모듈화](/03_TypeScript/Inflearn/11.%20타입%20모듈화.md)
+      - [12.유틸리티 타입](/03_TypeScript/Inflearn/12.유틸리티%20타입.md)
   - 04_알고리즘
     - 03_프로그래머스
       - Level1
