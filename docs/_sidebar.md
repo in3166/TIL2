@@ -114,6 +114,7 @@
     - [6.7 new function](/02_JavaScript/6.7%20new%20function.md)
     - [7.1 프로퍼티](/02_JavaScript/7.1%20프로퍼티.md)
     - [8.1 프로토타입](/02_JavaScript/8.1%20프로토타입.md)
+    - [alert](/02_JavaScript/alert.md)
     - [aysnc_iterator_generator](/02_JavaScript/aysnc_iterator_generator.md)
     - [bind()](/02_JavaScript/bind().md)
     - [call_apply,데코레이터,포워딩](/02_JavaScript/call_apply,데코레이터,포워딩.md)
@@ -135,6 +136,7 @@
     - [multiple_file_download](/02_JavaScript/multiple_file_download.md)
     - [Namespace](/02_JavaScript/Namespace.md)
     - [null병합연산자(__)](/02_JavaScript/null병합연산자(__).md)
+    - [Number_parseInt](/02_JavaScript/Number_parseInt.md)
     - [Object vs Map](/02_JavaScript/Object%20vs%20Map.md)
     - [p5.js](/02_JavaScript/p5.js.md)
     - [passive_true](/02_JavaScript/passive_true.md)
@@ -210,6 +212,7 @@
     - [이진트리](/04_알고리즘/이진트리.md)
     - [정렬](/04_알고리즘/정렬.md)
   - 05_ETC
+    - [00.GT 01](/05_ETC/00.GT-01.md)
     - [CI_CD](/05_ETC/CI_CD.md)
     - [CORS](/05_ETC/CORS.md)
     - [ETH, DeFi, 거버넌스토큰](/05_ETC/ETH,%20DeFi,%20거버넌스토큰.md)
@@ -267,6 +270,8 @@
     - [시멘틱 태그와 메타 태그](/06_HTML,CSS/시멘틱%20태그와%20메타%20태그.md)
     - [시멘틱태그](/06_HTML,CSS/시멘틱태그.md)
     - [주요이벤트](/06_HTML,CSS/주요이벤트.md)
+  - 07_MobX
+    - [00.Introduction](/07_MobX/00.Introduction.md)
   - DB
     - MongoDB
       - [Err_Connection](/DB/MongoDB/Err_Connection.md)
