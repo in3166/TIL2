@@ -38,6 +38,10 @@
       - [01.디자인패턴](/01_React/005_디자인패턴/01.디자인패턴.md)
       - [02.Atomic패턴](/01_React/005_디자인패턴/02.Atomic패턴.md)
       - [03.합성컴포넌트](/01_React/005_디자인패턴/03.합성컴포넌트.md)
+    - 006_etc
+      - Medium
+        - [NaN(x!==x)](/01_React/006_etc/Medium/NaN(x!==x).md)
+        - [promise](/01_React/006_etc/Medium/promise.md)
     - [01.JSX](/01_React/01.JSX.md)
     - [02.Components&Props](/01_React/02.Components&Props.md)
     - [03.State](/01_React/03.State.md)
@@ -182,6 +186,7 @@
     - [화살표함수](/02_JavaScript/화살표함수.md)
   - 03_TypeScript
     - [01.any_unknown_never_void](/03_TypeScript/01.any_unknown_never_void.md)
+    - [02.Generic](/03_TypeScript/02.Generic.md)
     - Inflearn
       - [01.TypeScript](/03_TypeScript/Inflearn/01.TypeScript.md)
       - [02.기본 타입](/03_TypeScript/Inflearn/02.기본%20타입.md)
